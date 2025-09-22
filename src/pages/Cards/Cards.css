@@ -110,7 +110,7 @@
     left: 15px;
     font-weight: 500;
 }
-.card.rotate .card__date{
+.card.rotate .card__date, .card.rotate .card__front .card__word{
     display: none;
 }
 

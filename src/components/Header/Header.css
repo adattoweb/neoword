@@ -10,7 +10,7 @@
 }
 .header__name{
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
 .header__name p{
     font-size: 24px;
