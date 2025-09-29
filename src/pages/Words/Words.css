@@ -26,6 +26,11 @@
     width: 24px;
     height: 24px;
 }
+.wordsfind__wrapper{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 .wordsfind{
     width: 210px;
     height: 35px;
@@ -214,10 +219,29 @@
         justify-content: center;
     }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     .wordsheader{
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
+    }
+    .wordsfind{
+        width: 180px;
+    }
+    .wordsfind__input{
+        width: 130px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .wordsfind{
+        width: 120px;
+        border-radius: 25px;
+    }
+    .wordsfind svg{
+        display: none;
+    }
+    .wordsfind__input{
+        width: 110px;
+        padding-left: 5px;
     }
 }

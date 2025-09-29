@@ -28,6 +28,7 @@ export default function Words({ bookName, setBookName, setGame }){
         )
     }
     const [search, setSearch] = useState("")
+    const [searchBy, setSearchBy] = useState("unknown")
     const [selected, setSelected] = useState("All")
     return (
         <div className="words content">
@@ -57,16 +58,24 @@ export default function Words({ bookName, setBookName, setGame }){
                         </Dropdown>
                     </div>
                 </div>
-                <div className="wordsfind">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                    </svg>
-                    <input type="text" className="wordsfind__input" placeholder={isEn ? "Search your word" : "Пошук слова"} value={search} onChange={(e) => setSearch(e.target.value)}/>
+                <div className="wordsfind__wrapper">
+                    <div className="wordsfind">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                        <input type="text" className="wordsfind__input" placeholder={isEn ? "Search your word" : "Пошук слова"} value={search} onChange={(e) => setSearch(e.target.value)}/>
+                    </div>
+                    <div className="wordsfilter">
+                        <Dropdown name={searchBy === "unknown" ? isEn ? "Search by" : "Шукати за" : !isEn ? ((searchBy === "original" && "Оригінал") || (searchBy === "translation" && "Переклад")) : searchBy}>
+                            <p onClick={() => setSearchBy("original")}>{isEn ? "Original" : "Оригінал"}</p>
+                            <p onClick={() => setSearchBy("translation")}>{isEn ? "Translation" : "Переклад"}</p>
+                        </Dropdown>
+                    </div>
                 </div>
             </div>
             <AddModal isOpen={isOpen} setIsOpen={setIsOpen} words={words} setWords={setWords} onlyWords={onlyWords} bookName={bookName}/>
             <div className="words__list">
-                {(words[0] !== "" || words.length !== 1 ) && words.filter(el => el !== "").map(el => <Word key={el.split("*")[0]} search={search} str={el} bookName={bookName} onlyWords={onlyWords} setWords={setWords} selected={selected}/>)}
+                {(words[0] !== "" || words.length !== 1 ) && words.filter(el => el !== "").map(el => <Word key={el.split("*")[0]} search={search} searchBy={searchBy} str={el} bookName={bookName} onlyWords={onlyWords} setWords={setWords} selected={selected}/>)}
                 <WordAdd/>
             </div>
         </div>

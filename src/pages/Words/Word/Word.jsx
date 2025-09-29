@@ -2,7 +2,7 @@ import EditModal from "./EditModal"
 import MoveModal from "./MoveModal"
 import { useState } from "react"
 
-export default function Word({ search, str, bookName, setWords, selected }) {
+export default function Word({ search, searchBy, str, bookName, setWords, selected }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
     if (str === "" || !str) return
     const wordArray = str.split("*")
@@ -47,7 +47,8 @@ export default function Word({ search, str, bookName, setWords, selected }) {
         localStorage.setItem(`neoword-item-${bookName}`, arrayWords.map(el => el.join("^")).join("@"))
     }
     const date = new Date(time)
-    if(!word.includes(search)) return
+    if((searchBy.toLowerCase() === "original" || searchBy.toLowerCase() === "unknown") && !word.toLowerCase().includes(search.toLowerCase())) return
+    if(searchBy.toLowerCase() === "translation" && !translation.toLowerCase().includes(search.toLowerCase())) return
     if((selected === "Difficult" && !isDifficult) || (selected === "Easy" && isDifficult)) return
     return (
         <div className="word gradient">
