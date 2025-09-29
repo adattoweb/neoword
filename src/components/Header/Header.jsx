@@ -29,7 +29,7 @@ export default function Header({ isEn, setIsEn, bookName }){
         return words.find(item => item.word === theme).translate
       }
     return (
-        <header className="header">
+        <header className="header slide">
             <h2 className="header__name"><p>NeoWord</p><span>{bookName}</span></h2>
             <div className="header__right">
                 <p onClick={changeLang} className="header__lang">{isEn ? "UA" : "EN"}</p>

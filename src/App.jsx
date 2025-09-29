@@ -2,6 +2,7 @@ import Header from './components/Header/Header'
 import Library from './pages/Library/Library'
 import Words from "./pages/Words/Words"
 import Cards from './pages/Cards/Cards'
+import "./styles/animation.css"
 
 import { useEffect, useState } from "react"
 

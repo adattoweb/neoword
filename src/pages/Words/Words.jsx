@@ -32,13 +32,13 @@ export default function Words({ bookName, setBookName, setGame }){
     const [selected, setSelected] = useState("All")
     return (
         <div className="words content">
-            <div className="back" onClick={() => setBookName(false)}>
+            <div className="back slide" onClick={() => setBookName(false)}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                 </svg>
                 <p>{isEn ? "Go back" : "Повернутися назад"}</p>
             </div>
-            <div className="wordsheader">
+            <div className="wordsheader slide">
                 <div className="words__games">
                     <div className="wordsheader__game">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" onClick={() => setGame("enter")}>
@@ -74,7 +74,7 @@ export default function Words({ bookName, setBookName, setGame }){
                 </div>
             </div>
             <AddModal isOpen={isOpen} setIsOpen={setIsOpen} words={words} setWords={setWords} onlyWords={onlyWords} bookName={bookName}/>
-            <div className="words__list">
+            <div className="words__list slide">
                 {(words[0] !== "" || words.length !== 1 ) && words.filter(el => el !== "").map(el => <Word key={el.split("*")[0]} search={search} searchBy={searchBy} str={el} bookName={bookName} onlyWords={onlyWords} setWords={setWords} selected={selected}/>)}
                 <WordAdd/>
             </div>

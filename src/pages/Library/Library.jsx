@@ -22,7 +22,7 @@ export default function Library({ setBookName }) {
     return (
         <div className="library content">
             <LibraryModal isOpen={isOpen} setIsOpen={setIsOpen} setArrayBooks={setArrayBooks}/>
-            <div className="library__list">
+            <div className="library__list slide">
                 {arrayBooks[0] !== "" && arrayBooks?.map(el => <Dictionary key={el} name={el} arrayBooks={arrayBooks} setArrayBooks={setArrayBooks} setBookName={setBookName}/>)}
                 <DictionaryAdd/>
             </div>
