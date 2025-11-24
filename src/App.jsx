@@ -7,7 +7,11 @@ import "./styles/animation.css"
 import { useEffect, useState } from "react"
 
 export default function App() {
+<<<<<<< HEAD
   const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-theme", "blue"]]
+=======
+  const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-books",""], ["neoword-theme", "blue"]]
+>>>>>>> 2e99081e63cd2ca380756e224f815c1c87b34d06
   for(let i = 0; i < checkKeys.length; i++){
     const localKey = checkKeys[i][0]
     if(!localStorage.getItem(localKey)) localStorage.setItem(localKey, checkKeys[i][1])
