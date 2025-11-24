@@ -6,12 +6,13 @@ import wordKnowed from "../../assets/wordKnowed.mp3"
 import wordForgot from "../../assets/wordForgot.mp3"
 
 import { motion } from "framer-motion"
+import { readLocal } from "../../helpers/readLocal"
 
-export default function Cards({ bookName, game, setGame }){
+export default function Cards({ bookID, game, setGame }){
     const isEn = localStorage.getItem("neoword-lang") === "en"
-    const localBook = localStorage.getItem(`neoword-item-${bookName}`)
-    let array = localBook ? localBook.split("@")[1].split("^").map(el => el.split("*")) : []
-    array = array.filter(el => el[0] !== "")
+    const book = readLocal(`neoword-item-${bookID}`)
+    const words = book.words
+    const wordsKeys = Object.keys(book.words)
     const [id, setId] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
     const bads = useRef(0)
@@ -20,10 +21,12 @@ export default function Cards({ bookName, game, setGame }){
     const screenWidth = window.innerWidth
     const maxWidth = screenWidth > 230 && screenWidth > 700 ?  400 : screenWidth > 350 ? 300 : 230;
     console.log(maxWidth, screenWidth)
-    let width = maxWidth * (id / array.length)
+    let width = maxWidth * (id / wordsKeys.length)
     function incrementId(isRight){
-        if(id + 1 === array.length){
+        console.log(id + 1)
+        if(id + 1 >= wordsKeys.length){
             setIsOpen(true)
+            setId(id-1)
         }
         if(isRight){
             rights.current++
@@ -33,11 +36,11 @@ export default function Cards({ bookName, game, setGame }){
             const audio = new Audio(wordForgot)
             audio.play();
             bads.current++
-            badWords.current.push(array[id][0])
+            badWords.current.push(words[wordsKeys[id]].word)
         }
         setId(prev => prev + 1)
     }
-    const date = new Date(array[id] ? +array[id][2] : isOpen ? +array[id-1][2] : 0)
+    const date = new Date(words[wordsKeys[id]].time)
     function KnowFooter() {
         return (
             <div className="cardsfooter">
@@ -49,17 +52,21 @@ export default function Cards({ bookName, game, setGame }){
     function InputFooter() {
         const [word, setWord] = useState("")
         const inputRef = useRef()
-        const translation = array[id] ? array[id][1] : "www"
+        const translation = words[wordsKeys[id]].translation
         useEffect(() =>{
-            if(id === array.length){
+            if(id === wordsKeys.length){
                 setIsOpen(true)
                 inputRef.current.disabled = true;
             }
             if(word.toLowerCase() === translation.toLowerCase()){
-                setId(prev => prev + 1)
+                if(id + 1 < wordsKeys.length) setId(prev => prev + 1)
                 rights.current++;
                 const audio = new Audio(wordKnowed)
                 audio.play();
+                if(id + 1 >= wordsKeys.length){
+                    setIsOpen(true)
+                    return
+                }
             }
         }, [word])
         useEffect(() => {
@@ -73,22 +80,28 @@ export default function Cards({ bookName, game, setGame }){
             </div>
         )
     }
-    if(array.length === 0) setGame(false)
+    if(wordsKeys.length === 0) setGame(false)
     function Card(){
         const [isRotate, setIsRotate] = useState(false)
         return (
             <div className={isRotate ? "card rotate" : "card"} onClick={() => setIsRotate(prev => !prev)}>
                 <div className="card__inner">
                     <div className="card__front gradient">
-                        <p className="card__word">{array[id] ? array[id][0] : array[id - 1][0]}</p>
+                        <p className="card__word">{wordsKeys[id] ? words[wordsKeys[id]].word : words[wordsKeys[id - 1]].word}</p>
                         <p className="card__date">{`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`}</p>
                     </div>
                     <div className="card__back gradient">
-                        <p className="card__word">{array[id] ? array[id][1] : array[id - 1][1]}</p>
+                        <p className="card__word">{wordsKeys[id] ? words[wordsKeys[id]].translation : words[wordsKeys[id - 1]].translation}</p>
                     </div>
                 </div>
             </div>
         )
+    }
+    function reset(){
+        setId(0)
+        bads.current = 0
+        badWords.current = []
+        rights.current = 0
     }
     return (
         <div className="cards content">
@@ -102,8 +115,8 @@ export default function Cards({ bookName, game, setGame }){
             <div className="cards__content">
                 <div className="cardsheader">
                     <div className="cardsheader__info">
-                        <div className="cardsheader__total">{isEn ? "Total" : "Всього"}: <span id="total">{id}/{array.length}</span></div>
-                        <div className="cardsheader__reset" onClick={() => setId(0)}>
+                        <div className="cardsheader__total">{isEn ? "Total" : "Всього"}: <span id="total">{id}/{wordsKeys.length}</span></div>
+                        <div className="cardsheader__reset" onClick={reset}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#002E9A">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                             </svg>

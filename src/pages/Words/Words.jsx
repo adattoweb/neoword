@@ -6,11 +6,11 @@ import Word from "./Word/Word"
 import Dropdown from "../../components/Dropdown/Dropdown"
 import { readLocal } from "../../helpers/readLocal"
 
-export default function Words({ bookName, setBookName, setGame }){
+export default function Words({ bookID, setBookID, setGame }){
+    console.log(bookID)
     const isEn = localStorage.getItem("neoword-lang") === "en"
 
-    const [words, setWords] = useState(readLocal(`neoword-item-${bookName}`).words)
-    console.log(words)
+    const [words, setWords] = useState(readLocal(`neoword-item-${bookID}`).words)
     
     const [isOpen, setIsOpen] = useState(false)
     function WordAdd(){
@@ -27,7 +27,7 @@ export default function Words({ bookName, setBookName, setGame }){
     const [selected, setSelected] = useState("All")
     return (
         <div className="words content">
-            <div className="back slide" onClick={() => setBookName(false)}>
+            <div className="back slide" onClick={() => setBookID(false)}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                 </svg>
@@ -68,9 +68,9 @@ export default function Words({ bookName, setBookName, setGame }){
                     </div>
                 </div>
             </div>
-            <AddModal isOpen={isOpen} setIsOpen={setIsOpen} words={words} setWords={setWords} onlyWords={words} bookName={bookName}/>
+            <AddModal isOpen={isOpen} setIsOpen={setIsOpen} words={words} setWords={setWords} onlyWords={words} bookID={bookID}/>
             <div className="words__list slide">
-                {Object.keys(words).map(key => <Word key={words[key].word} wordObj ={words[key]} search={search} searchBy={searchBy} bookName={bookName} onlyWords={words} setWords={setWords} selected={selected}/>)}
+                {Object.keys(words).map(key => <Word key={words[key].word} ID={key} wordObj ={words[key]} search={search} searchBy={searchBy} bookID={bookID} onlyWords={words} words={words} setWords={setWords} selected={selected}/>)}
                 <WordAdd/>
             </div>
         </div>

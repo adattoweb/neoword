@@ -3,7 +3,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../helpers/readLocal"
 
-export default function AddModal({ isOpen, setIsOpen, setWords, bookName }) {
+export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [word, setWord] = useState("")
     const [translation, setTranslation] = useState("")
@@ -36,18 +36,20 @@ export default function AddModal({ isOpen, setIsOpen, setWords, bookName }) {
             setErrorId(2)
             return
         }
-        const book = readLocal(`neoword-item-${bookName}`)
+        const book = readLocal(`neoword-item-${bookID}`)
         const words = book.words
-        if(words.find(el => el.word === word)){
+        if(Object.keys(words).find(key => words[key].word === word)){
             disableError()
             setError(isEn ? "This word already exists" : "Таке слово вже існує")
             setErrorId(1)
             return
         }
         const now = new Date()
-        book.words.push({word: word, translation: translation, time: now.getTime(), isDifficult: false, sentences: []})
-        const newWords = [...book.words]
-        localStorage.setItem(`neoword-item-${bookName}`, JSON.stringify(book))
+        const id = +localStorage.getItem("neoword-index")
+        localStorage.setItem("neoword-index", id+1)
+        book.words[id] = {word: word, translation: translation, time: now.getTime(), isDifficult: false, sentences: []}
+        const newWords = {...book.words}
+        localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
         setWords(newWords)
         setError(false)
         setErrorId(0)

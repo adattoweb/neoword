@@ -2,7 +2,7 @@ import Modal from "../../../components/Modal/Modal"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-export default function EditModal({ isOpen, setIsOpen, editWord, oldWord, oldTranslation, oldIsDifficult, bookName, remove, setWords }) {
+export default function EditModal({ words, isOpen, setIsOpen, editWord, oldWord, oldTranslation, oldIsDifficult, remove }) {
 
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [word, setWord] = useState(oldWord)
@@ -24,38 +24,22 @@ export default function EditModal({ isOpen, setIsOpen, editWord, oldWord, oldTra
             setErrorId(word.length === 0 ? 1 : 2)
             return
         }
-        if(word.includes("^") || word.includes("@") || word.includes("$") || word.includes("*")){ // ^, |, $, * - спец символ
-            disableError()
-            setError(isEn ? "Remove the ^, @, $ or * character" : "Приберіть символ ^, @, $ або *")
-            setErrorId(1)
-            return
+
+        const forbidden = /[\^@$[\]{}"]/;
+        if (forbidden.test(word) || forbidden.test(translation)) {
+            disableError();
+            setError(isEn ? "Remove forbidden characters (^ @ $ [ ] { } \")" : "Приберіть заборонені символи (^ @ $ [ ] { } \")");
+            return;
         }
-        if(translation.includes("^") || translation.includes("@") || translation.includes("$") || translation.includes("*")){ // ^, |, $, * - спец символ
-            disableError()
-            setError(isEn ? "Remove the ^, @, $ or * character" : "Приберіть символ ^, @, $ або *")
-            setErrorId(2)
-            return
-        }
-        const words = localStorage.getItem(`neoword-item-${bookName}`)?.split("@")?.map(el => el?.split("^"))[1]
-        const onlyWords = []
-        for(let i = 0; i < words.length; i++){
-            if(words[i] === "") continue
-            onlyWords.push(words[i]?.split("*")[0])
-        }
-        let counter = 0
-        for(let i = 0; i < onlyWords.length; i++){
-            if(onlyWords[i] === word) counter++
-        }
-        if(counter >= 1 && word !== oldWord){
+        
+        if(Object.keys(words).find(key => words[key].word === word && words[key].word !== oldWord)){
             disableError()
             setError(isEn ? "This word already exists" : "Таке слово вже існує")
             setErrorId(1)
             return
         }
+
         editWord(word, translation, oldIsDifficult)
-        const arrayWords = localStorage.getItem(`neoword-item-${bookName}`).split("@")[1].split("^")
-        console.log(arrayWords)
-        setWords(arrayWords)
         setError(false)
         setErrorId(0)
         setIsOpen(false)

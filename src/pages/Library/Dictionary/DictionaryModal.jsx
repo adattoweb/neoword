@@ -1,12 +1,13 @@
 import Modal from "../../../components/Modal/Modal"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { readLocal } from "../../../helpers/readLocal"
 
-export default function DictionaryModal({ oldName, setOldName, isOpen, setIsOpen, setArrayBooks, remove }) {
+export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, setIsOpen, remove }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [name, setName] = useState(oldName)
     const [error, setError] = useState(false)
-    const localBooks = localStorage.getItem("neoword-books")
+    const books = readLocal("neoword-books")
     function disableError(){
         if(!error){
             setTimeout(() => {
@@ -15,38 +16,29 @@ export default function DictionaryModal({ oldName, setOldName, isOpen, setIsOpen
         }
     }
     function updateElement() {
-        if(name.includes("^") || name.includes("@") || name.includes("$")){ // ^, |, $ - спец символ
-            disableError()
-            setError(isEn ? "Remove the ^, @ or $ character" : "Приберіть символ ^, @ або $")
-            return
+        const forbidden = /[\^@$[\]{}"]/;
+        if (forbidden.test(name)){
+            disableError();
+            setError(isEn ? "Remove forbidden characters (^ @ $ [ ] { } \")" : "Приберіть заборонені символи (^ @ $ [ ] { } \")");
+            return;
         }
         if(name.length === 0){
             disableError()
             setError(isEn ? "Enter the field" : "Заповніть поле")
             return
         }
-        if(localBooks?.split("^").includes(name) && name !== oldName){
+        if(books.includes(name) && name !== oldName){
             disableError()
             setError(isEn ? "This name already exists" : "Така назва вже існує")
             return 
         }
-        const array = localBooks.length > 0 ? localBooks.split("^") : []
-        for(let i = 0; i < array.length; i++){
-            if(array[i] === oldName){
-                array[i] = name
-                setOldName(name)
-            }
-        }
-        const oldLocal = localStorage.getItem(`neoword-item-${oldName}`)
-        const index = oldLocal.split("@")[0].split("^")[2]
-        localStorage.removeItem(`neoword-item-${oldName}`)
 
-        const now = new Date()
-        localStorage.setItem(`neoword-item-${name}`, `${name}^${now.getTime()}^${index}@${oldLocal.split("@")[1]}`)
-        localStorage.setItem("neoword-books", array.join("^"))
-        setArrayBooks(array)
+        const book = readLocal(`neoword-item-${bookID}`)
+        book.name = name
+        localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
+
+        setOldName(name)
         setError(false)
-        setName("")
         setIsOpen(false)
     }
     return (

@@ -2,26 +2,28 @@ import { useState } from "react"
 import DictionaryModal from "./DictionaryModal"
 import { readLocal } from "../../../helpers/readLocal"
 
-export default function Dictionary({ name, arrayBooks, setArrayBooks, setBookName }){
+export default function Dictionary({ bookID, setBookID, books, setBooks }){
+    console.log(bookID)
     const isEn = localStorage.getItem("neoword-lang") === "en"
-    const words = readLocal(`neoword-item-${name}`).words
-    console.log(words)
-    const count = words.length
-    function remove(){
-        const newArray = arrayBooks.filter(el => el !== name) 
-        setArrayBooks(newArray)
-        localStorage.setItem("neoword-books", newArray.join("^"))
-        localStorage.removeItem(`neoword-item-${name}`)
-    }
+
+    const book = readLocal(`neoword-item-${bookID}`)
+    const [oldName, setOldName] = useState(book.name)
     const [isOpen, setIsOpen] = useState(false)
-    const [oldName, setOldName] = useState(name)
+
+    const words = book.words
+    const count = Object.keys(words).length
+    function remove(){
+        let newBooks = [...books.filter(el => el !== bookID)]
+        localStorage.setItem("neoword-books", JSON.stringify(newBooks))
+        setBooks(newBooks)
+    }
     return (
-        <div className="dictionary gradient" onClick={() => setBookName(oldName)}>
-            <DictionaryModal oldName={oldName} setOldName={setOldName} isOpen={isOpen} setIsOpen={setIsOpen} remove={remove} setArrayBooks={setArrayBooks}/>
+        <div className="dictionary gradient" onClick={() => setBookID(bookID)}>
+            <DictionaryModal bookID={bookID} oldName={oldName} setOldName={setOldName} isOpen={isOpen} setIsOpen={setIsOpen} remove={remove}/>
             <div className="dictionary__paper"></div>
             <div className="dictionary__content gradient">
                 <div className="dictionary__text">
-                    <h4 className="dictionary__header">{name}</h4>
+                    <h4 className="dictionary__header">{oldName}</h4>
                     <p className="dictionary__words">{count} {isEn ? "words" : "слів"}</p>
                 </div>
                 <div className="dictionary__footer" onClick={(e) => e.preventDefault()}>

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 
 import { readLocal } from "../../helpers/readLocal"
 
-export default function LibraryModal({ isOpen, setIsOpen, setArrayBooks }) {
+export default function LibraryModal({ isOpen, setIsOpen, setBooks }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [name, setName] = useState("")
     const [error, setError] = useState(false)
@@ -17,7 +17,6 @@ export default function LibraryModal({ isOpen, setIsOpen, setArrayBooks }) {
     }
     function addElement() {
         const forbidden = /[\^@$[\]{}"]/;
-
         if (forbidden.test(name)) {
             disableError();
             setError(isEn ? "Remove forbidden characters (^ @ $ [ ] { } \")" : "Приберіть заборонені символи (^ @ $ [ ] { } \")");
@@ -28,13 +27,12 @@ export default function LibraryModal({ isOpen, setIsOpen, setArrayBooks }) {
             setError(isEn ? "Enter the field" : "Заповніть поле")
             return
         }
+
+        const id = +localStorage.getItem("neoword-index")
+        localStorage.setItem("neoword-index", id+1)
+
         const books = readLocal("neoword-books")
-        if(books.includes(name)){
-            disableError()
-            setError(isEn ? "This name already exists" : "Така назва вже існує")
-            return 
-        }
-        books.push(name)
+        books.push(id)
         localStorage.setItem("neoword-books", JSON.stringify(books))
 
         const now = Date.now()
@@ -42,12 +40,11 @@ export default function LibraryModal({ isOpen, setIsOpen, setArrayBooks }) {
         const data = {
             name,
             timestamp: now,
-            words: [] // word, translation, sentences
+            words: {} // word, translation, sentences
           }
-        
-        localStorage.setItem(`neoword-item-${name}`, JSON.stringify(data))
+        localStorage.setItem(`neoword-item-${id}`, JSON.stringify(data))
 
-        setArrayBooks([...books])
+        setBooks([...books])
         setError(false)
         setName("")
         setIsOpen(false)

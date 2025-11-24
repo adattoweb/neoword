@@ -5,6 +5,7 @@ import Cards from './pages/Cards/Cards'
 import "./styles/animation.css"
 
 import { useEffect, useState } from "react"
+import { readLocal } from './helpers/readLocal'
 
 export default function App() {
   const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-theme", "blue"]]
@@ -20,12 +21,15 @@ export default function App() {
     root.classList.add(localTheme)
   }, [])
   const [isEn, setIsEn] = useState(localStorage.getItem("neoword-lang") === "en")
-  const [bookName, setBookName] = useState(false)
+  const [bookID, setBookID] = useState(false)
   const [game, setGame] = useState(false)
+  const bookName = readLocal(`neoword-item-${bookID}`).name
+
+  console.log(bookID)
   return (
     <>
       <Header isEn={isEn} setIsEn={setIsEn} bookName={bookName}/>
-      {!bookName ? <Library setBookName={setBookName}/> : game ? <Cards bookName={bookName} game={game} setGame={setGame}/> : <Words bookName={bookName} setBookName={setBookName} setGame={setGame}/>}
+      {!bookName ? <Library setBookID={setBookID}/> : game ? <Cards bookID={bookID} game={game} setGame={setGame}/> : <Words bookID={bookID} setBookID={setBookID} setGame={setGame}/>}
     </>
   )
 }

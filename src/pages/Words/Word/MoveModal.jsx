@@ -1,10 +1,11 @@
 import Modal from "../../../components/Modal/Modal"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { readLocal } from "../../../helpers/readLocal"
 
-export default function WordModal({ isOpen, setIsOpen, word, translation, time, isDifficult, bookName, remove={remove} }) {
+export default function MoveModal({ isOpen, setIsOpen, ID, word, translation, time, isDifficult, bookID, remove }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
-    const [selected, setSelected] = useState(false)
+    const [selectedID, setSelectedID] = useState(false)
     const [error, setError] = useState(false)
     function disableError(){
         if(!error){
@@ -14,47 +15,37 @@ export default function WordModal({ isOpen, setIsOpen, word, translation, time, 
         }
     }
     function moveItem() {
-        if(!selected) {
+        if(!selectedID) {
             setError(isEn ? "Select a dictionary" : "Оберіть словник")
             disableError()
         }
-        if(bookName === selected){
+        if(bookID === selectedID){
             setIsOpen(false)
             return
         }
-        const arrayWords = localStorage.getItem(`neoword-item-${selected}`).split("@").map(el => el.split("^"))
-
-        for(let i = 0; i < arrayWords[1].length; i++){
-            if(arrayWords[1][i] !== ""){
-                let nameOfWord = arrayWords[1][i].split("*")[0]
-                if(nameOfWord === word) {
-                    setIsOpen(false)
-                    remove()
-                    console.log(`В словнику "${bookName}" вже існує слово з назвою "${word}", перехоплюю спробу і зупиняю дублювання елементу (якщо буде декілько елемента з однаковими назвами в одному словнику, то оскільки назва використовується як унікальний ідентифікатор, будуть помилки).`)
-                    return
-                }
-            }
+        const book = readLocal(`neoword-item-${selectedID}`)
+        book.words[ID] = {
+            word: word,
+            translation: translation,
+            time: time,
+            isDifficult: isDifficult,
         }
-
-        arrayWords[1].push(`${word}*${translation}*${time}*${isDifficult}`)
-        const index = arrayWords[0][2]
-        arrayWords[0][2] = +index + 1
-        const newArray = arrayWords.map(el => el.join("^")).join("@")
-        localStorage.setItem(`neoword-item-${selected}`, newArray)
+        localStorage.setItem(`neoword-item-${selectedID}`, JSON.stringify(book))
         remove()
         setIsOpen(false)
     }
-    const books = localStorage.getItem("neoword-books").split("^")
-    function Variant({ name }){
+    const books = readLocal("neoword-books")
+    function Variant({ bookID }){
+        const book = readLocal(`neoword-item-${bookID}`)
         return (
-            <div className={selected === name ? "variant gradient" : "variant"} onClick={() => setSelected(name)}>{name}</div>
+            <div className={selectedID === bookID ? "variant gradient" : "variant"} onClick={() => setSelectedID(bookID)}>{book.name}</div>
         )
     }
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} className="movemodal">
             <div className="modal__header">{isEn ? "Dictionary selection" : "Обирання словника"}</div>
             <div className="variants__list">
-                {books.map(el => <Variant key={el} name={el}/>)}
+                {books.map(el => <Variant key={el} bookID={el}/>)}
             </div>
             <AnimatePresence mode="wait">
                 {error && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error}</motion.div>}

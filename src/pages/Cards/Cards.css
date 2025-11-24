@@ -171,18 +171,18 @@
     }
 }
 .badwords__header{
-    margin-top: 7px;
+    margin-top: 5px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 .badwords__header svg{
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
 }
 .badwords__content{
-    margin-top: 7px;
+    margin-top: 5px;
     display: flex;
     gap: 7px;
     width: 300px;

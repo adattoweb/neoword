@@ -2,11 +2,11 @@ import EditModal from "./EditModal"
 import MoveModal from "./MoveModal"
 import ListModal from "./ListModal"
 import { useState } from "react"
+import { readLocal } from "../../../helpers/readLocal"
 
-export default function Word({ wordObj, search, searchBy, bookName, setWords, selected }) {
+export default function Word({ ID, wordObj, search, searchBy, bookID, words, setWords, selected }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [word, setWord] = useState(wordObj.word)
-    console.log(wordObj)
     const [translation, setTranslation] = useState(wordObj.translation)
     const time = wordObj.time
     const [isDifficult, setIsDifficult] = useState(wordObj.isDifficult)
@@ -20,34 +20,26 @@ export default function Word({ wordObj, search, searchBy, bookName, setWords, se
         editWord(word, translation, !isDifficult)
     }
     function editWord(newWord, newTranslation, newIsDifficult = isDifficult) {
-        const arrayWords = localStorage.getItem(`neoword-item-${bookName}`).split("@").map(el => el.split("^"))
-        for (let i = 0; i < arrayWords[1].length; i++) {
-            if ((arrayWords[1][i] !== undefined && arrayWords[1][i] !== "")) {
-                const arrayWord = arrayWords[1][i].split("*")
-                if (arrayWord[0] === word) {
-                    arrayWords[1][i] = `${newWord}*${newTranslation}*${time}*${newIsDifficult}`
-                    setWord(newWord)
-                    setTranslation(newTranslation)
-                    setIsDifficult(newIsDifficult)
-                }
-            }
+        const bookObject = readLocal(`neoword-item-${bookID}`)
+        const newWordObject = {
+            word: newWord,
+            translation: newTranslation,
+            time: time,
+            isDifficult: newIsDifficult,
+            sentences: sentences,
         }
-        localStorage.setItem(`neoword-item-${bookName}`, arrayWords.map(el => el.join("^")).join("@"))
+        bookObject.words[ID] = newWordObject
+        localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(bookObject))
+
+        setWord(newWord)
+        setTranslation(newTranslation)
+        setIsDifficult(newIsDifficult)
     }
     function remove(){
-        const arrayWords = localStorage.getItem(`neoword-item-${bookName}`).split("@").map(el => el.split("^"))
-        for (let i = 0; i < arrayWords[1].length; i++) {
-            if ((arrayWords[1][i] !== undefined && arrayWords[1][i] !== "")) {
-                const arrayWord = arrayWords[1][i].split("*")
-                if (arrayWord[0] === word) {
-                    arrayWords[1].splice(i, 1)
-                    +arrayWords[0][2]--
-                    break;
-                }
-            }
-        }
-        setWords(arrayWords[1])
-        localStorage.setItem(`neoword-item-${bookName}`, arrayWords.map(el => el.join("^")).join("@"))
+        const bookObject = readLocal(`neoword-item-${bookID}`)
+        delete bookObject.words[ID]
+        localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(bookObject))
+        setWords(bookObject.words)
     }
     const date = new Date(time)
     if((searchBy.toLowerCase() === "original" || searchBy.toLowerCase() === "unknown") && !word.toLowerCase().includes(search.toLowerCase())) return
@@ -55,8 +47,8 @@ export default function Word({ wordObj, search, searchBy, bookName, setWords, se
     if((selected === "Difficult" && !isDifficult) || (selected === "Easy" && isDifficult)) return
     return (
         <div className="word gradient" onClick={() => setIsOpen(true)}>
-            <EditModal isOpen={isOpen} setIsOpen={setIsOpen} editWord={editWord} oldWord={word} oldTranslation={translation} oldIsDifficult={isDifficult} bookName={bookName} remove={remove} setWords={setWords}/>
-            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} word={word} translation={translation} time={time} isDifficult={isDifficult} bookName={bookName} remove={remove}/>
+            <EditModal isOpen={isOpen} words={words} setIsOpen={setIsOpen} editWord={editWord} oldWord={word} oldTranslation={translation} oldIsDifficult={isDifficult} remove={remove}/>
+            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translation={translation} time={time} isDifficult={isDifficult} bookID={bookID} remove={remove}/>
             <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen}/>
             <div className="word__text">
                 <p className="word__word">{word}</p>

@@ -4,11 +4,10 @@ import LibraryModal from "./LibraryModal"
 import Dictionary from "./Dictionary/Dictionary"
 import { readLocal } from "../../helpers/readLocal"
 
-export default function Library({ setBookName }) {
+export default function Library({ setBookID }) {
     
     const [isOpen, setIsOpen] = useState(false)
     const [books, setBooks] = useState(readLocal("neoword-books"))
-    console.log(books)
     function DictionaryAdd(){
         return (
             <div className="dictionary gradient plus" onClick={() => setIsOpen(true)}>
@@ -23,9 +22,9 @@ export default function Library({ setBookName }) {
     }
     return (
         <div className="library content">
-            <LibraryModal isOpen={isOpen} setIsOpen={setIsOpen} setArrayBooks={setBooks}/>
+            <LibraryModal isOpen={isOpen} setIsOpen={setIsOpen} setBooks={setBooks}/>
             <div className="library__list slide">
-                {books.map(el => <Dictionary key={el} name={el} arrayBooks={books} setArrayBooks={setBooks} setBookName={setBookName}/>)}
+                {books.map(el => <Dictionary key={el} bookID={el} setBookID={setBookID} books={books} setBooks={setBooks}/>)}
                 <DictionaryAdd/>
             </div>
         </div>
