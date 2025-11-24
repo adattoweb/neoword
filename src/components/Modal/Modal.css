@@ -1,0 +1,122 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    pointer-events: auto;
+    backdrop-filter: blur(1px);
+  }
+  
+  .modal {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 15px 20px 20px 20px;
+    border-radius: 12px;
+    min-width: 300px;
+    box-sizing: border-box;
+    position: relative;
+  }
+  @media screen and (max-width: 500px) {
+    .modal{
+      transform: scale(0.9);
+      min-height: 180px;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .modal{
+      min-width: 300px;
+    }
+  }
+  @media screen and (max-width: 330px) {
+    .modal{
+      transform: scale(0.8)
+    }
+  }
+  @media screen and (max-width: 290px) {
+    .modal{
+      transform: scale(0.7)
+    }
+  }
+  .cross{
+    position: relative;
+  }
+  .cross__item{
+    width: 25px;
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    cursor: pointer;
+  }
+  .modal__header{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .modal__inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .modal__input{
+    width: 200px;
+    height: 30px;
+    color: #000000;
+    background-color: #E4E4E4;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    padding-left: 10px;
+    box-sizing: border-box;
+  }
+  .modal__input:focus{
+    outline: 1px solid #c0c0c0;
+  }
+  .modal__input::placeholder{
+    font-size: 14px;
+    color: #ACACAC;
+  }
+  .modal__input.error{
+    outline: 1px solid #ff0e0e;
+  }
+  .modal__buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 20px;
+  }
+  .modal__buttons.one{
+    justify-content: end;
+  }
+  .modal__button{
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .right{
+    margin-left: auto;
+  }
+  .modal__button:hover{
+    background: linear-gradient(45deg, #7eb2ff, #5689FF);
+  }
+  .modal__delete{
+    background: linear-gradient(45deg, #FF9597, #FF5659)
+  }
+  .modal__delete:hover{
+    background: linear-gradient(45deg, #ff7b7e, #FF5659)
+  }
+  .modal__error{
+    margin-top: 10px;
+    border-radius: 10px;
+    color: #000;
+    font-size: 14px;
+  }
+  

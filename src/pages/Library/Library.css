@@ -1,0 +1,82 @@
+.library__list{
+    width: 70vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    justify-content: center;
+    gap: 25px 50px;
+}
+.dictionary{
+    width: 200px;
+    height: 155px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.dictionary:hover .dictionary__paper{
+    transform: rotate(3deg);
+    top: 10px;
+}
+.dictionary__paper{
+    background-color: #fff;
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    position: absolute;
+    transform: rotate(5deg);
+    transition: 0.2s ease all;
+    z-index: 1;
+    top: 15px;
+}
+.dictionary__content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 130px;
+    z-index: 2;
+    margin-top: auto;
+    border-radius: 0 0 20px 20px;
+    align-items: center;
+}
+.dictionary__text{
+    color: #fff;
+    margin-top: 15px;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 10px;
+    overflow-y: auto;
+}
+.dictionary__header{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+.dictionary__words{
+    font-size: 16px;
+    text-align: center;
+}
+.dictionary__footer{
+    display: flex;
+    gap: 15px;
+    justify-content: end;
+    margin: auto 15px 15px auto;
+}
+.dictionary__footer svg{
+    height: 22px;
+    cursor: pointer;
+}
+.dictionary__footer svg:hover{
+    transform: scale(1.03)
+}
+.dictionary.plus{
+    cursor: pointer;
+}
+.dictionary__plus{
+    margin: auto;
+    width: 50px;
+    cursor: pointer;
+}

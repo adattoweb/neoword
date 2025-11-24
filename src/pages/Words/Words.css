@@ -1,0 +1,265 @@
+.wordsheader{
+    display: flex;
+    width: 70vw;
+    justify-content: end;
+    gap: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+.wordsheader__game{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: #EAEAEA 1px solid;
+    border-radius: 100%;
+    box-shadow: 0px 0px 1px #b5b5b5;
+    cursor: pointer;
+}
+.wordsheader__game:hover svg{
+    width: 26px;
+    height: 26px;
+}
+.wordsheader__game svg{
+    width: 24px;
+    height: 24px;
+}
+.wordsfind__wrapper{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.wordsfind{
+    width: 210px;
+    height: 35px;
+    outline: #EAEAEA 1px solid;
+    border-radius: 35px;
+    box-shadow: 0px 0px 1px #b5b5b5;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 6px 10px;
+}
+.wordsfind__input{
+    width: 150px;
+    outline: none;
+    border: none;
+    padding-left: 30px;
+}
+.wordsfind svg{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+}
+.words__list{
+    width: 70vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    justify-content: space-between;
+    gap: 25px 20px;
+}
+.word{
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.word__text{
+    overflow: hidden;
+    max-width: 97%;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.word__word{
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+}
+.word__translate{
+    font-size: 16px;
+    color: #EDEDED;
+}
+
+.word__footer{
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 5px 15px 25px 15px;
+    margin-top: auto;
+}
+.word__left{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.word__difficult{
+    color: #fff;
+    width: 60px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid #fff;
+    font-weight: 500;
+    font-size: 11px;
+    transition: 0.2s ease all;
+    cursor: pointer;
+    user-select: none;
+}
+.word__difficult.active, .word__difficult:hover{
+    background-color: #fff;
+    color: #000;
+}
+.word__date{
+    position: absolute;
+    bottom: 5px;
+    font-size: 12px;
+    color: #EDEDED;
+    left: 15px;
+}
+.word__right{
+    display: flex;
+    gap: 8px;
+    justify-content: end;
+}
+.word__right svg{
+    height: 22px;
+    cursor: pointer;
+}
+.word__right svg:hover{
+    transform: scale(1.03)
+}
+.word.plus{
+    cursor: pointer;
+}
+.word__plus{
+    margin: auto;
+    width: 50px;
+    cursor: pointer;
+}
+
+.variants__list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.variant{
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: #e1e1e1;
+    cursor: pointer;
+    transition: 0.2s ease all;
+    user-select: none;
+}
+.variant:hover{
+    background-color: #ececec;
+}
+.variant.gradient{
+    color: #fff;
+}
+.movemodal{
+    max-width: 600px;
+    height: max-content;
+    overflow: hidden;
+}
+.movemodal .modal__buttons{
+    margin-top: 15px;
+}
+.words__games{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+@media screen and (max-width: 1600px) {
+    .word{
+        width: 180px;
+        height: 180px;
+    }
+    .word__word{
+        font-size: 20px;
+    }
+    .word__translate{
+        font-size: 14px;
+    }
+    .word__footer{
+        padding: 5px 15px 20px 15px;
+    }
+    .word__right svg{
+        width: 18px;
+    }
+    .word__date{
+        font-size: 10px;
+    }
+    .word__difficult{
+        font-size: 10px;
+        width: 55px;
+        height: 15px;
+    }
+}
+@media screen and (max-width: 900px) {
+    .words__list{
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 700px) {
+    .wordsheader{
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+    .wordsfind{
+        width: 180px;
+    }
+    .wordsfind__input{
+        width: 130px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .wordsfind{
+        width: 120px;
+        border-radius: 25px;
+    }
+    .wordsfind svg{
+        display: none;
+    }
+    .wordsfind__input{
+        width: 110px;
+        padding-left: 5px;
+    }
+}
+
+/*   SENTENCES   */
+.sentences{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 10px;
+}
+.sentence{
+    border-radius: 10px;
+    padding: 5px 5px 5px 10px;
+    box-sizing: border-box;
+    border: 1px solid #d8d8d8;
+}
+.sinput{
+    width: 100%;
+}

@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  font-family: "Montserrat Alternates", sans-serif;
+}
+.gradient{
+  background: linear-gradient(45deg, #95BFFF, #5689FF);
+}
+#root.red .gradient{
+  background: linear-gradient(45deg, #fe8b8b, #ff6262);
+}
+#root.green .gradient{
+  background: linear-gradient(45deg, #58bf59, #3ba14b);
+}
+#root.purple .gradient{
+  background: linear-gradient(45deg, #e275ea, #d44fc0);
+}
+#root.orange .gradient{
+  background: linear-gradient(45deg, #ddb771, #da9c3a);
+}
+
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 auto;
+  margin-top: 80px;
+  margin-bottom: 100px;
+  flex-direction: column;
+}
+.back{
+  position: absolute;
+  left: 30px;
+  top: 65px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+.back svg{
+  width: 25px;
+}
+.back p{
+  font-size: 16px;
+  font-weight: 500;
+}
+@media screen and (max-width: 500px) {
+  .back svg{
+    width: 20px;
+  }
+  .back p{
+    font-size: 14px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+  width: 0.5rem;
+  border-radius: 0.125rem;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0.12rem;
+  background-color: #000000;
+}
+.wrapper.dark ::-webkit-scrollbar-thumb {
+  border-radius: 0.12rem;
+  background-color: #ffffff;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0.125rem;
+  background-color: #ffffff;
+}
+
+.wrapper.dark ::-webkit-scrollbar-track {
+  border-radius: 0.125rem;
+  background-color: #131313;
+}
+* {
+  scrollbar-width: thin; /* робить тонший скролбар */
+  scrollbar-color: #000000 #ffffff; /* thumb = чорний, track = білий */
+}
+
+.wrapper.dark * {
+  scrollbar-color: #ffffff #131313; /* thumb = білий, track = темний */
+}
+::selection {
+  background-color: #000000;
+  color: #ffffff;
+}
