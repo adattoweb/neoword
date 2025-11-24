@@ -101,12 +101,9 @@
     cursor: pointer;
     user-select: none;
   }
-<<<<<<< HEAD
   .right{
     margin-left: auto;
   }
-=======
->>>>>>> 2e99081e63cd2ca380756e224f815c1c87b34d06
   .modal__button:hover{
     background: linear-gradient(45deg, #7eb2ff, #5689FF);
   }

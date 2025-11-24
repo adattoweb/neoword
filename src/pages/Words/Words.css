@@ -71,10 +71,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-<<<<<<< HEAD
     cursor: pointer;
-=======
->>>>>>> 2e99081e63cd2ca380756e224f815c1c87b34d06
 }
 .word__text{
     overflow: hidden;
@@ -248,7 +245,6 @@
         width: 110px;
         padding-left: 5px;
     }
-<<<<<<< HEAD
 }
 
 /*   SENTENCES   */
@@ -266,6 +262,4 @@
 }
 .sinput{
     width: 100%;
-=======
->>>>>>> 2e99081e63cd2ca380756e224f815c1c87b34d06
 }
