@@ -253,11 +253,36 @@
     flex-direction: column;
     margin-top: 10px;
     gap: 10px;
+    max-height: 300px;
+    overflow: auto;
 }
 .sentence{
     border-radius: 10px;
-    padding: 5px 5px 5px 10px;
+    padding: 5px;
     box-sizing: border-box;
+    border: 1px solid #d8d8d8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.sentence svg{
+    width: 18px;
+    height: 18px;
+    padding-left: 10px;
+    cursor: pointer
+}
+.sentence input{
+    border: 1px solid #fff;
+    outline: none;
+    transition: 0.3s ease all;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 4px 4px 4px 8px;
+    width: 230px;
+}
+.sentence input:hover, .sentence input:focus{
     border: 1px solid #d8d8d8;
 }
 .sinput{

@@ -5,6 +5,7 @@ import { useState } from "react"
 import { readLocal } from "../../../helpers/readLocal"
 
 export default function Word({ ID, wordObj, search, searchBy, bookID, words, setWords, selected }) {
+    console.log(wordObj)
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [word, setWord] = useState(wordObj.word)
     const [translation, setTranslation] = useState(wordObj.translation)
@@ -48,8 +49,8 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
     return (
         <div className="word gradient" onClick={() => setIsOpen(true)}>
             <EditModal isOpen={isOpen} words={words} setIsOpen={setIsOpen} editWord={editWord} oldWord={word} oldTranslation={translation} oldIsDifficult={isDifficult} remove={remove}/>
-            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translation={translation} time={time} isDifficult={isDifficult} bookID={bookID} remove={remove}/>
-            <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen}/>
+            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translation={translation} time={time} isDifficult={isDifficult} sentences={sentences} bookID={bookID} remove={remove}/>
+            <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen} ID={ID} bookID={bookID} sentences={sentences} setSentences={setSentences}/>
             <div className="word__text">
                 <p className="word__word">{word}</p>
                 <p className="word__translate">{translation}</p>

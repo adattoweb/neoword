@@ -47,7 +47,13 @@ export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
         const now = new Date()
         const id = +localStorage.getItem("neoword-index")
         localStorage.setItem("neoword-index", id+1)
-        book.words[id] = {word: word, translation: translation, time: now.getTime(), isDifficult: false, sentences: []}
+        book.words[id] = {
+            word: word,
+            translation: translation,
+            time: now.getTime(),
+            isDifficult: false,
+            sentences: []
+        }
         const newWords = {...book.words}
         localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
         setWords(newWords)

@@ -3,7 +3,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../../helpers/readLocal"
 
-export default function MoveModal({ isOpen, setIsOpen, ID, word, translation, time, isDifficult, bookID, remove }) {
+export default function MoveModal({ isOpen, setIsOpen, ID, word, translation, time, isDifficult, sentences, bookID, remove }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [selectedID, setSelectedID] = useState(false)
     const [error, setError] = useState(false)
@@ -29,6 +29,7 @@ export default function MoveModal({ isOpen, setIsOpen, ID, word, translation, ti
             translation: translation,
             time: time,
             isDifficult: isDifficult,
+            sentences: sentences,
         }
         localStorage.setItem(`neoword-item-${selectedID}`, JSON.stringify(book))
         remove()
