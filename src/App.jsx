@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 import { readLocal } from './helpers/readLocal'
 
 export default function App() {
-  const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-theme", "blue"]]
+  const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-theme", "blue"], ["neoword-books", "[]"], ["neoword-recycle", "[]"]]
   for(let i = 0; i < checkKeys.length; i++){
     const localKey = checkKeys[i][0]
     if(!localStorage.getItem(localKey)) localStorage.setItem(localKey, checkKeys[i][1])

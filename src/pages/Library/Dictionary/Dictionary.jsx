@@ -15,13 +15,17 @@ export default function Dictionary({ bookID, setBookID, books, setBooks }){
     const words = book.words
     const count = Object.keys(words).length
     function remove(){
-        let newBooks = [...books.filter(el => el !== bookID)]
+        const newBooks = [...books.filter(el => el !== bookID)]
         localStorage.setItem("neoword-books", JSON.stringify(newBooks))
         setBooks(newBooks)
+
+        const deletedBooks = readLocal("neoword-recycle")
+        deletedBooks.push(bookID)
+        localStorage.setItem("neoword-recycle", JSON.stringify(deletedBooks))
     }
     return (
         <div className="dictionary gradient" onClick={() => setBookID(bookID)}>
-            <DictionaryModal bookID={bookID} oldName={oldName} setOldName={setOldName} isOpen={isOpen} setIsOpen={setIsOpen} remove={remove}/>
+            <DictionaryModal bookID={bookID} oldName={oldName} setOldName={setOldName} isOpen={isOpen} setIsOpen={setIsOpen} setIsDeleteOpen={setIsDeleteOpen}/>
             <DeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} remove={remove}/>
             <div className="dictionary__paper"></div>
             <div className="dictionary__content gradient">

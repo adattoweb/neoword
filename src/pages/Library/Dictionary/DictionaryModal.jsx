@@ -3,7 +3,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../../helpers/readLocal"
 
-export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, setIsOpen, remove }) {
+export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, setIsOpen, setIsDeleteOpen }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [name, setName] = useState(oldName)
     const [error, setError] = useState(false)
@@ -51,7 +51,7 @@ export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, s
                 {error && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error}</motion.div>}
             </AnimatePresence>
             <div className="modal__buttons">
-                <div className="modal__button modal__delete" onClick={remove}>{isEn ? "Delete" : "Видалити"}</div>
+                <div className="modal__button modal__delete" onClick={() => setIsDeleteOpen(true)}>{isEn ? "Delete" : "Видалити"}</div>
                 <div className="modal__button gradient" onClick={updateElement}>{isEn ? "Save" : "Зберегти"}</div>
             </div>
         </Modal>
