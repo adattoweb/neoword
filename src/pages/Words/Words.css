@@ -124,8 +124,12 @@
     cursor: pointer;
     user-select: none;
 }
+.word__difficult.active{
+    background-color: #fff;
+    color: #000;
+}
 @media (hover: hover) and (pointer: fine) {
-    .word__difficult.active, .word__difficult:hover{
+    .word__difficult:hover{
         background-color: #fff;
         color: #000;
     }
