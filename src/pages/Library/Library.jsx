@@ -20,12 +20,24 @@ export default function Library({ setBookID }) {
             </div>
         )
     }
+    function RecycleBin(){
+        return (
+            <div className="dictionary gradient plus delete" onClick={() => setIsOpen(true)}>
+                <div className="delete__header gradient">
+                    <div className="delete__stick gradient">
+                        <div className="delete__white"></div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
     return (
         <div className="library content">
             <LibraryModal isOpen={isOpen} setIsOpen={setIsOpen} setBooks={setBooks}/>
             <div className="library__list slide">
                 {books.map(el => <Dictionary key={el} bookID={el} setBookID={setBookID} books={books} setBooks={setBooks}/>)}
                 <DictionaryAdd/>
+                <RecycleBin/>
             </div>
         </div>
     )

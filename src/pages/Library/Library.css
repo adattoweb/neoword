@@ -16,6 +16,38 @@
     position: relative;
     cursor: pointer;
 }
+
+.delete{
+    width: 150px;
+    border-radius: 0px 0px 20px 20px;
+}
+.delete__header{
+    width: 180px;
+    height: 15px;
+    border-radius: 10px;
+    transition: 0.3s ease all;
+}
+.delete:hover .delete__header{
+    transform: translateY(-20px) rotate(10deg)
+}
+.delete__stick{
+    height: 22px;
+    width: 120px;
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 21px;
+    margin: auto;
+}
+.delete__white{
+    background-color: #fff;
+    border-radius: 20px;
+    margin: auto;
+    width: 90px;
+    height: 10px;
+    position: relative;
+    top: 10px;
+}
+
 .dictionary:hover .dictionary__paper{
     transform: rotate(3deg);
     top: 10px;

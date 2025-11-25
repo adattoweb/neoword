@@ -70,8 +70,8 @@ export default function Words({ bookID, setBookID, setGame }){
             </div>
             <AddModal isOpen={isOpen} setIsOpen={setIsOpen} words={words} setWords={setWords} onlyWords={words} bookID={bookID}/>
             <div className="words__list slide">
-                {Object.keys(words).map(key => <Word key={words[key].word} ID={key} wordObj ={words[key]} search={search} searchBy={searchBy} bookID={bookID} onlyWords={words} words={words} setWords={setWords} selected={selected}/>)}
                 <WordAdd/>
+                {Object.keys(words).map(key => <Word key={words[key].word} ID={key} wordObj ={words[key]} search={search} searchBy={searchBy} bookID={bookID} onlyWords={words} words={words} setWords={setWords} selected={selected}/>)}
             </div>
         </div>
     )
