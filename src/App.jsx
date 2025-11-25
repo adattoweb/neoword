@@ -26,7 +26,7 @@ export default function App() {
   // localStorage.setItem("neoword-item-1", "1^1764076757533^6@^word*translation*1764076767841*false^123*3123*1764078030760*true^312321*312esaf*1764078034650*false^fsdf*sdfsdfsdf*1764078037238*false^fsdfsd*dsfsdfds*1764078039595*false^sdfsdf*sdfsdfsd*1764078042073*false")
 
   const booksStr = localStorage.getItem("neoword-books")
-  if (!booksStr.includes("[")) {
+  if (booksStr !== null && !booksStr.includes("[")) {
     const books = booksStr.split("^")
     console.log(books)
     const newBooks = []
