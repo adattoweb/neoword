@@ -7,6 +7,9 @@
     margin-right: auto;
     margin-bottom: 30px;
 }
+.wordsheader__menu{
+    margin-right: auto;
+}
 .wordsheader__game{
     width: 35px;
     height: 35px;
@@ -72,8 +75,6 @@
     align-items: center;
     position: relative;
     cursor: pointer;
-    border-right: none;
-    border-left: none;
 }
 .word__text{
     overflow: hidden;

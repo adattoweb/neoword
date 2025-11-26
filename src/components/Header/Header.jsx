@@ -41,7 +41,6 @@ export default function Header({ isEn, setIsEn, bookName }){
                     <div className="header__theme purple" onClick={() => selectTheme("purple")}></div>
                 </Dropdown>
             </div>
-
         </header>
     )
 }

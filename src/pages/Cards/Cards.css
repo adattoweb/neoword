@@ -16,12 +16,15 @@
     width: 100%;
     gap: 7px;
     font-size: 14px;
-    color: #002E9A;
     font-weight: 600;  
 }
 .cardsheader__info{
     display: flex;
     justify-content: space-between;
+}
+.cardsheader__total{
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 .cardsheader__total span{
     color: #2B60DB;
@@ -30,16 +33,31 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 .cardsheader__reset svg{
     width: 20px;
     margin-right: 7px;
+    stroke: #1349dc;
+}
+.orange .cardsheader__reset svg{
+    stroke: #d2930c;
+}
+.red .cardsheader__reset svg{
+    stroke: #d20c0c;
+}
+.green .cardsheader__reset svg{
+    stroke: #0cd244;
+}
+.purple .cardsheader__reset svg{
+    stroke: #be0cd2;
 }
 .cardsprogress{
     margin-top: 5px;
     height: 15px;
     border-radius: 10px;
-    background-color: #E2EAFF;
+    background-color: #f1f1f1;
 }
 .cardsprogress__fill{
     border-radius: 10px;
@@ -94,10 +112,7 @@
     max-width: 100%;
     user-select: none;
 }
-.card__back .card__word{
-    color: #ebebeb;
-}
-.card.rotate .card__front .card__word, .card.rotate .card__back .card__word{
+.card.rotate .card__front .card__word, .card.rotate .card__back .word__translate{
     transform: rotateX(180deg)
 }
 
