@@ -4,7 +4,7 @@ import LibraryModal from "./LibraryModal"
 import Dictionary from "./Dictionary/Dictionary"
 import { readLocal } from "../../helpers/readLocal"
 
-export default function Library({ setBookID }) {
+export default function Library({ setBookID, setRecycle }) {
     
     const [isOpen, setIsOpen] = useState(false)
     const [books, setBooks] = useState(readLocal("neoword-books"))
@@ -22,7 +22,7 @@ export default function Library({ setBookID }) {
     }
     function RecycleBin(){
         return (
-            <div className="dictionary gradient plus delete" onClick={() => setIsOpen(true)}>
+            <div className="dictionary gradient plus delete" onClick={() => {setRecycle(true); setBookID(false)}}>
                 <div className="delete__header gradient">
                     <div className="delete__stick gradient">
                         <div className="delete__white"></div>

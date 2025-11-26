@@ -6,6 +6,7 @@ import "./styles/animation.css"
 
 import { useEffect, useState } from "react"
 import { readLocal } from './helpers/readLocal'
+import RecycleBin from './pages/RecycleBin/RecycleBin'
 
 export default function App() {
   const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-theme", "blue"], ["neoword-books", "[]"], ["neoword-recycle", "[]"]]
@@ -24,12 +25,13 @@ export default function App() {
   const [isEn, setIsEn] = useState(localStorage.getItem("neoword-lang") === "en")
   const [bookID, setBookID] = useState(false)
   const [game, setGame] = useState(false)
+  const [recycle, setRecycle] = useState(false)
   const bookName = readLocal(`neoword-item-${bookID}`).name
 
   return (
     <>
       <Header isEn={isEn} setIsEn={setIsEn} bookName={bookName}/>
-      {!bookName ? <Library setBookID={setBookID}/> : game ? <Cards bookID={bookID} game={game} setGame={setGame}/> : <Words bookID={bookID} setBookID={setBookID} setGame={setGame}/>}
+      {recycle ? <RecycleBin setRecycle={setRecycle}/> : !bookName ? <Library setBookID={setBookID} setRecycle={setRecycle}/> : game ? <Cards bookID={bookID} game={game} setGame={setGame}/> : <Words bookID={bookID} setBookID={setBookID} setGame={setGame}/>}
     </>
   )
 }

@@ -8,6 +8,8 @@ import wordForgot from "../../assets/wordForgot.mp3"
 import { motion } from "framer-motion"
 import { readLocal } from "../../helpers/readLocal"
 
+import Back from "../../components/Back/Back"
+
 export default function Cards({ bookID, game, setGame }){
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const book = readLocal(`neoword-item-${bookID}`)
@@ -106,12 +108,7 @@ export default function Cards({ bookID, game, setGame }){
     return (
         <div className="cards content">
             <EndModal isOpen={isOpen} setIsOpen={setIsOpen} game={game} setGame={setGame} bads={bads.current} rights={rights.current} badWords={badWords.current}/>
-            <div className="back" onClick={() => setGame(false)}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                </svg>
-                <p>{isEn ? "Go back" : "Повернутися назад"}</p>
-            </div>
+            <Back onClick={() => setGame(false)}/>
             <div className="cards__content">
                 <div className="cardsheader">
                     <div className="cardsheader__info">
