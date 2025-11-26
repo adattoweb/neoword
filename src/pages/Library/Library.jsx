@@ -28,6 +28,11 @@ export default function Library({ setBookID }) {
                         <div className="delete__white"></div>
                     </div>
                 </div>
+                <div className="delete__content">
+                    <div className="delete__line"></div>
+                    <div className="delete__line"></div>
+                    <div className="delete__line"></div>
+                </div>
             </div>
         )
     }
