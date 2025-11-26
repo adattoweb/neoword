@@ -69,7 +69,9 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
             <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen} ID={ID} bookID={bookID} sentences={sentences} setSentences={setSentences}/>
             <div className="word__text">
                 <p className="word__word">{word}</p>
-                <p className="word__translate">{translations.join(" | ")}</p>
+                <div className="word__translations">
+                    {translations.map((el, index) => <div key={index} className="word__translate">{el}</div>)}
+                </div>
             </div>
             <div className="word__footer">
                 <div className="word__left">

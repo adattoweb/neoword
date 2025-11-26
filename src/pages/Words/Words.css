@@ -88,9 +88,23 @@
     font-weight: 600;
     color: #fff;
 }
+.word__translations{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    overflow-y: auto;
+    max-height: 80px;
+}
 .word__translate{
     font-size: 16px;
     color: #EDEDED;
+    background-color: rgba(255,255,255,0.15);
+    padding: 2px 4px;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .word__footer{

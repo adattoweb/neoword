@@ -54,13 +54,13 @@ export default function Cards({ bookID, game, setGame }){
     function InputFooter() {
         const [word, setWord] = useState("")
         const inputRef = useRef()
-        const translation = words[wordsKeys[id]].translation
+        const translations = words[wordsKeys[id]].translations
         useEffect(() =>{
             if(id === wordsKeys.length){
                 setIsOpen(true)
                 inputRef.current.disabled = true;
             }
-            if(word.toLowerCase() === translation.toLowerCase()){
+            if(translations.some(el => el.toLowerCase() === word.toLowerCase())){
                 if(id + 1 < wordsKeys.length) setId(prev => prev + 1)
                 rights.current++;
                 const audio = new Audio(wordKnowed)

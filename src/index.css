@@ -80,7 +80,7 @@ html {
 }
 * {
   scrollbar-width: thin; /* робить тонший скролбар */
-  scrollbar-color: #000000 #ffffff; /* thumb = чорний, track = білий */
+  scrollbar-color: #0453ff #ffffff; /* thumb = чорний, track = білий */
 }
 
 .wrapper.dark * {
