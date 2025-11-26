@@ -65,13 +65,15 @@
 .word{
     width: 200px;
     height: 200px;
-    border-radius: 20px;
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
     cursor: pointer;
+    border-right: none;
+    border-left: none;
 }
 .word__text{
     overflow: hidden;
@@ -97,13 +99,18 @@
     width: 150px;
     overflow-y: auto;
     max-height: 80px;
+    margin-top: 5px;
 }
 .word__translate{
     font-size: 16px;
     color: #EDEDED;
-    background-color: rgba(255,255,255,0.15);
-    padding: 2px 4px;
-    border-radius: 4px;
+    background-color: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-right: none;
+    border-left: none;
+    padding: 3px 6px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
     overflow: hidden;
 }
 
@@ -129,9 +136,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
-    background-color: transparent;
-    border: 1px solid #fff;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-right: none;
+    border-left: none;
     font-weight: 500;
     font-size: 11px;
     transition: 0.2s ease all;
@@ -140,7 +149,7 @@
 }
 .word__difficult.active{
     background-color: #fff;
-    color: #000;
+    color: #000000;
 }
 @media (hover: hover) and (pointer: fine) {
     .word__difficult:hover{
@@ -309,7 +318,8 @@
     width: 100%;
 }
 .list-active{
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 5px;
 }
 

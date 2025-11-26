@@ -23,7 +23,7 @@
   display: flex;
   justify-content: center;
   flex: 1 1 auto;
-  margin-top: 80px;
+  margin-top: 60px;
   margin-bottom: 100px;
   flex-direction: column;
 }
@@ -80,7 +80,7 @@ html {
 }
 * {
   scrollbar-width: thin; /* робить тонший скролбар */
-  scrollbar-color: #0453ff #ffffff; /* thumb = чорний, track = білий */
+  scrollbar-color: #0257ff #ffffff; /* thumb = чорний, track = білий */
 }
 
 .wrapper.dark * {
