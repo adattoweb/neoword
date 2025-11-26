@@ -3,37 +3,48 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../helpers/readLocal"
 
+import TranslationInput from "./TranslationInput"
+
 export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [word, setWord] = useState("")
-    const [translation, setTranslation] = useState("")
+    const [translations, setTranslations] = useState([""])
     const [error, setError] = useState(false)
-    const [errorId, setErrorId] = useState(0)
+    const [errorID, setErrorID] = useState(0)
+
+    const forbidden = /[\^@$[\]{}"]/;
+
     function disableError(){
         if(!error){
             setTimeout(() => {
                 setError(false)
-                setErrorId(0)
+                setErrorID(0)
             }, 6000)
         }
     }
     function addElement() {
-        if(word.length === 0 || translation.length === 0){
+        if(word.length === 0 || translations.length === 0){
             disableError()
             setError(isEn ? "Enter the field" : "Заповніть поле")
-            setErrorId(word.length === 0 ? 1 : 2)
+            setErrorID(word.length === 0 ? 1 : 2)
             return
         }
-        if(word.includes("^") || word.includes("@") || word.includes("$") || word.includes("*")){ // ^, |, $, * - спец символ
+        if(forbidden.test(word)) {
+            disableError();
+            setError(isEn ? "Remove forbidden characters (^@$[]{}\")" : "Приберіть заборонені символи (^@$[]{}\")");
+            setErrorID(1)
+            return;
+        }
+        if(translations.some(el => el.length === 0)){
             disableError()
-            setError(isEn ? "Remove the ^, @, $ or * character" : "Приберіть символ ^, @, $ або *")
-            setErrorId(1)
+            setError(isEn ? "Enter all fields" : "Заповніть усі поля")
+            setErrorID(word.length === 0 ? 1 : 2)
             return
         }
-        if(translation.includes("^") || translation.includes("@") || translation.includes("$") || translation.includes("*")){ // ^, |, $, * - спец символ
+        if(translations.some((el, index) => translations.indexOf(el) !== index)){
             disableError()
-            setError(isEn ? "Remove the ^, @, $ or * character" : "Приберіть символ ^, @, $ або *")
-            setErrorId(2)
+            setError(isEn ? "This translaiton already exists" : "Такий переклад вже існує")
+            setErrorID(2)
             return
         }
         const book = readLocal(`neoword-item-${bookID}`)
@@ -41,7 +52,7 @@ export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
         if(Object.keys(words).find(key => words[key].word === word)){
             disableError()
             setError(isEn ? "This word already exists" : "Таке слово вже існує")
-            setErrorId(1)
+            setErrorID(1)
             return
         }
         const now = new Date()
@@ -49,7 +60,7 @@ export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
         localStorage.setItem("neoword-index", id+1)
         book.words[id] = {
             word: word,
-            translation: translation,
+            translations: translations,
             time: now.getTime(),
             isDifficult: false,
             sentences: []
@@ -58,19 +69,33 @@ export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
         localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
         setWords(newWords)
         setError(false)
-        setErrorId(0)
+        setErrorID(0)
         setWord("")
-        setTranslation("")
+        setTranslations([""])
         setIsOpen(false)
         console.log(newWords)
         console.log(book)
     }
+
+    function addTranslation(){
+        if(translations.length > 9) {
+            disableError()
+            setError(isEn ? "Maximum 10 translations!" : "Максимум 10 перекладів!")
+            setErrorID(2)
+            return
+        }
+        const newTranslations = [...translations]
+        newTranslations.push("")
+        setTranslations(newTranslations)
+    }
+
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
             <div className="modal__header">{isEn ? "Creating a word" : "Створення слова"}</div>
             <div className="modal__inputs">
-                <input type="text" placeholder={isEn ? "Word" : "Слово"} className={error && errorId === 1 ? "modal__input error" : "modal__input"} value={word} onChange={(e) => setWord(e.target.value)} />
-                <input type="text" placeholder={isEn ? "Translatation" : "Переклад"} className={error && errorId === 2 ? "modal__input error" : "modal__input"} value={translation} onChange={(e) => setTranslation(e.target.value)} />
+                <input type="text" placeholder={isEn ? "Word" : "Слово"} className={error && errorID === 1 ? "modal__input error" : "modal__input"} value={word} onChange={(e) => setWord(e.target.value)} />
+                {translations.map((el, index) => <TranslationInput key={index} value={el} index={index} disableError={disableError} error={error} setError={setError} errorID={errorID} setErrorID={setErrorID} translations={translations} setTranslations={setTranslations} forbidden={forbidden}/>)}
+                <p className="gradient add" onClick={addTranslation}>Додати новий переклад</p>
             </div>
             <AnimatePresence mode="wait">
                 {error && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error}</motion.div>}

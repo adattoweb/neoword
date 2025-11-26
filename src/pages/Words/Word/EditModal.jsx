@@ -3,35 +3,38 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 import DeleteModal from "../../Library/Dictionary/DeleteModal"
+import TranslationInput from "../TranslationInput"
 
-export default function EditModal({ words, isOpen, setIsOpen, editWord, oldWord, oldTranslation, oldIsDifficult, remove }) {
+export default function EditModal({ words, isOpen, setIsOpen, editWord, oldWord, oldTranslations, oldIsDifficult, remove }) {
 
     const isEn = localStorage.getItem("neoword-lang") === "en"
 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
 
     const [word, setWord] = useState(oldWord)
-    const [translation, setTranslation] = useState(oldTranslation)
+    const [translations, setTranslations] = useState(oldTranslations)
     const [error, setError] = useState(false)
-    const [errorId, setErrorId] = useState(0)
+    const [errorID, setErrorID] = useState(0)
+
+    const forbidden = /[\^@$[\]{}"]/;
+
     function disableError(){
         if(!error){
             setTimeout(() => {
                 setError(false)
-                setErrorId(0)
+                setErrorID(0)
             }, 6000)
         }
     }
     function editElement() {
-        if(word.length === 0 || translation.length === 0){
+        if(word.length === 0 || translations.length === 0){
             disableError()
             setError(isEn ? "Enter the field" : "Заповніть поле")
-            setErrorId(word.length === 0 ? 1 : 2)
+            setErrorID(word.length === 0 ? 1 : 2)
             return
         }
 
-        const forbidden = /[\^@$[\]{}"]/;
-        if (forbidden.test(word) || forbidden.test(translation)) {
+        if (forbidden.test(word) || forbidden.test(translations)) {
             disableError();
             setError(isEn ? "Remove forbidden characters (^ @ $ [ ] { } \")" : "Приберіть заборонені символи (^ @ $ [ ] { } \")");
             return;
@@ -40,23 +43,41 @@ export default function EditModal({ words, isOpen, setIsOpen, editWord, oldWord,
         if(Object.keys(words).find(key => words[key].word === word && words[key].word !== oldWord)){
             disableError()
             setError(isEn ? "This word already exists" : "Таке слово вже існує")
-            setErrorId(1)
+            setErrorID(1)
+            return
+        }
+        if(translations.some((el, index) => translations.indexOf(el) !== index)){
+            disableError()
+            setError(isEn ? "This translaiton already exists" : "Такий переклад вже існує")
+            setErrorID(2)
             return
         }
 
-        editWord(word, translation, oldIsDifficult)
+        editWord(word, translations, oldIsDifficult)
         setError(false)
-        setErrorId(0)
+        setErrorID(0)
         setIsOpen(false)
+    }
 
+    function addTranslation(){
+        if(translations.length > 9) {
+            disableError()
+            setError(isEn ? "Maximum 10 translations!" : "Максимум 10 перекладів!")
+            setErrorID(2)
+            return
+        }
+        const newTranslations = [...translations]
+        newTranslations.push("")
+        setTranslations(newTranslations)
     }
     
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
             <div className="modal__header">{isEn ? "Editing a word" : "Редагування слова"}</div>
             <div className="modal__inputs">
-                <input type="text" placeholder={isEn ? "Word" : "Слово"} className={error && errorId === 1 ? "modal__input error" : "modal__input"} value={word} onChange={(e) => setWord(e.target.value)} />
-                <input type="text" placeholder={isEn ? "Translatation" : "Переклад"} className={error && errorId === 2 ? "modal__input error" : "modal__input"} value={translation} onChange={(e) => setTranslation(e.target.value)} />
+                <input type="text" placeholder={isEn ? "Word" : "Слово"} className={error && errorID === 1 ? "modal__input error" : "modal__input"} value={word} onChange={(e) => setWord(e.target.value)} />
+                {translations.map((el, index) => <TranslationInput key={index} value={el} index={index} disableError={disableError} error={error} setError={setError} errorID={errorID} setErrorID={setErrorID} translations={translations} setTranslations={setTranslations} forbidden={forbidden}/>)}
+                <p className="gradient add" onClick={addTranslation}>Додати новий переклад</p>
             </div>
             <DeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} remove={remove}/>
             <AnimatePresence mode="wait">

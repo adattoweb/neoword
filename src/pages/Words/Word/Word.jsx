@@ -5,10 +5,24 @@ import { useState } from "react"
 import { readLocal } from "../../../helpers/readLocal"
 
 export default function Word({ ID, wordObj, search, searchBy, bookID, words, setWords, selected }) {
-    console.log(wordObj)
+    if(wordObj.translation){
+        console.log("+")
+        const bookObject = readLocal(`neoword-item-${bookID}`)
+        const newWordObject = {
+            word: wordObj.word,
+            translations: [wordObj.translation],
+            time: wordObj.time,
+            isDifficult: wordObj.isDifficult,
+            sentences: wordObj.sentences,
+        }
+        bookObject.words[ID] = newWordObject
+        localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(bookObject))
+
+        wordObj.translations = [wordObj.translation]
+    }
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const [word, setWord] = useState(wordObj.word)
-    const [translation, setTranslation] = useState(wordObj.translation)
+    const [translations, setTranslations] = useState(wordObj.translations)
     const time = wordObj.time
     const [isDifficult, setIsDifficult] = useState(wordObj.isDifficult)
     const [sentences, setSentences] = useState(wordObj.sentences)
@@ -18,13 +32,13 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
     const [isListOpen, setIsListOpen] = useState(false)
 
     function switchDifficult() {
-        editWord(word, translation, !isDifficult)
+        editWord(word, translations, !isDifficult)
     }
-    function editWord(newWord, newTranslation, newIsDifficult = isDifficult) {
+    function editWord(newWord, newTranslations, newIsDifficult = isDifficult) {
         const bookObject = readLocal(`neoword-item-${bookID}`)
         const newWordObject = {
             word: newWord,
-            translation: newTranslation,
+            translations: newTranslations,
             time: time,
             isDifficult: newIsDifficult,
             sentences: sentences,
@@ -33,7 +47,7 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
         localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(bookObject))
 
         setWord(newWord)
-        setTranslation(newTranslation)
+        setTranslations(newTranslations)
         setIsDifficult(newIsDifficult)
     }
     function remove(){
@@ -44,16 +58,18 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
     }
     const date = new Date(time)
     if((searchBy.toLowerCase() === "original" || searchBy.toLowerCase() === "unknown") && !word.toLowerCase().includes(search.toLowerCase())) return
-    if(searchBy.toLowerCase() === "translation" && !translation.toLowerCase().includes(search.toLowerCase())) return
+    if(searchBy.toLowerCase() === "translation" && !translations.map(el => el.toLowerCase()).includes(search.toLowerCase())) return
     if((selected === "Difficult" && !isDifficult) || (selected === "Easy" && isDifficult)) return
+
+    console.log(translations)
     return (
         <div className="word gradient" onClick={() => setIsOpen(true)}>
-            <EditModal isOpen={isOpen} words={words} setIsOpen={setIsOpen} editWord={editWord} oldWord={word} oldTranslation={translation} oldIsDifficult={isDifficult} remove={remove}/>
-            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translation={translation} time={time} isDifficult={isDifficult} sentences={sentences} bookID={bookID} remove={remove}/>
+            <EditModal isOpen={isOpen} words={words} setIsOpen={setIsOpen} editWord={editWord} oldWord={word} oldTranslations={translations} oldIsDifficult={isDifficult} remove={remove}/>
+            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translations={translations} time={time} isDifficult={isDifficult} sentences={sentences} bookID={bookID} remove={remove}/>
             <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen} ID={ID} bookID={bookID} sentences={sentences} setSentences={setSentences}/>
             <div className="word__text">
                 <p className="word__word">{word}</p>
-                <p className="word__translate">{translation}</p>
+                <p className="word__translate">{translations.join(" | ")}</p>
             </div>
             <div className="word__footer">
                 <div className="word__left">

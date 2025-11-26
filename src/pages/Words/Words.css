@@ -298,3 +298,14 @@
     background-color: rgba(255,255,255,0.2);
     border-radius: 5px;
 }
+
+.translation{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.translation__cross{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

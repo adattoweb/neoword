@@ -19,7 +19,7 @@ export default function LibraryModal({ isOpen, setIsOpen, setBooks }) {
         const forbidden = /[\^@$[\]{}"]/;
         if (forbidden.test(name)) {
             disableError();
-            setError(isEn ? "Remove forbidden characters (^ @ $ [ ] { } \")" : "Приберіть заборонені символи (^ @ $ [ ] { } \")");
+            setError(isEn ? "Remove forbidden characters (^@$[]{}\")" : "Приберіть заборонені символи (^@$[]{}\")");
             return;
         }
         if(name.length === 0){
@@ -40,7 +40,7 @@ export default function LibraryModal({ isOpen, setIsOpen, setBooks }) {
         const data = {
             name,
             timestamp: now,
-            words: {} // word, translation, sentences
+            words: {}
           }
         localStorage.setItem(`neoword-item-${id}`, JSON.stringify(data))
 
