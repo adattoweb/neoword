@@ -12,7 +12,7 @@ export default function RecycleBin({ setRecycle }){
         <div className="library content">
             <Back onClick={() => setRecycle(false)}/>
             <div className="library__list slide">
-                {!books.length && <p className="empty">{isEn ? "There are no deleted dictionaries." : "Немає видалених словників ;)"} 🥳</p>}
+                {!books.length && <p className="empty">{isEn ? "There are no deleted dictionaries" : "Немає видалених словників"} 🥳</p>}
                 {books.map(el => <RecycleItem key={el} bookID={el} books={books} setBooks={setBooks} />)}
             </div>
         </div>
