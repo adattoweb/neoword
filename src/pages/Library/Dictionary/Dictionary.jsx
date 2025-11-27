@@ -8,12 +8,27 @@ export default function Dictionary({ bookID, setBookID, books, setBooks }){
     const isEn = localStorage.getItem("neoword-lang") === "en"
 
     const book = readLocal(`neoword-item-${bookID}`)
-    const [oldName, setOldName] = useState(book.name)
+    const [name, setName] = useState(book.name)
     const [isOpen, setIsOpen] = useState(false)
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
 
-    const words = book.words
-    const count = Object.keys(words).length
+    let words = book.words
+
+    if(name.toLowerCase() === "dev" && Object.keys(words).some(key => words[key].word)){
+        console.log("+++")
+        const newWords = {}
+        Object.keys(words).map(key => {
+            const firstLetter = words[key].word[0].toLowerCase()
+            if(!newWords[firstLetter]) newWords[firstLetter] = {}
+            newWords[firstLetter][key] = words[key]
+        })
+        
+        book.words = newWords
+        localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
+    }
+    const onlyWords = {}
+    Object.keys(words).map(letter => Object.keys(words[letter]).map(key => onlyWords[key] = words[letter][key]))
+    const count = Object.keys(onlyWords).length
     function remove(){
         const newBooks = [...books.filter(el => el !== bookID)]
         localStorage.setItem("neoword-books", JSON.stringify(newBooks))
@@ -25,12 +40,12 @@ export default function Dictionary({ bookID, setBookID, books, setBooks }){
     }
     return (
         <div className="dictionary gradient" onClick={() => setBookID(bookID)}>
-            <DictionaryModal bookID={bookID} oldName={oldName} setOldName={setOldName} isOpen={isOpen} setIsOpen={setIsOpen} setIsDeleteOpen={setIsDeleteOpen}/>
+            <DictionaryModal bookID={bookID} oldName={name} setOldName={setName} isOpen={isOpen} setIsOpen={setIsOpen} setIsDeleteOpen={setIsDeleteOpen}/>
             <DeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} remove={remove}/>
             <div className="dictionary__paper"></div>
             <div className="dictionary__content gradient">
                 <div className="dictionary__text">
-                    <h4 className="dictionary__header">{oldName}</h4>
+                    <h4 className="dictionary__header">{name}</h4>
                     <p className="dictionary__words">{count} {isEn ? "words" : "слів"}</p>
                 </div>
                 <div className="dictionary__footer" onClick={(e) => e.preventDefault()}>

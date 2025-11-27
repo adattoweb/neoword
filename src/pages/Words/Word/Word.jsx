@@ -31,11 +31,14 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
     const [isMoveOpen, setIsMoveOpen] = useState(false)
     const [isListOpen, setIsListOpen] = useState(false)
 
+    const firstLetter = word[0].toLowerCase()
+
     function switchDifficult() {
         editWord(word, translations, !isDifficult)
     }
     function editWord(newWord, newTranslations, newIsDifficult = isDifficult) {
         const bookObject = readLocal(`neoword-item-${bookID}`)
+        const newFirstLetter = newWord[0].toLowerCase()
         const newWordObject = {
             word: newWord,
             translations: newTranslations,
@@ -43,7 +46,9 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
             isDifficult: newIsDifficult,
             sentences: sentences,
         }
-        bookObject.words[ID] = newWordObject
+        if(firstLetter !== newFirstLetter) delete bookObject.words[firstLetter][ID]
+        if(!bookObject.words[newFirstLetter]) bookObject.words[newFirstLetter] = {}
+        bookObject.words[newFirstLetter][ID] = newWordObject
         localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(bookObject))
 
         setWord(newWord)
@@ -52,7 +57,7 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
     }
     function remove(){
         const bookObject = readLocal(`neoword-item-${bookID}`)
-        delete bookObject.words[ID]
+        delete bookObject.words[firstLetter][ID]
         localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(bookObject))
         setWords(bookObject.words)
     }
@@ -61,12 +66,11 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
     if(searchBy.toLowerCase() === "translation" && !translations.map(el => el.toLowerCase()).includes(search.toLowerCase())) return
     if((selected === "Difficult" && !isDifficult) || (selected === "Easy" && isDifficult)) return
 
-    console.log(translations)
     return (
         <div className="word gradient" onClick={() => setIsOpen(true)}>
             <EditModal isOpen={isOpen} words={words} setIsOpen={setIsOpen} editWord={editWord} oldWord={word} oldTranslations={translations} oldIsDifficult={isDifficult} remove={remove}/>
-            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translations={translations} time={time} isDifficult={isDifficult} sentences={sentences} bookID={bookID} remove={remove}/>
-            <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen} ID={ID} bookID={bookID} sentences={sentences} setSentences={setSentences}/>
+            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translations={translations} time={time} isDifficult={isDifficult} sentences={sentences} bookID={bookID} remove={remove} firstLetter={firstLetter}/>
+            <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen} ID={ID} bookID={bookID} sentences={sentences} setSentences={setSentences} firstLetter={firstLetter}/>
             <div className="word__text">
                 <p className="word__word">{word}</p>
                 <div className="word__translations">

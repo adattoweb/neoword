@@ -9,6 +9,7 @@ import WordsHeader from "./Wordsheader"
 
 export default function Words({ bookID, setBookID, setGame }){
     const [words, setWords] = useState(readLocal(`neoword-item-${bookID}`).words)
+    console.log(words)
     
     const [isOpen, setIsOpen] = useState(false)
     function WordAdd(){
@@ -24,9 +25,10 @@ export default function Words({ bookID, setBookID, setGame }){
     const [searchBy, setSearchBy] = useState("unknown")
     const [selected, setSelected] = useState("All")
 
-    function sortWords(){
+    const sortedKeys = Object.keys(words).sort()
+    const onlyWords = {}
+    sortedKeys.map(letter => Object.keys(words[letter]).map(key => onlyWords[key] = words[letter][key]))
 
-    }
     return (
         <div className="words content">
             <Back onClick={() => setBookID(false)}/>
@@ -34,7 +36,7 @@ export default function Words({ bookID, setBookID, setGame }){
             <AddModal isOpen={isOpen} setIsOpen={setIsOpen} words={words} setWords={setWords} onlyWords={words} bookID={bookID}/>
             <div className="words__list slide">
                 <WordAdd/>
-                {Object.keys(words).map(key => <Word key={words[key].word} ID={key} wordObj ={words[key]} search={search} searchBy={searchBy} bookID={bookID} onlyWords={words} words={words} setWords={setWords} selected={selected}/>)}
+                {sortedKeys.map(letter => Object.keys(words[letter]).map(key => <Word key={words[letter][key].word} ID={key} wordObj ={words[letter][key]} search={search} searchBy={searchBy} bookID={bookID} words={onlyWords} setWords={setWords} selected={selected}/>))}
             </div>
         </div>
     )

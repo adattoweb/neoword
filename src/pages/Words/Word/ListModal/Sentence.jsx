@@ -1,9 +1,9 @@
 import { readLocal } from "../../../../helpers/readLocal"
 import { useState } from "react"
 
-export default function Sentence({ index, bookID, sentences, removeSentence, ID }){
+export default function Sentence({ index, bookID, sentences, removeSentence, ID, firstLetter }){
     const localBook = readLocal(`neoword-item-${bookID}`)
-    const [value, setValue] = useState(localBook.words[ID].sentences[index])
+    const [value, setValue] = useState(localBook.words[firstLetter][ID].sentences[index])
 
     function editSentence(newSentence){
         const newSentences = [...sentences]
@@ -11,7 +11,7 @@ export default function Sentence({ index, bookID, sentences, removeSentence, ID 
         setValue(newSentence)
 
         const book = readLocal(`neoword-item-${bookID}`)
-        book.words[ID].sentences = newSentences
+        book.words[firstLetter][ID].sentences = newSentences
         localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
     }
 

@@ -49,7 +49,10 @@ export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
         }
         const book = readLocal(`neoword-item-${bookID}`)
         const words = book.words
-        if(Object.keys(words).find(key => words[key].word === word)){
+        const firstLetter = word[0].toLowerCase()
+        console.log(Object.keys(words))
+        if(Object.keys(words).includes(firstLetter)) console.log(Object.values(words[firstLetter]).some(el => el.word === word))
+        if(Object.keys(words).includes(firstLetter) && Object.values(words[firstLetter]).some(el => el.word === word) ){
             disableError()
             setError(isEn ? "This word already exists" : "Таке слово вже існує")
             setErrorID(1)
@@ -58,7 +61,8 @@ export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
         const now = new Date()
         const id = +localStorage.getItem("neoword-index")
         localStorage.setItem("neoword-index", id+1)
-        book.words[id] = {
+        if(!book.words[firstLetter]) book.words[firstLetter] = {}
+        book.words[firstLetter][id] = {
             word: word,
             translations: translations,
             time: now.getTime(),
@@ -73,8 +77,6 @@ export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
         setWord("")
         setTranslations([""])
         setIsOpen(false)
-        console.log(newWords)
-        console.log(book)
     }
 
     function addTranslation(){
