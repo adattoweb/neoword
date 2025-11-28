@@ -5,7 +5,7 @@ import AddModal from "./AddModal"
 import Word from "./Word/Word"
 import { readLocal } from "../../helpers/readLocal"
 import Back from "../../components/Back/Back"
-import WordsHeader from "./Wordsheader"
+import WordsHeader from "./WordsHeader"
 
 export default function Words({ bookID, setBookID, setGame }){
     const [words, setWords] = useState(readLocal(`neoword-item-${bookID}`).words)
