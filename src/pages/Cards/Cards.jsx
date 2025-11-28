@@ -14,7 +14,10 @@ export default function Cards({ bookID, game, setGame }){
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const book = readLocal(`neoword-item-${bookID}`)
     const words = book.words
-    const wordsKeys = Object.keys(book.words)
+    const sortedKeys = Object.keys(words).sort()
+    const onlyWords = {}
+    sortedKeys.map(letter => Object.keys(words[letter]).map(key => onlyWords[key] = words[letter][key]))
+    const wordsKeys = Object.keys(onlyWords)
     const [id, setId] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
     const bads = useRef(0)
@@ -38,11 +41,11 @@ export default function Cards({ bookID, game, setGame }){
             const audio = new Audio(wordForgot)
             audio.play();
             bads.current++
-            badWords.current.push(words[wordsKeys[id]].word)
+            badWords.current.push(onlyWords[wordsKeys[id]].word)
         }
         setId(prev => prev + 1)
     }
-    const date = new Date(words[wordsKeys[id]].time)
+    const date = new Date(onlyWords[wordsKeys[id]].time)
     function KnowFooter() {
         return (
             <div className="cardsfooter">
@@ -54,7 +57,7 @@ export default function Cards({ bookID, game, setGame }){
     function InputFooter() {
         const [word, setWord] = useState("")
         const inputRef = useRef()
-        const translations = words[wordsKeys[id]].translations
+        const translations = onlyWords[wordsKeys[id]].translations
         useEffect(() =>{
             if(id === wordsKeys.length){
                 setIsOpen(true)
@@ -89,12 +92,12 @@ export default function Cards({ bookID, game, setGame }){
             <div className={isRotate ? "card rotate" : "card"} onClick={() => setIsRotate(prev => !prev)}>
                 <div className="card__inner">
                     <div className="card__front gradient">
-                        <p className="card__word">{wordsKeys[id] ? words[wordsKeys[id]].word : words[wordsKeys[id - 1]].word}</p>
+                        <p className="card__word">{wordsKeys[id] ? onlyWords[wordsKeys[id]].word : onlyWords[wordsKeys[id - 1]].word}</p>
                         <p className="card__date">{`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`}</p>
                     </div>
                     <div className="card__back gradient">
                         <div className="word__translations">
-                            {words[wordsKeys[id]].translations.map((el, index) => <div key={index} className="word__translate">{el}</div>)}
+                            {onlyWords[wordsKeys[id]].translations.map((el, index) => <div key={index} className="word__translate">{el}</div>)}
                         </div>
                     </div>
                 </div>
