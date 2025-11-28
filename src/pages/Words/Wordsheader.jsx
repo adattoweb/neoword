@@ -37,7 +37,7 @@ export default function WordsHeader({ setGame, selected, setSelected, searchBy, 
                     <input type="text" className="wordsfind__input" placeholder={isEn ? "Search your word" : "Пошук слова"} value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
                 <div className="wordsfilter">
-                    <Dropdown name={searchBy === "unknown" ? isEn ? "Search by" : "Шукати за" : !isEn ? ((searchBy === "original" && "Оригінал") || (searchBy === "translation" && "Переклад")) : searchBy}>
+                    <Dropdown name={searchBy === "unknown" ? isEn ? "Search by" : "Шукати за" : !isEn ? ((searchBy === "original" && "Оригінал") || (searchBy === "translation" && "Переклад")) : searchBy === "original" ? "Original" : "Translation"}>
                         <p onClick={() => setSearchBy("original")}>{isEn ? "Original" : "Оригінал"}</p>
                         <p onClick={() => setSearchBy("translation")}>{isEn ? "Translation" : "Переклад"}</p>
                     </Dropdown>
