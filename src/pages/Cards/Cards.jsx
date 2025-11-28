@@ -9,27 +9,30 @@ import { motion } from "framer-motion"
 import { readLocal } from "../../helpers/readLocal"
 
 import Back from "../../components/Back/Back"
+import { random } from "../../helpers/random"
 
 export default function Cards({ bookID, game, setGame }){
     const isEn = localStorage.getItem("neoword-lang") === "en"
     const book = readLocal(`neoword-item-${bookID}`)
     const words = book.words
     const sortedKeys = Object.keys(words).sort()
+    const wordsKeys = []
+    sortedKeys.map(letter => Object.keys(words[letter]).map(key => wordsKeys.push(key)))
     const onlyWords = {}
     sortedKeys.map(letter => Object.keys(words[letter]).map(key => onlyWords[key] = words[letter][key]))
-    const wordsKeys = Object.keys(onlyWords)
-    const [id, setId] = useState(0)
+    const rand = useRef(random(0, wordsKeys.length))
+    const [id, setId] = useState(rand.current)
     const [isOpen, setIsOpen] = useState(false)
     const bads = useRef(0)
     const badWords = useRef([])
     const rights = useRef(0)
     const screenWidth = window.innerWidth
     const maxWidth = screenWidth > 230 && screenWidth > 700 ?  400 : screenWidth > 350 ? 300 : 230;
-    console.log(maxWidth, screenWidth)
+    // console.log(maxWidth, screenWidth)
     let width = maxWidth * (id / wordsKeys.length)
     function incrementId(isRight){
-        console.log(id + 1)
-        if(id + 1 >= wordsKeys.length){
+        console.log("====")
+        if((id + 1) % wordsKeys.length === rand.current){
             setIsOpen(true)
             setId(id-1)
         }
@@ -43,7 +46,7 @@ export default function Cards({ bookID, game, setGame }){
             bads.current++
             badWords.current.push(onlyWords[wordsKeys[id]].word)
         }
-        setId(prev => prev + 1)
+        setId(prev => (prev + 1) % wordsKeys.length)
     }
     const date = new Date(onlyWords[wordsKeys[id]].time)
     function KnowFooter() {
@@ -64,11 +67,11 @@ export default function Cards({ bookID, game, setGame }){
                 inputRef.current.disabled = true;
             }
             if(translations.some(el => el.toLowerCase() === word.toLowerCase())){
-                if(id + 1 < wordsKeys.length) setId(prev => prev + 1)
+                setId(prev => (prev + 1) % wordsKeys.length)
                 rights.current++;
                 const audio = new Audio(wordKnowed)
                 audio.play();
-                if(id + 1 >= wordsKeys.length){
+                if((id + 1) % wordsKeys.length === rand.current){
                     setIsOpen(true)
                     return
                 }

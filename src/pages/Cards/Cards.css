@@ -57,8 +57,21 @@
     margin-top: 5px;
     height: 15px;
     border-radius: 10px;
-    background-color: #f1f1f1;
+    background-color: #dfe7ff;
 }
+#root.red .cardsprogress{
+    background-color: #ffdbdb !important;
+}
+#root.orange .cardsprogress{
+    background-color: #ffe7c7 !important;
+}
+#root.green .cardsprogress{
+    background-color: #d9f3d3 !important;
+}
+#root.purple .cardsprogress{
+    background-color: #f7dbff !important;
+}
+
 .cardsprogress__fill{
     border-radius: 10px;
     height: 100%;

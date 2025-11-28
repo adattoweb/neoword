@@ -13,7 +13,6 @@ export default function WordModal({ isOpen, setIsOpen, game, setGame, bads, righ
             }, 3000);
         }
     }
-    console.log(bads, rights)
     return (
         <Modal isOpen={isOpen} onClose={() => {setIsOpen(false); setGame(false)}} className="movemodal endmodal">
             <div className="modal__header">
