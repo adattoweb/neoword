@@ -63,7 +63,7 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
     }
     const date = new Date(time)
     if((searchBy.toLowerCase() === "original" || searchBy.toLowerCase() === "unknown") && !word.toLowerCase().includes(search.toLowerCase())) return
-    if(searchBy.toLowerCase() === "translation" && !translations.map(el => el.toLowerCase()).includes(search.toLowerCase())) return
+    if(searchBy.toLowerCase() === "translation" && !translations.some(el => el.toLowerCase().includes(search.toLowerCase()))) return
     if((selected === "Difficult" && !isDifficult) || (selected === "Easy" && isDifficult)) return
 
     return (
