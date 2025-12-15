@@ -4,10 +4,11 @@ import { motion, AnimatePresence } from "framer-motion"
 
 import DeleteModal from "../../Library/Dictionary/DeleteModal"
 import TranslationInput from "../TranslationInput"
+import { useLangStore } from "../../../stores/useLangStore"
 
 export default function EditModal({ words, isOpen, setIsOpen, editWord, oldWord, oldTranslations, oldIsDifficult, remove }) {
 
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
 

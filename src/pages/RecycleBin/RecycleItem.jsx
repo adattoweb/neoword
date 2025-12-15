@@ -2,9 +2,10 @@ import { useState } from "react"
 import { readLocal } from "../../helpers/readLocal"
 import RecycleModal from "./RecycleModal"
 import DeleteModal from "../Library/Dictionary/DeleteModal"
+import { useLangStore } from "../../stores/useLangStore"
 
 export default function RecycleItem({ bookID, books, setBooks }){
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
 
     const book = readLocal(`neoword-item-${bookID}`)
     const [isOpen, setIsOpen] = useState(false)

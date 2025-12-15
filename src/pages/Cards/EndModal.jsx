@@ -1,8 +1,9 @@
 import Modal from "../../components/Modal/Modal"
 import { useState } from "react"
+import { useLangStore } from "../../stores/useLangStore"
 
 export default function WordModal({ isOpen, setIsOpen, game, setGame, bads, rights, badWords }) {
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
     const [isCopied, setIsCopied] = useState(false)
     function copyWords(){
         navigator.clipboard.writeText(badWords.join(", "))

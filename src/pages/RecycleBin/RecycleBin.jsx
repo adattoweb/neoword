@@ -4,9 +4,10 @@ import "../Library/Library.css"
 
 import RecycleItem from "./RecycleItem"
 import Back from "../../components/Back/Back"
+import { useLangStore } from "../../stores/useLangStore"
 
 export default function RecycleBin({ setRecycle }){
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
     const [books, setBooks] = useState(readLocal("neoword-recycle"))
     return (
         <div className="library content">

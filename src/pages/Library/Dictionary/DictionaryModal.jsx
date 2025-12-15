@@ -2,9 +2,10 @@ import Modal from "../../../components/Modal/Modal"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../../helpers/readLocal"
+import { useLangStore } from "../../../stores/useLangStore"
 
 export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, setIsOpen, setIsDeleteOpen }) {
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
     const [name, setName] = useState(oldName)
     const [error, setError] = useState(false)
     const books = readLocal("neoword-books")

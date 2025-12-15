@@ -1,12 +1,14 @@
 import Dropdown from "../Dropdown/Dropdown"
 import { useState } from "react"
 import "./Header.css"
+import { useLangStore } from "../../stores/useLangStore"
 
-export default function Header({ isEn, setIsEn, bookName }){
+export default function Header({ bookName }){
+    const isEn = useLangStore(state => state.isEn)
+    const setIsEn = useLangStore(state => state.setIsEn)
+
     function changeLang(){
-        localStorage.setItem("neoword-lang", !isEn ? "en" : "ua")
         setIsEn(!isEn)
-        console.log(!isEn)
     }
     const localTheme = localStorage.getItem("neoword-theme")
     const [selected, setSelected] = useState(localTheme)

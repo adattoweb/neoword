@@ -1,7 +1,9 @@
 import { readLocal } from "../../../../helpers/readLocal"
 import { useState } from "react"
+import { useBookStore } from "../../../../stores/useBookStore"
 
-export default function Sentence({ index, bookID, sentences, removeSentence, ID, firstLetter }){
+export default function Sentence({ index, sentences, removeSentence, ID, firstLetter }){
+    const bookID = useBookStore(state => state.bookID)
     const localBook = readLocal(`neoword-item-${bookID}`)
     const [value, setValue] = useState(localBook.words[firstLetter][ID].sentences[index])
 

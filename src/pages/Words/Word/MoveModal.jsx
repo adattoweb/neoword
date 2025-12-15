@@ -2,9 +2,12 @@ import Modal from "../../../components/Modal/Modal"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../../helpers/readLocal"
+import { useBookStore } from "../../../stores/useBookStore"
+import { useLangStore } from "../../../stores/useLangStore"
 
-export default function MoveModal({ isOpen, setIsOpen, ID, word, translations, time, isDifficult, sentences, bookID, remove, firstLetter }) {
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+export default function MoveModal({ isOpen, setIsOpen, ID, word, translations, time, isDifficult, sentences, remove, firstLetter }) {
+    const isEn = useLangStore(state => state.isEn)
+    const bookID = useBookStore(state => state.bookID)
     const [selectedID, setSelectedID] = useState(false)
     const [error, setError] = useState(false)
     function disableError(){

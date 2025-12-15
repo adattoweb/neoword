@@ -10,9 +10,16 @@ import { readLocal } from "../../helpers/readLocal"
 
 import Back from "../../components/Back/Back"
 import { random } from "../../helpers/random"
+import { useBookStore } from "../../stores/useBookStore"
+import { useGameStore } from "../../stores/useGameStore"
+import { useLangStore } from "../../stores/useLangStore"
 
-export default function Cards({ bookID, game, setGame }){
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+export default function Cards(){
+    const game = useGameStore(state => state.game)
+    const setGame = useGameStore(state => state.setGame)
+
+    const isEn = useLangStore(state => state.isEn)
+    const bookID = useBookStore(state => state.bookID)
     const book = readLocal(`neoword-item-${bookID}`)
     const words = book.words
     const sortedKeys = Object.keys(words).sort()

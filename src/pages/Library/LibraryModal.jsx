@@ -3,9 +3,10 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 import { readLocal } from "../../helpers/readLocal"
+import { useLangStore } from "../../stores/useLangStore"
 
 export default function LibraryModal({ isOpen, setIsOpen, setBooks }) {
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
     const [name, setName] = useState("")
     const [error, setError] = useState(false)
     function disableError(){

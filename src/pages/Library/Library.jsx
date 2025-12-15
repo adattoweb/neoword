@@ -3,8 +3,11 @@ import { useState } from "react"
 import LibraryModal from "./LibraryModal"
 import Dictionary from "./Dictionary/Dictionary"
 import { readLocal } from "../../helpers/readLocal"
+import { useBookStore } from "../../stores/useBookStore"
 
-export default function Library({ setBookID, setRecycle }) {
+export default function Library({ setRecycle }) {
+
+    const setBookID = useBookStore(state => state.setBookID)
     
     const [isOpen, setIsOpen] = useState(false)
     const [books, setBooks] = useState(readLocal("neoword-books"))
@@ -40,7 +43,7 @@ export default function Library({ setBookID, setRecycle }) {
         <div className="library content">
             <LibraryModal isOpen={isOpen} setIsOpen={setIsOpen} setBooks={setBooks}/>
             <div className="library__list slide">
-                {books.map(el => <Dictionary key={el} bookID={el} setBookID={setBookID} books={books} setBooks={setBooks}/>)}
+                {books.map(el => <Dictionary key={el} bookID={el} books={books} setBooks={setBooks}/>)}
                 <DictionaryAdd/>
                 <RecycleBin/>
             </div>

@@ -3,10 +3,15 @@ import MoveModal from "./MoveModal"
 import ListModal from "./ListModal/ListModal"
 import { useState } from "react"
 import { readLocal } from "../../../helpers/readLocal"
+import { useBookStore } from "../../../stores/useBookStore"
+import { useLangStore } from "../../../stores/useLangStore"
+import { useWordsStore } from "../../../stores/useWordsStore"
 
-export default function Word({ ID, wordObj, search, searchBy, bookID, words, setWords, selected }) {
+export default function Word({ ID, wordObj, search, searchBy, words, selected }) {
+    const bookID = useBookStore(state => state.bookID)
+    const setWords = useWordsStore(state => state.setWords)
+
     if(wordObj.translation){
-        console.log("+")
         const bookObject = readLocal(`neoword-item-${bookID}`)
         const newWordObject = {
             word: wordObj.word,
@@ -20,7 +25,7 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
 
         wordObj.translations = [wordObj.translation]
     }
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
     const [word, setWord] = useState(wordObj.word)
     const [translations, setTranslations] = useState(wordObj.translations)
     const time = wordObj.time
@@ -69,8 +74,8 @@ export default function Word({ ID, wordObj, search, searchBy, bookID, words, set
     return (
         <div className="word gradient" onClick={() => setIsOpen(true)}>
             <EditModal isOpen={isOpen} words={words} setIsOpen={setIsOpen} editWord={editWord} oldWord={word} oldTranslations={translations} oldIsDifficult={isDifficult} remove={remove}/>
-            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translations={translations} time={time} isDifficult={isDifficult} sentences={sentences} bookID={bookID} remove={remove} firstLetter={firstLetter}/>
-            <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen} ID={ID} bookID={bookID} sentences={sentences} setSentences={setSentences} firstLetter={firstLetter}/>
+            <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translations={translations} time={time} isDifficult={isDifficult} sentences={sentences} remove={remove} firstLetter={firstLetter}/>
+            <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen} ID={ID} sentences={sentences} setSentences={setSentences} firstLetter={firstLetter}/>
             <div className="word__text">
                 <p className="word__word">{word}</p>
                 <div className="word__translations">

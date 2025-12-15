@@ -1,15 +1,26 @@
 import "./Words.css"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AddModal from "./AddModal"
 import Word from "./Word/Word"
-import { readLocal } from "../../helpers/readLocal"
 import Back from "../../components/Back/Back"
 import WordsHeader from "./WordsHeader"
+import { useBookStore } from "../../stores/useBookStore"
+import { useWordsStore } from "../../stores/useWordsStore"
+import { readLocal } from "../../helpers/readLocal"
 
-export default function Words({ bookID, setBookID, setGame }){
-    const [words, setWords] = useState(readLocal(`neoword-item-${bookID}`).words)
-    console.log(words)
+export default function Words(){
+    const bookID = useBookStore(state => state.bookID)
+    const setBookID = useBookStore(state => state.setBookID)
+
+    const words = useWordsStore(state => state.words)
+    const setWords = useWordsStore(state => state.setWords)
+    
+    useEffect(() => {
+        setWords(readLocal(`neoword-item-${bookID}`).words)
+    }, [bookID])
+
+    console.log(words, bookID)
     
     const [isOpen, setIsOpen] = useState(false)
     function WordAdd(){
@@ -32,11 +43,11 @@ export default function Words({ bookID, setBookID, setGame }){
     return (
         <div className="words content">
             <Back onClick={() => setBookID(false)}/>
-            <WordsHeader setGame={setGame} selected={selected} setSelected={setSelected} searchBy={searchBy} setSearchBy={setSearchBy} search={search} setSearch={setSearch} words={words}/> 
-            <AddModal isOpen={isOpen} setIsOpen={setIsOpen} words={words} setWords={setWords} onlyWords={words} bookID={bookID}/>
+            <WordsHeader selected={selected} setSelected={setSelected} searchBy={searchBy} setSearchBy={setSearchBy} search={search} setSearch={setSearch}/> 
+            <AddModal isOpen={isOpen} setIsOpen={setIsOpen}/>
             <div className="words__list slide">
                 <WordAdd/>
-                {sortedKeys.map(letter => Object.keys(words[letter]).map(key => <Word key={words[letter][key].word} ID={key} wordObj ={words[letter][key]} search={search} searchBy={searchBy} bookID={bookID} words={onlyWords} setWords={setWords} selected={selected}/>))}
+                {sortedKeys.map(letter => Object.keys(words[letter]).map(key => <Word key={words[letter][key].word} ID={key} wordObj ={words[letter][key]} search={search} searchBy={searchBy} words={onlyWords} selected={selected}/>))}
             </div>
         </div>
     )

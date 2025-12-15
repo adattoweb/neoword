@@ -4,9 +4,15 @@ import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../helpers/readLocal"
 
 import TranslationInput from "./TranslationInput"
+import { useBookStore } from "../../stores/useBookStore"
+import { useLangStore } from "../../stores/useLangStore"
+import { useWordsStore } from "../../stores/useWordsStore"
 
-export default function AddModal({ isOpen, setIsOpen, setWords, bookID }) {
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+export default function AddModal({ isOpen, setIsOpen }) {
+    const bookID = useBookStore(state => state.bookID)
+    const setWords = useWordsStore(state => state.setWords)
+
+    const isEn = useLangStore(state => state.isEn)
     const [word, setWord] = useState("")
     const [translations, setTranslations] = useState([""])
     const [error, setError] = useState(false)

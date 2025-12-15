@@ -1,7 +1,12 @@
 import Dropdown from "../../components/Dropdown/Dropdown"
+import { useGameStore } from "../../stores/useGameStore"
+import { useLangStore } from "../../stores/useLangStore"
+import { useWordsStore } from "../../stores/useWordsStore"
 
-export default function WordsHeader({ setGame, selected, setSelected, searchBy, setSearchBy, search, setSearch, words }) {
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+export default function WordsHeader({ selected, setSelected, searchBy, setSearchBy, search, setSearch }) {
+    const isEn = useLangStore(state => state.isEn)
+    const setGame = useGameStore(state => state.setGame)
+    const words = useWordsStore(state => state.words)
     function updateGame(game){
         if(Object.keys(words).length === 0) return
         setGame(game)

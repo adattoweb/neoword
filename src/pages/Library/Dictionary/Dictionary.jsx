@@ -2,12 +2,15 @@ import { useState } from "react"
 import DictionaryModal from "./DictionaryModal"
 import DeleteModal from "./DeleteModal"
 import { readLocal } from "../../../helpers/readLocal"
+import { useLangStore } from "../../../stores/useLangStore"
+import { useBookStore } from "../../../stores/useBookStore"
 
-export default function Dictionary({ bookID, setBookID, books, setBooks }){
-    console.log(bookID)
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+export default function Dictionary({ bookID, books, setBooks }){
+    const isEn = useLangStore(state => state.isEn)
 
     const book = readLocal(`neoword-item-${bookID}`)
+    const setBookID = useBookStore(state => state.setBookID)
+    
     const [name, setName] = useState(book.name)
     const [isOpen, setIsOpen] = useState(false)
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)

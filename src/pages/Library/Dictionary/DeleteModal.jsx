@@ -1,7 +1,8 @@
 import Modal from "../../../components/Modal/Modal"
+import { useLangStore } from "../../../stores/useLangStore"
 
 export default function DeleteModal({ isOpen, setIsOpen, remove }) {
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
             <div className="modal__header">{isEn ? "Are you sure?" : "Ви впевнені?"}</div>

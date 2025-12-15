@@ -4,9 +4,12 @@ import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../../../helpers/readLocal"
 
 import Sentence from "./Sentence"
+import { useBookStore } from "../../../../stores/useBookStore"
+import { useLangStore } from "../../../../stores/useLangStore"
 
-export default function ListModal({ isOpen, setIsOpen, ID, bookID, sentences, setSentences, firstLetter }){
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+export default function ListModal({ isOpen, setIsOpen, ID, sentences, setSentences, firstLetter }){
+    const isEn = useLangStore(state => state.isEn)
+    const bookID = useBookStore(state => state.bookID)
     const [error, setError] = useState("")
     const [sentence, setSentence] = useState("")
 
@@ -59,7 +62,7 @@ export default function ListModal({ isOpen, setIsOpen, ID, bookID, sentences, se
                 {error && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error}</motion.div>}
             </AnimatePresence>
             <div className="sentences">
-                {sentences.map((el, index) => <Sentence key={index} index={index} bookID={bookID} sentences={sentences} removeSentence={removeSentence} ID={ID} firstLetter={firstLetter}/>)}
+                {sentences.map((el, index) => <Sentence key={index} index={index} sentences={sentences} removeSentence={removeSentence} ID={ID} firstLetter={firstLetter}/>)}
             </div>
             <div className="modal__buttons">
                 <div className="modal__button gradient right" onClick={addSentence}>{isEn ? "Add" : "Додати"}</div>

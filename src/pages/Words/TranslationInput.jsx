@@ -1,9 +1,10 @@
 import { useState } from "react"
+import { useLangStore } from "../../stores/useLangStore";
 
 
 export default function TranslationInput({ value, index, disableError, error, setError, errorID, setErrorID, translations, setTranslations, forbidden, }){
     const [translation, setTranslation] = useState(value)
-    const isEn = localStorage.getItem("neoword-lang") === "en"
+    const isEn = useLangStore(state => state.isEn)
     function editTranslation(value){
         if (forbidden.test(value)) {
             disableError();
