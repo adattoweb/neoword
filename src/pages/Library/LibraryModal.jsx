@@ -4,9 +4,12 @@ import { motion, AnimatePresence } from "framer-motion"
 
 import { readLocal } from "../../helpers/readLocal"
 import { useLangStore } from "../../stores/useLangStore"
+import { useBooksStore } from "../../stores/useBooksStore"
 
-export default function LibraryModal({ isOpen, setIsOpen, setBooks }) {
+export default function LibraryModal({ isOpen, setIsOpen }) {
     const isEn = useLangStore(state => state.isEn)
+    const setBooks = useBooksStore(state => state.setBooks)
+
     const [name, setName] = useState("")
     const [error, setError] = useState(false)
     function disableError(){

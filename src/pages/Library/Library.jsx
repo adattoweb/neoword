@@ -2,15 +2,15 @@ import "./Library.css"
 import { useState } from "react"
 import LibraryModal from "./LibraryModal"
 import Dictionary from "./Dictionary/Dictionary"
-import { readLocal } from "../../helpers/readLocal"
 import { useBookStore } from "../../stores/useBookStore"
+import { useBooksStore } from "../../stores/useBooksStore"
 
 export default function Library({ setRecycle }) {
 
     const setBookID = useBookStore(state => state.setBookID)
     
     const [isOpen, setIsOpen] = useState(false)
-    const [books, setBooks] = useState(readLocal("neoword-books"))
+    const books = useBooksStore(state => state.books)
     function DictionaryAdd(){
         return (
             <div className="dictionary gradient plus" onClick={() => setIsOpen(true)}>
@@ -41,9 +41,9 @@ export default function Library({ setRecycle }) {
     }
     return (
         <div className="library content">
-            <LibraryModal isOpen={isOpen} setIsOpen={setIsOpen} setBooks={setBooks}/>
+            <LibraryModal isOpen={isOpen} setIsOpen={setIsOpen}/>
             <div className="library__list slide">
-                {books.map(el => <Dictionary key={el} bookID={el} books={books} setBooks={setBooks}/>)}
+                {books.map(el => <Dictionary key={el} bookID={el}/>)}
                 <DictionaryAdd/>
                 <RecycleBin/>
             </div>

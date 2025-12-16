@@ -4,12 +4,16 @@ import DeleteModal from "./DeleteModal"
 import { readLocal } from "../../../helpers/readLocal"
 import { useLangStore } from "../../../stores/useLangStore"
 import { useBookStore } from "../../../stores/useBookStore"
+import { useBooksStore } from "../../../stores/useBooksStore"
 
-export default function Dictionary({ bookID, books, setBooks }){
+export default function Dictionary({ bookID }){
     const isEn = useLangStore(state => state.isEn)
 
     const book = readLocal(`neoword-item-${bookID}`)
     const setBookID = useBookStore(state => state.setBookID)
+
+    const books = useBooksStore(state => state.books)
+    const setBooks = useBooksStore(state => state.setBooks)
     
     const [name, setName] = useState(book.name)
     const [isOpen, setIsOpen] = useState(false)
