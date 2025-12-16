@@ -1,5 +1,5 @@
 import Modal from "../../../components/Modal/Modal"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../../helpers/readLocal"
 import { useBookStore } from "../../../stores/useBookStore"
@@ -9,18 +9,22 @@ export default function MoveModal({ isOpen, setIsOpen, ID, word, translations, t
     const isEn = useLangStore(state => state.isEn)
     const bookID = useBookStore(state => state.bookID)
     const [selectedID, setSelectedID] = useState(false)
-    const [error, setError] = useState(false)
-    function disableError(){
-        if(!error){
-            setTimeout(() => {
-                setError(false)
-            }, 6000)
+    const [error, setError] = useState({ text: "", id: -1})
+    const errorTimeout = useRef(null);
+
+    useEffect(() => {
+        if (errorTimeout.current) {
+            clearTimeout(errorTimeout.current);
         }
-    }
+        errorTimeout.current = setTimeout(() => {
+            setError({ text: "", id: -1 });
+            errorTimeout.current = null;
+        }, 5000);
+    }, [error])
+
     function moveItem() {
         if(!selectedID) {
-            setError(isEn ? "Select a dictionary" : "Оберіть словник")
-            disableError()
+            setError({ text: isEn ? "Select a dictionary" : "Оберіть словник", id: 1})
         }
         if(bookID === selectedID){
             setIsOpen(false)
@@ -53,7 +57,7 @@ export default function MoveModal({ isOpen, setIsOpen, ID, word, translations, t
                 {books.map(el => <Variant key={el} bookID={el}/>)}
             </div>
             <AnimatePresence mode="wait">
-                {error && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error}</motion.div>}
+                {error.id > 0 && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error.text}</motion.div>}
             </AnimatePresence>
             <div className="modal__buttons one">
                 <div className="modal__button gradient" onClick={moveItem}>{isEn ? "Select" : "Обрати"}</div>

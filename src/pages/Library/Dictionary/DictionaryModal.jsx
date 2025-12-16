@@ -1,5 +1,5 @@
 import Modal from "../../../components/Modal/Modal"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../../helpers/readLocal"
 import { useLangStore } from "../../../stores/useLangStore"
@@ -7,30 +7,32 @@ import { useLangStore } from "../../../stores/useLangStore"
 export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, setIsOpen, setIsDeleteOpen }) {
     const isEn = useLangStore(state => state.isEn)
     const [name, setName] = useState(oldName)
-    const [error, setError] = useState(false)
+    const [error, setError] = useState({ text: "", id: -1})
     const books = readLocal("neoword-books")
-    function disableError(){
-        if(!error){
-            setTimeout(() => {
-                setError(false)
-            }, 6000)
+    const errorTimeout = useRef(null);
+
+    useEffect(() => {
+        if (errorTimeout.current) {
+            clearTimeout(errorTimeout.current);
         }
-    }
+        errorTimeout.current = setTimeout(() => {
+            setError({ text: "", id: -1 });
+            errorTimeout.current = null;
+        }, 5000);
+    }, [error])
+
     function updateElement() {
         const forbidden = /[\^@$[\]{}"]/;
         if (forbidden.test(name)){
-            disableError();
-            setError(isEn ? "Remove forbidden characters (^ @ $ [ ] { } \")" : "Приберіть заборонені символи (^ @ $ [ ] { } \")");
+            setError({ text: isEn ? 'Remove forbidden characters (^ @ $ [ ] { } ")' : 'Приберіть заборонені символи (^ @ $ [ ] { } ")', id: 1 });
             return;
         }
         if(name.length === 0){
-            disableError()
-            setError(isEn ? "Enter the field" : "Заповніть поле")
+            setError({ text: isEn ? "Enter the field" : "Заповніть поле", id: 1 });
             return
         }
         if(books.includes(name) && name !== oldName){
-            disableError()
-            setError(isEn ? "This name already exists" : "Така назва вже існує")
+            setError({ text: isEn ? "This name already exists" : "Така назва вже існує", id: 1 });
             return 
         }
 
@@ -46,10 +48,10 @@ export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, s
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
             <div className="modal__header">{isEn ? "Editing a dictionary" : "Редагування словника"}</div>
             <div className="modal__inputs">
-                <input type="text" placeholder={isEn ? "Name" : "Назва"} className={error ? "modal__input error" : "modal__input"} value={name} onChange={(e) => setName(e.target.value)} />
+                <input type="text" placeholder={isEn ? "Name" : "Назва"} className={error.id > 0 ? "modal__input error" : "modal__input"} value={name} onChange={(e) => setName(e.target.value)} />
             </div>
             <AnimatePresence mode="wait">
-                {error && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error}</motion.div>}
+                {error.id > 0 && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error.text}</motion.div>}
             </AnimatePresence>
             <div className="modal__buttons">
                 <div className="modal__button modal__delete" onClick={() => setIsDeleteOpen(true)}>{isEn ? "Delete" : "Видалити"}</div>

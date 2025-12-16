@@ -4,7 +4,7 @@ import Words from "./pages/Words/Words"
 import Cards from './pages/Cards/Cards'
 import "./styles/animation.css"
 
-import { useEffect, useState } from "react"
+import { useLayoutEffect, useState } from "react"
 import { readLocal } from './helpers/readLocal'
 import RecycleBin from './pages/RecycleBin/RecycleBin'
 import { useBookStore } from './stores/useBookStore'
@@ -21,7 +21,7 @@ export default function App() {
   // localStorage.setItem("neoword-books", "[0]")
   // localStorage.setItem("neoword-index", "6")
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const localTheme = localStorage.getItem("neoword-theme")
     const root = document.getElementById("root")
     root.className = ""

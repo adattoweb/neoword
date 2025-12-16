@@ -56,6 +56,10 @@
 .header__theme.purple{
     background: linear-gradient(90deg, #ff95f6, #ff34e1);
 }
+
+.header .dropdown {
+    z-index: 1001;
+}
 @media screen and (max-width: 700px) {
     .header__name{
         flex-direction: column;

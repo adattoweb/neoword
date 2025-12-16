@@ -19,8 +19,6 @@ export default function Words(){
     useEffect(() => {
         setWords(readLocal(`neoword-item-${bookID}`).words)
     }, [bookID])
-
-    console.log(words, bookID)
     
     const [isOpen, setIsOpen] = useState(false)
     function WordAdd(){
