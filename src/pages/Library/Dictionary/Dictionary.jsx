@@ -21,7 +21,6 @@ export default function Dictionary({ bookID }){
 
     let words = book.words
 
-    if(name.toLowerCase === "dev") remove()
 
     if(name.toLowerCase() === "dev" && Object.keys(words).some(key => words[key].word)){
         console.log("+++")
