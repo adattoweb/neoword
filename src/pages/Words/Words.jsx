@@ -39,6 +39,7 @@ export default function Words(){
     const sortedKeys = Object.keys(words).sort()
     const onlyWords = {}
     sortedKeys.map(letter => Object.keys(words[letter]).map(key => onlyWords[key] = words[letter][key]))
+    console.log(sortedKeys)
 
     const Word = lazy(() => import("./Word/Word"));
 
@@ -49,7 +50,7 @@ export default function Words(){
             <AddModal isOpen={isOpen} setIsOpen={setIsOpen}/>
             <div className="words__list slide">
                 <WordAdd/>
-                <Suspense fallback={<div>{isEn ? "Loading words..." : "Завантаження слів"}</div>}>
+                <Suspense fallback={<p>{isEn ? "Loading words..." : "Завантаження слів"}</p>}>
                     {sortedKeys.map(letter => Object.keys(words[letter]).map(key => <Word key={words[letter][key].word} ID={key} wordObj ={words[letter][key]} search={search} searchBy={searchBy} words={onlyWords} selected={selected}/>))}
                 </Suspense>
             </div>
