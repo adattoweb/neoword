@@ -1,22 +1,23 @@
 import "./Words.css"
 
-import { useEffect, useState, lazy, Suspense } from "react"
+import { useEffect, useRef, useState } from "react"
 import AddModal from "./AddModal"
 import Back from "../../components/Back/Back"
 import WordsHeader from "./WordsHeader"
 import { useBookStore } from "../../stores/useBookStore"
 import { useWordsStore } from "../../stores/useWordsStore"
 import { readLocal } from "../../helpers/readLocal"
+import Word from "./Word/Word"
 import { useLangStore } from "../../stores/useLangStore"
 
 export default function Words(){
-    const isEn = useLangStore(state => state.isEn)
-
     const bookID = useBookStore(state => state.bookID)
     const setBookID = useBookStore(state => state.setBookID)
 
     const words = useWordsStore(state => state.words)
     const setWords = useWordsStore(state => state.setWords)
+
+    const isEn = useLangStore(state => state.isEn)
     
     useEffect(() => {
         setWords(readLocal(`neoword-item-${bookID}`).words)
@@ -41,7 +42,31 @@ export default function Words(){
     sortedKeys.map(letter => Object.keys(words[letter]).map(key => onlyWords[key] = words[letter][key]))
     console.log(sortedKeys)
 
-    const Word = lazy(() => import("./Word/Word"));
+    const [page, setPage] = useState(1)
+    const visibleKeys = sortedKeys.slice(0, page)
+
+    const loaderRef = useRef(null)
+    const hasMore = visibleKeys.length < sortedKeys.length
+
+    useEffect(() => {
+        if (!loaderRef.current || !hasMore) return
+    
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setPage(prev => prev + 1)
+                }
+            },
+            {
+                rootMargin: "200px",
+            }
+        )
+    
+        observer.observe(loaderRef.current)
+    
+        return () => observer.disconnect()
+    }, [page, hasMore])
+    
 
     return (
         <div className="words content">
@@ -49,10 +74,11 @@ export default function Words(){
             <WordsHeader selected={selected} setSelected={setSelected} searchBy={searchBy} setSearchBy={setSearchBy} search={search} setSearch={setSearch}/> 
             <AddModal isOpen={isOpen} setIsOpen={setIsOpen}/>
             <div className="words__list slide">
-                <WordAdd/>
-                <Suspense fallback={<p>{isEn ? "Loading words..." : "Завантаження слів"}</p>}>
-                    {sortedKeys.map(letter => Object.keys(words[letter]).map(key => <Word key={words[letter][key].word} ID={key} wordObj ={words[letter][key]} search={search} searchBy={searchBy} words={onlyWords} selected={selected}/>))}
-                </Suspense>
+                <WordAdd />
+                {visibleKeys.map(letter => Object.keys(words[letter]).map(key => <Word key={words[letter][key].word} ID={key} wordObj={words[letter][key]} search={search} searchBy={searchBy} words={onlyWords} selected={selected} />))}
+                {hasMore && <div ref={loaderRef} className="words__load">
+                    {isEn ? "Loading..." : "Завантаження..."}
+                </div>}
             </div>
         </div>
     )

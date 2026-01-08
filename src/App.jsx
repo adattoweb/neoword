@@ -24,18 +24,18 @@ export default function App() {
     root.classList.add(localTheme)
   }, [])
 
-  let books = readLocal("neoword-books")
-  for(let i = 0; i < books.length; i++){
-    const index = books[i]
-    const key = `neoword-item-${index}`
-    const book = readLocal(key)
-    console.log(book)
-    if(book?.name?.toLowerCase() === "dev") {
-      localStorage.removeItem(key)
-      books = books.filter(el => el != index)
-      localStorage.setItem("neoword-books", JSON.stringify(books))
-    }
-  }
+  // let books = readLocal("neoword-books")
+  // for(let i = 0; i < books.length; i++){
+  //   const index = books[i]
+  //   const key = `neoword-item-${index}`
+  //   const book = readLocal(key)
+  //   console.log(book)
+  //   if(book?.name?.toLowerCase() === "dev") {
+  //     localStorage.removeItem(key)
+  //     books = books.filter(el => el != index)
+  //     localStorage.setItem("neoword-books", JSON.stringify(books))
+  //   }
+  // }
 
   const bookID = useBookStore(state => state.bookID)
   const game = useGameStore(state => state.game)

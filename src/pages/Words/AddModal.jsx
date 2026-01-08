@@ -58,7 +58,6 @@ export default function AddModal({ isOpen, setIsOpen }) {
         }
         const book = readLocal(`neoword-item-${bookID}`)
         const words = book.words
-        console.log(words)
         const firstLetter = word[0].toLowerCase()
         if(Object.keys(words).includes(firstLetter) && Object.values(words[firstLetter]).some(el => el.word === word) ){
             setError({ text: isEn ? "Adding a new translation" : "Додаю новий переклад", id: 3 });
