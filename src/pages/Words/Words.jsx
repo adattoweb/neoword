@@ -3,7 +3,7 @@ import "./Words.css"
 import { useEffect, useRef, useState } from "react"
 import AddModal from "./AddModal"
 import Back from "../../components/Back/Back"
-import WordsHeader from "./WordsHeader"
+import Header from "./components/Header/Header"
 import { useBookStore } from "../../stores/useBookStore"
 import { useWordsStore } from "../../stores/useWordsStore"
 import { readLocal } from "../../helpers/readLocal"
@@ -71,7 +71,7 @@ export default function Words(){
     return (
         <div className="words content">
             <Back onClick={() => setBookID(false)}/>
-            <WordsHeader selected={selected} setSelected={setSelected} searchBy={searchBy} setSearchBy={setSearchBy} search={search} setSearch={setSearch}/> 
+            <Header selected={selected} setSelected={setSelected} searchBy={searchBy} setSearchBy={setSearchBy} search={search} setSearch={setSearch}/> 
             <AddModal isOpen={isOpen} setIsOpen={setIsOpen}/>
             <div className="words__list slide">
                 <WordAdd />

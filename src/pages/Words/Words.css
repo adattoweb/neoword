@@ -6,9 +6,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 30px;
-}
-.wordsheader__menu{
-    margin-right: auto;
+    flex-wrap: wrap;
 }
 .wordsheader__game{
     width: 35px;
@@ -25,9 +23,25 @@
     width: 26px;
     height: 26px;
 }
+
 .wordsheader__game svg{
     width: 24px;
     height: 24px;
+}
+
+@media screen and (max-width: 300px){
+    .wordsheader__game{
+        width: 30px;
+        height: 30px;
+    }
+    .wordsheader__game svg{
+        width: 22px;
+        height: 22px;
+    }
+    .wordsheader__game:hover svg{
+        width: 24px;
+        height: 24px;
+    }
 }
 .wordsfind__wrapper{
     display: flex;
@@ -252,11 +266,6 @@
     }
 }
 @media screen and (max-width: 700px) {
-    .wordsheader{
-        flex-direction: column-reverse;
-        justify-content: center;
-        align-items: center;
-    }
     .wordsfind{
         width: 180px;
     }
@@ -266,7 +275,7 @@
 }
 @media screen and (max-width: 350px) {
     .wordsfind{
-        width: 120px;
+        width: 140px;
         border-radius: 25px;
     }
     .wordsfind svg{

@@ -35,7 +35,9 @@ export default function Cards(){
     const rights = useRef(0)
     const screenWidth = window.innerWidth
     const maxWidth = screenWidth > 230 && screenWidth > 700 ?  400 : screenWidth > 350 ? 300 : 230;
-    // console.log(maxWidth, screenWidth)
+    
+    console.log(rand.current) 
+
     let width = maxWidth * ((wordsKeys.length - rand.current + id) % wordsKeys.length / wordsKeys.length)
     function incrementId(isRight){
         console.log("====")
@@ -115,6 +117,7 @@ export default function Cards(){
         bads.current = 0
         badWords.current = []
         rights.current = 0
+        rand.current = 0
     }
     return (
         <div className="cards content">

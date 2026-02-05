@@ -60,6 +60,11 @@
 .header .dropdown {
     z-index: 1001;
 }
+
+.without-border{
+    border: none !important;
+    outline: none !important;
+}
 @media screen and (max-width: 700px) {
     .header__name{
         flex-direction: column;
@@ -90,5 +95,13 @@
     }
     .header__name span{
         display: none;
+    }
+}
+@media screen and (max-width: 300px) {
+    .header__name {
+        display: none;
+    }
+    .header {
+        justify-content: flex-end;
     }
 }

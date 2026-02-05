@@ -50,6 +50,9 @@
   .back p{
     font-size: 14px;
   }
+  .content{
+    margin-top: 50px;
+  }
 }
 
 html {
@@ -88,5 +91,6 @@ html {
 }
 ::selection {
   background-color: #000000;
-  color: #ffffff;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #fff !important;
 }

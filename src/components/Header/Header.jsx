@@ -35,7 +35,7 @@ export default function Header({ bookName }){
             <h2 className="header__name"><p>NeoWord</p><span>{bookName}</span></h2>
             <div className="header__right">
                 <p onClick={changeLang} className="header__lang">{isEn ? "UA" : "EN"}</p>
-                <Dropdown name={isEn ? selected : translate(selected)}>
+                <Dropdown name={isEn ? selected : translate(selected)} className="without-border">
                     <div className="header__theme red" onClick={() => selectTheme("red")}></div>
                     <div className="header__theme orange" onClick={() => selectTheme("orange")}></div>
                     <div className="header__theme green" onClick={() => selectTheme("green")}></div>
