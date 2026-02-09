@@ -1,5 +1,5 @@
-import Modal from "../../../components/Modal/Modal"
-import { useLangStore } from "../../../stores/useLangStore"
+import Modal from "@/components/Modal/Modal"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function DeleteModal({ isOpen, setIsOpen, remove }) {
     const isEn = useLangStore(state => state.isEn)

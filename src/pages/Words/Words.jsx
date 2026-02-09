@@ -2,13 +2,13 @@ import "./Words.css"
 
 import { useEffect, useRef, useState } from "react"
 import AddModal from "./AddModal"
-import Back from "../../components/Back/Back"
+import Back from "@/components/Back/Back"
 import Header from "./components/Header/Header"
-import { useBookStore } from "../../stores/useBookStore"
-import { useWordsStore } from "../../stores/useWordsStore"
-import { readLocal } from "../../helpers/readLocal"
+import { useBookStore } from "@/stores/useBookStore"
+import { useWordsStore } from "@/stores/useWordsStore"
+import { readLocal } from "@/helpers/readLocal"
 import Word from "./Word/Word"
-import { useLangStore } from "../../stores/useLangStore"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function Words(){
     const bookID = useBookStore(state => state.bookID)

@@ -1,6 +1,6 @@
-import Modal from "../../components/Modal/Modal"
+import Modal from "@/components/Modal/Modal"
 import { useState } from "react"
-import { useLangStore } from "../../stores/useLangStore"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function WordModal({ isOpen, setIsOpen, game, setGame, bads, rights, badWords }) {
     const isEn = useLangStore(state => state.isEn)

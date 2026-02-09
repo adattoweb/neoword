@@ -1,7 +1,6 @@
-
-import { useGameStore } from "../../../../stores/useGameStore"
-import { useLangStore } from "../../../../stores/useLangStore"
-import { useWordsStore } from "../../../../stores/useWordsStore"
+import { useGameStore } from "@/stores/useGameStore"
+import { useLangStore } from "@/stores/useLangStore"
+import { useWordsStore } from "@/stores/useWordsStore"
 import SearchDropdown from "./SearchDropdown"
 import DifficultDropdown from "./DifficultDropdown"
 

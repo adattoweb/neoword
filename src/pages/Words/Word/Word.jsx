@@ -2,10 +2,10 @@ import EditModal from "./EditModal"
 import MoveModal from "./MoveModal"
 import ListModal from "./ListModal/ListModal"
 import { useState } from "react"
-import { readLocal } from "../../../helpers/readLocal"
-import { useBookStore } from "../../../stores/useBookStore"
-import { useLangStore } from "../../../stores/useLangStore"
-import { useWordsStore } from "../../../stores/useWordsStore"
+import { readLocal } from "@/helpers/readLocal"
+import { useBookStore } from "@/stores/useBookStore"
+import { useLangStore } from "@/stores/useLangStore"
+import { useWordsStore } from "@/stores/useWordsStore"
 
 export default function Word({ ID, wordObj, search, searchBy, words, selected }) {
     const bookID = useBookStore(state => state.bookID)

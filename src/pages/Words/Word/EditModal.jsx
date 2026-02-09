@@ -1,10 +1,10 @@
-import Modal from "../../../components/Modal/Modal"
+import Modal from "@/components/Modal/Modal"
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-import DeleteModal from "../../Library/Dictionary/DeleteModal"
+import DeleteModal from "@/pages/Library/Dictionary/DeleteModal"
 import TranslationInput from "../TranslationInput"
-import { useLangStore } from "../../../stores/useLangStore"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function EditModal({ words, isOpen, setIsOpen, editWord, oldWord, oldTranslations, oldIsDifficult, remove }) {
 

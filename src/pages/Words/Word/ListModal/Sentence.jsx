@@ -1,6 +1,6 @@
-import { readLocal } from "../../../../helpers/readLocal"
+import { readLocal } from "@/helpers/readLocal"
 import { useState } from "react"
-import { useBookStore } from "../../../../stores/useBookStore"
+import { useBookStore } from "@/stores/useBookStore"
 
 export default function Sentence({ index, sentences, removeSentence, ID, firstLetter }){
     const bookID = useBookStore(state => state.bookID)

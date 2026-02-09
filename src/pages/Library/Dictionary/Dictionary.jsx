@@ -1,10 +1,10 @@
 import { useState } from "react"
 import DictionaryModal from "./DictionaryModal"
 import DeleteModal from "./DeleteModal"
-import { readLocal } from "../../../helpers/readLocal"
-import { useLangStore } from "../../../stores/useLangStore"
-import { useBookStore } from "../../../stores/useBookStore"
-import { useBooksStore } from "../../../stores/useBooksStore"
+import { readLocal } from "@/helpers/readLocal"
+import { useLangStore } from "@/stores/useLangStore"
+import { useBookStore } from "@/stores/useBookStore"
+import { useBooksStore } from "@/stores/useBooksStore"
 
 export default function Dictionary({ bookID }){
     const isEn = useLangStore(state => state.isEn)

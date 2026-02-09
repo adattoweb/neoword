@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useLangStore } from "../../stores/useLangStore";
+import { useLangStore } from "@/stores/useLangStore";
 
 
 export default function TranslationInput({ value, index, error, setError, translations, setTranslations, forbidden, }){

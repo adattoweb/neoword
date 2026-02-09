@@ -5,4 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/neoword/',
   plugins: [react()],
+  resolve: {
+    alias: {
+        "@": "/src",
+    },
+},
 })

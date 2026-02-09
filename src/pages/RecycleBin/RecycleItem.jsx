@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { readLocal } from "../../helpers/readLocal"
+import { readLocal } from "@/helpers/readLocal"
 import RecycleModal from "./RecycleModal"
-import DeleteModal from "../Library/Dictionary/DeleteModal"
-import { useLangStore } from "../../stores/useLangStore"
+import DeleteModal from "@/pages/Library/Dictionary/DeleteModal"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function RecycleItem({ bookID, books, setBooks }){
     const isEn = useLangStore(state => state.isEn)

@@ -2,17 +2,17 @@ import "./Cards.css"
 import { useState, useRef, useEffect } from "react"
 import EndModal from "./EndModal"
 
-import wordKnowed from "../../assets/wordKnowed.mp3"
-import wordForgot from "../../assets/wordForgot.mp3"
+import wordKnowed from "@/assets/wordKnowed.mp3"
+import wordForgot from "@/assets/wordForgot.mp3"
 
 import { motion } from "framer-motion"
-import { readLocal } from "../../helpers/readLocal"
+import { readLocal } from "@/helpers/readLocal"
 
-import Back from "../../components/Back/Back"
-import { random } from "../../helpers/random"
-import { useBookStore } from "../../stores/useBookStore"
-import { useGameStore } from "../../stores/useGameStore"
-import { useLangStore } from "../../stores/useLangStore"
+import Back from "@/components/Back/Back"
+import { random } from "@/helpers/random"
+import { useBookStore } from "@/stores/useBookStore"
+import { useGameStore } from "@/stores/useGameStore"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function Cards(){
     const game = useGameStore(state => state.game)

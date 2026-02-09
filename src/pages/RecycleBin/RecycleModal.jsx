@@ -1,5 +1,5 @@
-import Modal from "../../components/Modal/Modal"
-import { useLangStore } from "../../stores/useLangStore"
+import Modal from "@/components/Modal/Modal"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function RecycleModal({ name, isOpen, setIsOpen, setIsDeleteOpen, restore }) {
     const isEn = useLangStore(state => state.isEn)

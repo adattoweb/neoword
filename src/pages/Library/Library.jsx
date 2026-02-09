@@ -2,8 +2,8 @@ import "./Library.css"
 import { useState } from "react"
 import LibraryModal from "./LibraryModal"
 import Dictionary from "./Dictionary/Dictionary"
-import { useBookStore } from "../../stores/useBookStore"
-import { useBooksStore } from "../../stores/useBooksStore"
+import { useBookStore } from "@/stores/useBookStore"
+import { useBooksStore } from "@/stores/useBooksStore"
 
 export default function Library({ setRecycle }) {
 

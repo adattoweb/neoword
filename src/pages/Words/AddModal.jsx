@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { readLocal } from "../../helpers/readLocal"
 
 import TranslationInput from "./TranslationInput"
-import { useBookStore } from "../../stores/useBookStore"
-import { useLangStore } from "../../stores/useLangStore"
-import { useWordsStore } from "../../stores/useWordsStore"
+import { useBookStore } from "@/stores/useBookStore"
+import { useLangStore } from "@/stores/useLangStore"
+import { useWordsStore } from "@/stores/useWordsStore"
 
 export default function AddModal({ isOpen, setIsOpen }) {
     const bookID = useBookStore(state => state.bookID)

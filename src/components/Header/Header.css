@@ -30,13 +30,14 @@
 }
 .header__right{
     display: flex;
-    gap: 30px;
+    gap: 24px;
     justify-content: center;
     align-items: center;
 }
-.header__theme{
-    width: 100%;
-    height: 20px;
+.header .dropdown-btn, .header__theme{
+    height: 25px;
+    width: 50px;
+    outline: none;
 }
 .header__theme:hover{
     opacity: 0.9;
@@ -59,6 +60,10 @@
 
 .header .dropdown {
     z-index: 1001;
+}
+.header .dropdown-content {
+    max-width: max-content;
+    min-width: max-content;
 }
 
 .without-border{
@@ -86,6 +91,10 @@
     }
     .header__right{
         gap: 15px;
+    }
+    .header .dropdown-btn, .header__theme{
+        height: 22px;
+        width: 44px;
     }
 }
 @media screen and (max-width: 400px) {

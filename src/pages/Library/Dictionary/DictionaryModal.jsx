@@ -1,8 +1,8 @@
-import Modal from "../../../components/Modal/Modal"
+import Modal from "@/components/Modal/Modal"
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { readLocal } from "../../../helpers/readLocal"
-import { useLangStore } from "../../../stores/useLangStore"
+import { readLocal } from "@/helpers/readLocal"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, setIsOpen, setIsDeleteOpen }) {
     const isEn = useLangStore(state => state.isEn)

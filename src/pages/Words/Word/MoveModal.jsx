@@ -1,9 +1,9 @@
-import Modal from "../../../components/Modal/Modal"
+import Modal from "@/components/Modal/Modal"
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { readLocal } from "../../../helpers/readLocal"
-import { useBookStore } from "../../../stores/useBookStore"
-import { useLangStore } from "../../../stores/useLangStore"
+import { readLocal } from "@/helpers/readLocal"
+import { useBookStore } from "@/stores/useBookStore"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function MoveModal({ isOpen, setIsOpen, ID, word, translations, time, isDifficult, sentences, remove, firstLetter }) {
     const isEn = useLangStore(state => state.isEn)

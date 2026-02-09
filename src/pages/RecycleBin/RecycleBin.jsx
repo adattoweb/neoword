@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { readLocal } from "../../helpers/readLocal"
-import "../Library/Library.css"
+import { readLocal } from "@/helpers/readLocal"
+import "@/pages/Library/Library.css"
 
 import RecycleItem from "./RecycleItem"
-import Back from "../../components/Back/Back"
-import { useLangStore } from "../../stores/useLangStore"
+import Back from "@/components/Back/Back"
+import { useLangStore } from "@/stores/useLangStore"
 
 export default function RecycleBin({ setRecycle }){
     const isEn = useLangStore(state => state.isEn)
