@@ -139,6 +139,12 @@
     text-align: center;
 }
 
+@media screen and (max-width: 500px) {
+    .dictionary__header{
+        font-size: 16px;
+    }
+}
+
 @media screen and (max-width: 300px) {
     .dictionary{
         width: 180px;
@@ -160,6 +166,10 @@
     .delete__header{
         width: 170px;
         height: 13px;
+        font-size: 14px;
+    }
+    .dictionary__words{
+        font-size: 12px;
     }
     .delete{
         width: 140px !important;

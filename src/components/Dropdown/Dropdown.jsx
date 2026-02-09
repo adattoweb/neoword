@@ -13,7 +13,7 @@ function useDropdown() {
     return ctx;
 }
 
-function Dropdown({ children, className = "" }) {
+function Dropdown({ children, className = "", style = {} }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = useCallback(() => {
@@ -27,14 +27,14 @@ function Dropdown({ children, className = "" }) {
 
     return (
         <DropdownContext.Provider value={value}>
-            <motion.div whileHover={{scale: 1.03}} whileTap={{scale: 0.97}} className={`dropdown ${className}`} onClick={() => setIsOpen(!isOpen)}>
+            <motion.div whileHover={{scale: 1.03}} whileTap={{scale: 0.97}} className={`dropdown ${className}`} style={style} onClick={() => setIsOpen(!isOpen)}>
                 {children}
             </motion.div>
         </DropdownContext.Provider>
     );
 }
 
-function DropdownButton({ children, className = "" }){
+function DropdownButton({ children, className = "", }){
     return (
         <button className={`dropdown-btn ${className}`}>{children}</button>
     )

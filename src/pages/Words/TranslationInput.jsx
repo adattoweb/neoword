@@ -21,7 +21,7 @@ export default function TranslationInput({ value, index, error, setError, transl
     }
     return (
         <div className="translation">
-            <input type="text" max={24} placeholder={isEn ? "Translatation" : "Переклад"} className={error.id > 0 && error.id === 2 ? "modal__input error" : "modal__input"} value={translation} maxLength={24} onChange={(e) => editTranslation(e.target.value)} />
+            <input type="text" max={24} placeholder={isEn ? "Translatation" : "Переклад"} className={error.id > 0 && error.id === 2 ? "modal__input error" : "modal__input"} value={translation} maxLength={256} onChange={(e) => editTranslation(e.target.value)} />
             {index > 0 &&<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="translation__cross" onClick={removeTranslation}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
             </svg>}
