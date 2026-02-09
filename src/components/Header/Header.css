@@ -11,6 +11,7 @@
 .header__name{
     display: flex;
     align-items: center;
+    padding-right: 10px;
 }
 .header__name p{
     font-size: 24px;
@@ -99,18 +100,33 @@
 }
 @media screen and (max-width: 400px) {
     .header{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .header__name p{
+        display: none;
+    }
+    .header__name span{
+        font-size: 14px;
+        overflow: hidden;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 340px) {
+    .header {
         padding-left: 20px;
         padding-right: 20px;
     }
     .header__name span{
-        display: none;
+        font-size: 12px;
     }
 }
-@media screen and (max-width: 300px) {
-    .header__name {
-        display: none;
-    }
+@media screen and (max-width: 280px) {
     .header {
-        justify-content: flex-end;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+    .header__name span{
+        font-size: 10px;
     }
 }
