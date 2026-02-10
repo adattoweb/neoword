@@ -1,10 +1,14 @@
 import Modal from "@/components/Modal/Modal"
 import { useEffect, useRef, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 
 import DeleteModal from "@/pages/Library/Dictionary/DeleteModal"
-import TranslationInput from "../TranslationInput"
+import TranslationInput from "../components/AddModal/TranslationInput"
 import { useLangStore } from "@/stores/useLangStore"
+
+import { Button, ButtonWrapper, Error, Input, InputWrapper, Header } from "@/components/Modal/Constructor"
+
+import styles from "@/components/Modal/Modal.module.css"
 
 export default function EditModal({ words, isOpen, setIsOpen, editWord, oldWord, oldTranslations, oldIsDifficult, remove }) {
 
@@ -70,20 +74,20 @@ export default function EditModal({ words, isOpen, setIsOpen, editWord, oldWord,
     
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <div className="modal__header">{isEn ? "Editing a word" : "Редагування слова"}</div>
-            <div className="modal__inputs">
-                <input type="text" placeholder={isEn ? "Word" : "Слово"} className={error.id === 1 ? "modal__input error" : "modal__input"} value={word} onChange={(e) => setWord(e.target.value)} />
-                {translations.map((el, index) => <TranslationInput key={index} value={el} index={index} error={error.text} setError={setError} translations={translations} setTranslations={setTranslations} forbidden={forbidden}/>)}
-                <p className="gradient add" onClick={addTranslation}>{isEn ? "Add new translation" : "Додати новий переклад"}</p>
-            </div>
-            <DeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} remove={remove}/>
+            <Header>{isEn ? "Editing a word" : "Редагування слова"}</Header>
+            <InputWrapper>
+                <Input type="text" placeholder={isEn ? "Word" : "Слово"} hasError={error.id === 1} value={word} onChange={(e) => setWord(e.target.value)} />
+                {translations.map((el, index) => <TranslationInput key={index} value={el} index={index} error={error.text} setError={setError} translations={translations} setTranslations={setTranslations} forbidden={forbidden} />)}
+                <p className={`${styles.add} gradient`} onClick={addTranslation}>{isEn ? "Add new translation" : "Додати новий переклад"}</p>
+            </InputWrapper>
+            <DeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} remove={remove} />
             <AnimatePresence mode="wait">
-                {error.id > 0 && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error.text}</motion.div>}
+                <Error hasError={error.id > 0} message={error.text} />
             </AnimatePresence>
-            <div className="modal__buttons">
-                <div className="modal__button modal__delete" onClick={() => setIsDeleteOpen(true)}>{isEn ? "Delete" : "Видалити"}</div>
-                <div className="modal__button gradient" onClick={editElement}>{isEn ? "Save" : "Зберегти"}</div>
-            </div>
+            <ButtonWrapper>
+                <Button className={styles.modal__delete} onClick={() => setIsDeleteOpen(true)}>{isEn ? "Delete" : "Видалити"}</Button>
+                <Button className="gradient" onClick={editElement}>{isEn ? "Save" : "Зберегти"}</Button>
+            </ButtonWrapper>
         </Modal>
     )
 }

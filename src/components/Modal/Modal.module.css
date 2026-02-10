@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal__overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -82,7 +82,7 @@
     font-size: 14px;
     color: #ACACAC;
   }
-  .modal__input.error{
+  .error{
     outline: 1px solid #ff0e0e;
   }
   .modal__buttons{

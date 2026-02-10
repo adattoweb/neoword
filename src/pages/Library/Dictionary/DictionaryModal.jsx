@@ -1,8 +1,10 @@
 import Modal from "@/components/Modal/Modal"
 import { useEffect, useRef, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 import { readLocal } from "@/helpers/readLocal"
 import { useLangStore } from "@/stores/useLangStore"
+
+import { Button, ButtonWrapper, Error, Input, InputWrapper, Header } from "@/components/Modal/Constructor"
 
 export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, setIsOpen, setIsDeleteOpen }) {
     const isEn = useLangStore(state => state.isEn)
@@ -46,17 +48,22 @@ export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, s
     }
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <div className="modal__header">{isEn ? "Editing a dictionary" : "Редагування словника"}</div>
-            <div className="modal__inputs">
-                <input type="text" placeholder={isEn ? "Name" : "Назва"} className={error.id > 0 ? "modal__input error" : "modal__input"} value={name} onChange={(e) => setName(e.target.value)} />
-            </div>
+            <Header>{isEn ? "Editing a dictionary" : "Редагування словника"}</Header>
+            <InputWrapper>
+                <Input type="text" placeholder={isEn ? "Name" : "Назва"} hasError={error.id > 0} value={name} onChange={(e) => setName(e.target.value)}/>
+            </InputWrapper>
             <AnimatePresence mode="wait">
-                {error.id > 0 && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error.text}</motion.div>}
+                <Error hasError={error.id > 0} message={error.text} />
             </AnimatePresence>
-            <div className="modal__buttons">
-                <div className="modal__button modal__delete" onClick={() => setIsDeleteOpen(true)}>{isEn ? "Delete" : "Видалити"}</div>
-                <div className="modal__button gradient" onClick={updateElement}>{isEn ? "Save" : "Зберегти"}</div>
-            </div>
+            <ButtonWrapper>
+                <Button onClick={() => setIsDeleteOpen(true)}>
+                    {isEn ? "Delete" : "Видалити"}
+                </Button>
+                <Button className="gradient" onClick={updateElement}>
+                    {isEn ? "Save" : "Зберегти"}
+                </Button>
+            </ButtonWrapper>
         </Modal>
     )
+    
 }

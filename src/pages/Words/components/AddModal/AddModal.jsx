@@ -1,12 +1,15 @@
-import Modal from "../../components/Modal/Modal"
+import Modal from "@/components/Modal/Modal"
 import { useEffect, useRef, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { readLocal } from "../../helpers/readLocal"
+import { AnimatePresence } from "framer-motion"
+import { readLocal } from "@/helpers/readLocal"
 
 import TranslationInput from "./TranslationInput"
 import { useBookStore } from "@/stores/useBookStore"
 import { useLangStore } from "@/stores/useLangStore"
 import { useWordsStore } from "@/stores/useWordsStore"
+import { Button, ButtonWrapper, Error, Input, InputWrapper, Header } from "@/components/Modal/Constructor"
+
+import styles from "@/components/Modal/Modal.module.css"
 
 export default function AddModal({ isOpen, setIsOpen }) {
     const bookID = useBookStore(state => state.bookID)
@@ -92,18 +95,18 @@ export default function AddModal({ isOpen, setIsOpen }) {
 
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <div className="modal__header">{isEn ? "Creating a word" : "Створення слова"}</div>
-            <div className="modal__inputs">
-                <input type="text" placeholder={isEn ? "Word" : "Слово"} className={error.id === 1 ? "modal__input error" : "modal__input"} value={word} onChange={(e) => setWord(e.target.value)} />
+            <Header>{isEn ? "Creating a word" : "Створення слова"}</Header>
+            <InputWrapper>
+                <Input type="text" placeholder={isEn ? "Word" : "Слово"} hasError={error.id === 1} value={word} onChange={(e) => setWord(e.target.value)}/>
                 {translations.map((el, index) => <TranslationInput key={index} value={el} index={index} error={error} setError={setError} translations={translations} setTranslations={setTranslations} forbidden={forbidden}/>)}
-                <p className="gradient add" onClick={addTranslation}>{isEn ? "Add a new translation" : "Додати новий переклад"}</p>
-            </div>
+                <p className={`${styles.add} gradient`} onClick={addTranslation}>{isEn ? "Add a new translation" : "Додати новий переклад"}</p>
+            </InputWrapper>
             <AnimatePresence mode="wait">
-                {error.id > 0 && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error.text}</motion.div>}
+                <Error hasError={error.id > 0} message={error.text}/>
             </AnimatePresence>
-            <div className="modal__buttons one">
-                <div className="modal__button gradient" onClick={addElement}>{isEn ? "Create" : "Створити"}</div>
-            </div>
+            <ButtonWrapper className={styles.one}>
+                <Button onClick={addElement}>{isEn ? "Create" : "Створити"}</Button>
+            </ButtonWrapper>
         </Modal>
     )
 }

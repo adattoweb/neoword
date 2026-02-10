@@ -1,0 +1,27 @@
+.variants__list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.variant{
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: #e1e1e1;
+    cursor: pointer;
+    transition: 0.2s ease all;
+    user-select: none;
+}
+.variant:hover{
+    background-color: #ececec;
+}
+.variant.gradient{
+    color: #fff;
+}
+.movemodal{
+    max-width: 600px;
+    height: max-content;
+    overflow: hidden;
+}
+.movemodal .modal__buttons{
+    margin-top: 15px;
+}

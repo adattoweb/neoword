@@ -126,34 +126,6 @@
     width: 50px;
     cursor: pointer;
 }
-
-.variants__list{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-.variant{
-    padding: 5px 10px;
-    border-radius: 8px;
-    background-color: #e1e1e1;
-    cursor: pointer;
-    transition: 0.2s ease all;
-    user-select: none;
-}
-.variant:hover{
-    background-color: #ececec;
-}
-.variant.gradient{
-    color: #fff;
-}
-.movemodal{
-    max-width: 600px;
-    height: max-content;
-    overflow: hidden;
-}
-.movemodal .modal__buttons{
-    margin-top: 15px;
-}
 .words__games{
     display: flex;
     justify-content: center;
@@ -215,67 +187,3 @@
 }
 
 /*   SENTENCES   */
-.sentences{
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    gap: 10px;
-    max-height: 300px;
-    overflow: auto;
-}
-.sentence{
-    border-radius: 10px;
-    padding: 5px;
-    box-sizing: border-box;
-    border: 1px solid #d8d8d8;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 0;
-    box-sizing: border-box;
-}
-.sentence svg{
-    width: 18px;
-    height: 18px;
-    padding-left: 10px;
-    cursor: pointer
-}
-.sentence input{
-    border: 1px solid #fff;
-    outline: none;
-    transition: 0.3s ease all;
-    border-radius: 5px;
-    box-sizing: border-box;
-    padding: 4px 4px 4px 8px;
-    width: 230px;
-}
-.sentence input:hover, .sentence input:focus{
-    border: 1px solid #d8d8d8;
-}
-.sinput{
-    width: 100%;
-}
-.list-active{
-    background-color: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 5px;
-}
-
-.translation{
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
-.translation__cross{
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.words__load{
-    display: flex;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    align-self: center
-}

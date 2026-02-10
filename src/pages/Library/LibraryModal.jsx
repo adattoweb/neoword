@@ -1,10 +1,14 @@
 import Modal from "@/components/Modal/Modal"
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 
 import { readLocal } from "@/helpers/readLocal"
 import { useLangStore } from "@/stores/useLangStore"
 import { useBooksStore } from "@/stores/useBooksStore"
+
+import { Button, ButtonWrapper, Error, Input, InputWrapper, Header } from "@/components/Modal/Constructor"
+
+import styles from "@/components/Modal/Modal.module.css"
 
 export default function LibraryModal({ isOpen, setIsOpen }) {
     const isEn = useLangStore(state => state.isEn)
@@ -55,16 +59,17 @@ export default function LibraryModal({ isOpen, setIsOpen }) {
     }
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <div className="modal__header">{isEn ? "Creating a dictionary" : "Створення словника"}</div>
-            <div className="modal__inputs">
-                <input type="text" placeholder={isEn ? "Name" : "Назва"} className={error ? "modal__input error" : "modal__input"} value={name} onChange={(e) => setName(e.target.value)} />
-            </div>
+            <Header>{isEn ? "Creating a dictionary" : "Створення словника"}</Header>
+            <InputWrapper>
+                <Input type="text" placeholder={isEn ? "Name" : "Назва"} hasError={!!error} value={name} onChange={(e) => setName(e.target.value)} />
+            </InputWrapper>
             <AnimatePresence mode="wait">
-                {error && <motion.div className="modal__error" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>{error}</motion.div>}
+                <Error hasError={!!error} message={error} />
             </AnimatePresence>
-            <div className="modal__buttons one">
-                <div className="modal__button gradient" onClick={addElement}>{isEn ? "Create" : "Створити"}</div>
-            </div>
+            <ButtonWrapper className={styles.one}>
+                <Button className="gradient" onClick={addElement}>{isEn ? "Create" : "Створити"}</Button>
+            </ButtonWrapper>
         </Modal>
     )
+    
 }

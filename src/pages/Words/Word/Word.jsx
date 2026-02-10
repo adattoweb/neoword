@@ -1,6 +1,6 @@
 import EditModal from "./EditModal"
-import MoveModal from "./MoveModal"
-import ListModal from "./ListModal/ListModal"
+import MoveModal from "./components/MoveModal/MoveModal"
+import ListModal from "./components/ListModal/ListModal"
 import { useState } from "react"
 import { readLocal } from "@/helpers/readLocal"
 import { useBookStore } from "@/stores/useBookStore"

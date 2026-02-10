@@ -53,6 +53,9 @@
 .purple .cardsheader__reset svg{
     stroke: #be0cd2;
 }
+.sea .cardsheader__reset svg{
+    stroke: #53c3c0;
+}
 .cardsprogress{
     margin-top: 5px;
     height: 15px;
@@ -70,6 +73,9 @@
 }
 #root.purple .cardsprogress{
     background-color: #f7dbff !important;
+}
+#root.sea .cardsprogress{
+    background-color: #b0e3e3 !important; 
 }
 
 .cardsprogress__fill{
@@ -124,9 +130,6 @@
     text-align: center;
     max-width: 100%;
     user-select: none;
-}
-.card.rotate .card__front .card__word, .card.rotate .card__back .word__translate{
-    transform: rotateX(180deg)
 }
 
 /* Дата знизу */

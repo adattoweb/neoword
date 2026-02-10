@@ -1,7 +1,7 @@
 import "./Words.css"
 
 import { useEffect, useRef, useState } from "react"
-import AddModal from "./AddModal"
+import AddModal from "./components/AddModal/AddModal"
 import Back from "@/components/Back/Back"
 import Header from "./components/Header/Header"
 import { useBookStore } from "@/stores/useBookStore"
