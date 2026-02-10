@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 
 import { createContext, useCallback, useContext, useState } from "react";
-import './Dropdown.css'
+import styles from "./Dropdown.module.css"
 
 const DropdownContext = createContext(null);
 
@@ -27,7 +27,7 @@ function Dropdown({ children, className = "", style = {} }) {
 
     return (
         <DropdownContext.Provider value={value}>
-            <motion.div whileHover={{scale: 1.03}} whileTap={{scale: 0.97}} className={`dropdown ${className}`} style={style} onClick={() => setIsOpen(!isOpen)}>
+            <motion.div whileHover={{scale: 1.03}} whileTap={{scale: 0.97}} className={`${styles.dropdown} ${className}`} style={style} onClick={() => setIsOpen(!isOpen)}>
                 {children}
             </motion.div>
         </DropdownContext.Provider>
@@ -36,7 +36,7 @@ function Dropdown({ children, className = "", style = {} }) {
 
 function DropdownButton({ children, className = "", }){
     return (
-        <button className={`dropdown-btn ${className}`}>{children}</button>
+        <button className={`${styles.dropdown__button} ${className}`}>{children}</button>
     )
 }
 
@@ -44,7 +44,7 @@ function DropdownContent({ children, className = "" }){
     const { isOpen } = useDropdown()
     return (
         <AnimatePresence mode="wait">
-        {isOpen && <motion.div initial={{opacity: 0, scale: 0.7}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.7}} className={`dropdown-content ${className}`}>
+        {isOpen && <motion.div initial={{opacity: 0, scale: 0.7}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.7}} className={`${styles.dropdown__content} ${className}`}>
             {children}
         </motion.div>}
     </AnimatePresence>

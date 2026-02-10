@@ -4,7 +4,7 @@
     z-index: 1000;
 }
 
-.dropdown-btn {
+.dropdown__button {
     background-color: rgba(255,255,255, 0);
     color: #000;
     border: none;
@@ -25,15 +25,15 @@
     padding: 6px 10px;
     z-index: 1000;
 }
-.dropdown-btn p{
+.dropdown__button p{
     font-size: inherit;
     overflow-x: hidden;
     color: inherit;
 }
-.wrapper.dark .dropdown-btn{
+.wrapper.dark .dropdown__button{
     color: #fff;
 }
-.dropdown-btn svg{
+.dropdown__button svg{
     width: 15px;
     transition: 0.2s ease all;
 }
@@ -41,7 +41,7 @@
     transform: rotateX(180deg)
 }
 
-.dropdown-content {
+.dropdown__content {
     margin-top: 5px;
     display: none;
     position: absolute;
@@ -58,12 +58,12 @@
     min-width: 100px;
     max-width: 200px;
 }
-.wrapper.dark .dropdown-content{
+.wrapper.dark .dropdown__content{
     background-color: rgba(0,0,0,0.8);
     scrollbar-color: #fff !important; /*хз не працює*/
 }
 
-.dropdown-content p, .dropdown__item {
+.dropdown__content p, .dropdown__item {
     color: #000;
     padding: 10px;
     text-decoration: none;
@@ -71,13 +71,13 @@
     cursor: pointer;
     border-radius: 10px;
 }
-.wrapper.dark .dropdown-content p, .wrapper.dark .dropdown__item{
+.wrapper.dark .dropdown__content p, .wrapper.dark .dropdown__item{
     color: #fff;
 }
-.dropdown-content p:hover, .dropdown__item:hover {
+.dropdown__content p:hover, .dropdown__item:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
-.wrapper.dark .dropdown-content p:hover, .wrapper.dark .dropdown__item:hover{
+.wrapper.dark .dropdown__content p:hover, .wrapper.dark .dropdown__item:hover{
     background-color: rgba(40, 40, 40, 0.9);
 }
 .dropdown__add{
@@ -92,14 +92,14 @@
 .wrapper.dark .dropdown__add{
     border-top: 1px solid #717171;
 }
-.dropdown-content {
+.dropdown__content {
     display: block;
 }
-.wrapper.dark .dropdown-content input{
+.wrapper.dark .dropdown__content input{
     background-color: #161616;
     color: #fff;
 }
-.wrapper.dark .dropdown-content input::placeholder{
+.wrapper.dark .dropdown__content input::placeholder{
     color: #c9c9c9;
 }
 .dropdown__item{
@@ -130,7 +130,7 @@
     padding: 4px;
 }
 @media screen and (max-width: 1000px) {
-    .dropdown-btn{
+    .dropdown__button{
         font-size: 16px !important;
     }
 }

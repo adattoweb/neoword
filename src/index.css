@@ -6,16 +6,19 @@
   background: linear-gradient(45deg, #95BFFF, #5689FF);
 }
 #root.red .gradient{
-  background: linear-gradient(45deg, #fe8b8b, #ff6262);
+  background: linear-gradient(90deg, #f78aa7, #fe6c77);
 }
 #root.green .gradient{
-  background: linear-gradient(45deg, #58bf59, #3ba14b);
+  background: linear-gradient(45deg, #74c67e, #38c554);
 }
 #root.purple .gradient{
-  background: linear-gradient(45deg, #e275ea, #d44fc0);
+  background: linear-gradient(45deg, #e9a2ff, #f373ff);
 }
 #root.orange .gradient{
-  background: linear-gradient(45deg, #ffae5d, #ff8040);
+  background: linear-gradient(45deg, #ffb974, #ff9327);
+}
+#root.sea .gradient{
+  background: linear-gradient(45deg, #76cdc7, #2fb9b9);
 }
 
 
@@ -26,22 +29,6 @@
   margin-top: 60px;
   margin-bottom: 100px;
   flex-direction: column;
-}
-.back{
-  position: absolute;
-  left: 30px;
-  top: 65px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  cursor: pointer;
-}
-.back svg{
-  width: 25px;
-}
-.back p{
-  font-size: 16px;
-  font-weight: 500;
 }
 @media screen and (max-width: 500px) {
   .back svg{
@@ -93,4 +80,11 @@ html {
   background-color: #000000;
   color: #ffffff !important;
   -webkit-text-fill-color: #fff !important;
+}
+
+/* Модифікатори для Dropdown */
+
+.without-border{
+  border: none !important;
+  outline: none !important;
 }

@@ -1,0 +1,16 @@
+.back{
+    position: absolute;
+    left: 30px;
+    top: 65px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+  }
+  .back svg{
+    width: 25px;
+  }
+  .back p{
+    font-size: 16px;
+    font-weight: 500;
+  }
