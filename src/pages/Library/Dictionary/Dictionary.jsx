@@ -6,6 +6,8 @@ import { useLangStore } from "@/stores/useLangStore"
 import { useBookStore } from "@/stores/useBookStore"
 import { useBooksStore } from "@/stores/useBooksStore"
 
+import styles from "./Dictionary.module.css"
+
 export default function Dictionary({ bookID }){
     const isEn = useLangStore(state => state.isEn)
 
@@ -47,16 +49,16 @@ export default function Dictionary({ bookID }){
         localStorage.setItem("neoword-recycle", JSON.stringify(deletedBooks))
     }
     return (
-        <div className="dictionary gradient" onClick={() => setBookID(bookID)}>
+        <div className={`${styles.dictionary} gradient`} onClick={() => setBookID(bookID)}>
             <DictionaryModal bookID={bookID} oldName={name} setOldName={setName} isOpen={isOpen} setIsOpen={setIsOpen} setIsDeleteOpen={setIsDeleteOpen}/>
             <DeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} remove={remove}/>
-            <div className="dictionary__paper"></div>
-            <div className="dictionary__content gradient">
-                <div className="dictionary__text">
-                    <h4 className="dictionary__header">{name}</h4>
-                    <p className="dictionary__words">{count} {isEn ? "words" : "слів"}</p>
+            <div className={styles.paper}></div>
+            <div className={`${styles.content} gradient`}>
+                <div className={styles.text}>
+                    <h4 className={styles.header}>{name}</h4>
+                    <p className={styles.words}>{count} {isEn ? "words" : "слів"}</p>
                 </div>
-                <div className="dictionary__footer" onClick={(e) => e.preventDefault()}>
+                <div className={styles.footer} onClick={(e) => e.preventDefault()}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#fff" onClick={(e) => {e.stopPropagation();setIsOpen(true)}}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                     </svg>

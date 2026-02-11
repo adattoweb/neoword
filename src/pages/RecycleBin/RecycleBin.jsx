@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { readLocal } from "@/helpers/readLocal"
-import "@/pages/Library/Library.css"
+import "@/pages/Library/Library.module.css"
 
 import RecycleItem from "./RecycleItem"
 import Back from "@/components/Back/Back"
