@@ -1,0 +1,12 @@
+.progress{
+    margin-top: 5px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: #dfe7ff;
+}
+
+.filled{
+    border-radius: 10px;
+    height: 100%;
+    width: 0;
+}

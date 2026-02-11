@@ -1,0 +1,46 @@
+.footer{
+    width: 200px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.button{
+    width: 70px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+}
+.enter{
+    width: 210px;
+    height: 35px;
+    outline: #EAEAEA 1px solid;
+    border-radius: 35px;
+    box-shadow: 0px 0px 1px #b5b5b5;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 6px 10px;
+}
+.input{
+    width: 150px;
+    outline: none;
+    border: none;
+}
+.forgot{
+    background: linear-gradient(45deg, #FF9597, #FF5659);
+}
+.forgot:hover {
+    background: linear-gradient(45deg, #ff7b7e, #FF5659);
+}
+.know{
+    background: linear-gradient(45deg, #7EF684, #36CE6B);
+}
+.know:hover {
+    background: linear-gradient(45deg, #60ea74, #36CE6B);
+}

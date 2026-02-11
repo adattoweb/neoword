@@ -7,8 +7,8 @@ import { useLangStore } from "@/stores/useLangStore"
 
 import { Button, ButtonWrapper, Error, Header } from "@/components/Modal/Constructor"
 
-import styles from "@/components/Modal/Modal.module.css"
-import modalStyles from "./MoveModal.module.css"
+import modalStyles from "@/components/Modal/Modal.module.css"
+import styles from "./MoveModal.module.css"
 
 export default function MoveModal({ isOpen, setIsOpen, ID, word, translations, time, isDifficult, sentences, remove, firstLetter }) {
     const isEn = useLangStore(state => state.isEn)
@@ -53,19 +53,19 @@ export default function MoveModal({ isOpen, setIsOpen, ID, word, translations, t
     function Variant({ bookID }){
         const book = readLocal(`neoword-item-${bookID}`)
         return (
-            <div className={`${modalStyles.variant} ${selectedID === bookID ? "gradient" : ""}`} onClick={() => setSelectedID(bookID)}>{book.name}</div>
+            <div className={`${styles.variant} ${selectedID === bookID ? "gradient" : ""}`} onClick={() => setSelectedID(bookID)}>{book.name}</div>
         )
     }
     return (
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} className={styles.movemodal}>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} className={modalStyles.movemodal}>
             <Header>{isEn ? "Dictionary selection" : "Обирання словника"}</Header>
-            <div className={modalStyles.variants__list}>
+            <div className={styles.variants__list}>
                 {books.map(el => <Variant key={el} bookID={el} />)}
             </div>
             <AnimatePresence mode="wait">
                 <Error hasError={error.id > 0} message={error.text} />
             </AnimatePresence>
-            <ButtonWrapper className={styles.one}>
+            <ButtonWrapper className={modalStyles.one}>
                 <Button className="gradient" onClick={moveItem}>{isEn ? "Select" : "Обрати"}</Button>
             </ButtonWrapper>
         </Modal>

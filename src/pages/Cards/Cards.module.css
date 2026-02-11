@@ -1,0 +1,59 @@
+.cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+}
+.header{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 7px;
+    font-size: 14px;
+    font-weight: 600;  
+}
+.info{
+    display: flex;
+    justify-content: space-between;
+}
+.total{
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.total span{
+    color: #2B60DB;
+}
+.reset{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.reset svg{
+    width: 20px;
+    margin-right: 7px;
+    stroke: #1349dc;
+}
+
+/* Дата знизу */
+@media screen and (max-width: 700px) {
+    .content{
+        width: 300px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .content{
+        width: 230px;
+    }
+}
+
+.blur{
+    filter: blur(2px)
+}

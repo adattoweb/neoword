@@ -1,0 +1,15 @@
+#root.red .back-gradient{
+    background-color: #ffdbdb !important;
+}
+#root.orange .back-gradient{
+    background-color: #ffe7c7 !important;
+}
+#root.green .back-gradient{
+    background-color: #d9f3d3 !important;
+}
+#root.purple .back-gradient{
+    background-color: #f7dbff !important;
+}
+#root.sea .back-gradient{
+    background-color: #b0e3e3 !important; 
+}

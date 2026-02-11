@@ -1,0 +1,34 @@
+.badwords__header{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.badwords__header svg{
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.badwords__content{
+    margin-top: 5px;
+    display: flex;
+    gap: 7px;
+    width: 300px;
+    box-sizing: border-box;
+    height: fit-content;
+    flex-wrap: wrap;
+}
+.badwords__content p{
+    border-radius: 7px;
+    background: #e1e1e1 !important;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.1s ease all;
+}
+.badwords__content p:hover{
+    background: #ececec !important;
+}
+.endmodal .modal__buttons{
+    margin: 0;
+}

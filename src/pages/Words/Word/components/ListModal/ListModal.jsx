@@ -9,9 +9,9 @@ import { useLangStore } from "@/stores/useLangStore"
 
 import { Button, ButtonWrapper, Error, Header, InputWrapper, Input } from "@/components/Modal/Constructor"
 
-import styles from "@/components/Modal/Modal.module.css"
+import modalStyles from "@/components/Modal/Modal.module.css"
 
-import modalStyles from "./ListModal.module.css"
+import styles from "./ListModal.module.css"
 
 export default function ListModal({ isOpen, setIsOpen, ID, sentences, setSentences, firstLetter }){
     const isEn = useLangStore(state => state.isEn)
@@ -64,12 +64,12 @@ export default function ListModal({ isOpen, setIsOpen, ID, sentences, setSentenc
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
             <Header>{isEn ? "Example Sentences" : "Речення до слова"}</Header>
             <InputWrapper>
-                <Input type="text" placeholder={isEn ? "Sentence" : "Речення"} className={error.id > 0 ? `${styles.sinput} ${styles.error}` : styles.sinput} value={sentence} onChange={(e) => setSentence(e.target.value)} />
+                <Input type="text" placeholder={isEn ? "Sentence" : "Речення"} className={error.id > 0 ? `${modalStyles.sinput} ${modalStyles.error}` : modalStyles.sinput} value={sentence} onChange={(e) => setSentence(e.target.value)} />
             </InputWrapper>
             <AnimatePresence mode="wait">
                 <Error hasError={error.id > 0} message={error.text} />
             </AnimatePresence>
-            <div className={modalStyles.sentences}>
+            <div className={styles.sentences}>
                 {sentences.map((el, index) => <Sentence key={el} index={index} sentences={sentences} removeSentence={removeSentence} ID={ID} firstLetter={firstLetter} />)}
             </div>
             <ButtonWrapper>
