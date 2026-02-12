@@ -4,6 +4,8 @@ import RecycleModal from "./RecycleModal"
 import DeleteModal from "@/pages/Library/Dictionary/DeleteModal"
 import { useLangStore } from "@/stores/useLangStore"
 
+import styles from "@/pages/Library/Dictionary/Dictionary.module.css"
+
 export default function RecycleItem({ bookID, books, setBooks }){
     const isEn = useLangStore(state => state.isEn)
 
@@ -30,16 +32,16 @@ export default function RecycleItem({ bookID, books, setBooks }){
         setBooks(newBooks)
     }
     return (
-        <div className="dictionary gradient" onClick={() => setIsOpen(true)}>
+        <div className={`${styles.dictionary} gradient`} onClick={() => setIsOpen(true)}>
             <RecycleModal name={book.name} isOpen={isOpen} setIsOpen={setIsOpen} setIsDeleteOpen={setIsDeleteOpen} restore={restore}/>
             <DeleteModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} remove={remove}/>
-            <div className="dictionary__paper"></div>
-            <div className="dictionary__content gradient">
-                <div className="dictionary__text">
-                    <h4 className="dictionary__header">{book.name}</h4>
-                    <p className="dictionary__words">{count} {isEn ? "words" : "слів"}</p>
+            <div className={styles.paper}></div>
+            <div className={`${styles.content} gradient`}>
+                <div className={styles.text}>
+                    <h4 className={styles.header}>{book.name}</h4>
+                    <p className={styles.words}>{count} {isEn ? "words" : "слів"}</p>
                 </div>
-                <div className="dictionary__footer" onClick={(e) => e.preventDefault()}>
+                <div className={styles.footer} onClick={(e) => e.preventDefault()}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#fff" onClick={(e) => {e.stopPropagation(); restore()}}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                     </svg>
