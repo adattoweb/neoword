@@ -6,7 +6,7 @@
   background: linear-gradient(45deg, #95BFFF, #5689FF);
 }
 #root.red .gradient{
-  background: linear-gradient(90deg, #f78aa7, #fe6c77);
+  background: linear-gradient(45deg, #f78aa7, #fe6c77);
 }
 #root.green .gradient{
   background: linear-gradient(45deg, #74c67e, #38c554);
@@ -68,14 +68,28 @@ html {
   border-radius: 0.125rem;
   background-color: #131313;
 }
+
 * {
   scrollbar-width: thin; /* робить тонший скролбар */
-  scrollbar-color: #0257ff #ffffff; /* thumb = чорний, track = білий */
+  scrollbar-color: #3276ff #ffffff; /* thumb = чорний, track = білий */
 }
 
-.wrapper.dark * {
-  scrollbar-color: #ffffff #131313; /* thumb = білий, track = темний */
+html:has(.red), .red *{
+  scrollbar-color: #ca4c4c #ffffff;
 }
+html:has(.green), .green *{
+  scrollbar-color: #359440 #ffffff;
+}
+html:has(.purple), .purple *{
+  scrollbar-color: #b14fce #ffffff;
+}
+html:has(.orange), .orange *{
+  scrollbar-color: #e3732d #ffffff;
+}
+html:has(.sea), .sea *{
+  scrollbar-color: #2e9f97 #ffffff;
+}
+
 ::selection {
   background-color: #000000;
   color: #ffffff !important;
