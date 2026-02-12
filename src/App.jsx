@@ -11,7 +11,9 @@ import { useBookStore } from './stores/useBookStore'
 import { useGameStore } from './stores/useGameStore'
 
 export default function App() {
-  const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-theme", "blue"], ["neoword-books", "[]"], ["neoword-recycle", "[]"]]
+  const date = new Date()
+  const today = [date.getDate(), date.getMonth() + 1, date.getFullYear()]
+  const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-theme", "blue"], ["neoword-books", "[]"], ["neoword-recycle", "[]"], ["neoword-lastdate", JSON.stringify(today)]]
   for(let i = 0; i < checkKeys.length; i++){
     const localKey = checkKeys[i][0]
     if(!localStorage.getItem(localKey)) localStorage.setItem(localKey, checkKeys[i][1])
@@ -23,19 +25,6 @@ export default function App() {
     root.className = ""
     root.classList.add(localTheme)
   }, [])
-
-  // let books = readLocal("neoword-books")
-  // for(let i = 0; i < books.length; i++){
-  //   const index = books[i]
-  //   const key = `neoword-item-${index}`
-  //   const book = readLocal(key)
-  //   console.log(book)
-  //   if(book?.name?.toLowerCase() === "dev") {
-  //     localStorage.removeItem(key)
-  //     books = books.filter(el => el != index)
-  //     localStorage.setItem("neoword-books", JSON.stringify(books))
-  //   }
-  // }
 
   const bookID = useBookStore(state => state.bookID)
   const game = useGameStore(state => state.game)

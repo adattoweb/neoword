@@ -6,7 +6,7 @@ export function ButtonWrapper({ className = "", children }){
 }
 
 export function Button({ className = "", onClick, children }){
-    return <div className={`${className} gradient ${styles.modal__button}`} onClick={onClick}>{children}</div>
+    return <div className={`${className} ${styles.modal__button} gradient gradient-hover`} onClick={onClick}>{children}</div>
 }
 
 export function Error({ hasError, message }) {
@@ -21,7 +21,7 @@ export function Input({ type, placeholder, hasError, value, onChange, max }){
     return <input type={type} maxLength={max} placeholder={placeholder} className={`${styles.modal__input} ${hasError ? styles.error : ""}`} value={value} onChange={onChange} />
 }
 
-export function Header({ children }){
-    return <div className={styles.modal__header}>{children}</div>
+export function Header({ className = "", children }){
+    return <div className={`${styles.modal__header} ${className}`}>{children}</div>
 }
   

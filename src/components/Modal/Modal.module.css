@@ -104,14 +104,11 @@
   .right{
     margin-left: auto;
   }
-  .modal__button:hover{
-    background: linear-gradient(45deg, #7eb2ff, #5689FF);
-  }
   .modal__delete{
-    background: linear-gradient(45deg, #FF9597, #FF5659)
+    background: linear-gradient(45deg, #FF9597, #FF5659);
   }
   .modal__delete:hover{
-    background: linear-gradient(45deg, #ff7b7e, #FF5659)
+    background: linear-gradient(45deg, #ff7b7e, #FF5659) !important;
   }
   .modal__error{
     margin-top: 10px;

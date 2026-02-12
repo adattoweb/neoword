@@ -90,15 +90,37 @@ html:has(.sea), .sea *{
   scrollbar-color: #2e9f97 #ffffff;
 }
 
+#root.blue .gradient-hover:hover{
+  background: linear-gradient(45deg, #7eb2ff, #5689FF);
+}
+#root.red .gradient-hover:hover{
+  background: linear-gradient(45deg, #ff6c93, #fe6c77);
+}
+#root.orange .gradient-hover:hover{
+  background: linear-gradient(45deg, #ffaf5e, #ff9327);
+}
+#root.green .gradient-hover:hover{
+  background: linear-gradient(45deg, #4cb358, #38c554);
+}
+#root.purple .gradient-hover:hover{
+  background: linear-gradient(45deg, #d289e8, #f373ff);
+}
+#root.sea .gradient-hover:hover{
+  background: linear-gradient(45deg, #63bab4, #2fb9b9);
+}
+
 ::selection {
   background-color: #000000;
   color: #ffffff !important;
   -webkit-text-fill-color: #fff !important;
 }
 
-/* Модифікатори для Dropdown */
+/* Модифікатори */
 
 .without-border{
   border: none !important;
   outline: none !important;
+}
+.without-cursor{
+  cursor: default !important;
 }

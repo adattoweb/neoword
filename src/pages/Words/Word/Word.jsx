@@ -13,7 +13,7 @@ export default function Word({ ID, wordObj, search, searchBy, words, selected })
     const bookID = useBookStore(state => state.bookID)
     const setWords = useWordsStore(state => state.setWords)
 
-    if(wordObj.translation){
+    if(wordObj.translation){ // Це механізм переписування інформації з непідтримуваних (старих) даних до нового типу
         const bookObject = readLocal(`neoword-item-${bookID}`)
         const newWordObject = {
             word: wordObj.word,

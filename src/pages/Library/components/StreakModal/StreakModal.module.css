@@ -1,0 +1,27 @@
+.header{
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0px;
+}
+
+.flame{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px 4px 10px;
+}
+.flame__icon {
+    width: 22px;
+    height: 22px;
+}
+
+.okay{
+    align-self: flex-end;
+}

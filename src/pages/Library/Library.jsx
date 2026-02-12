@@ -1,17 +1,23 @@
 import { useState } from "react"
-import LibraryModal from "./LibraryModal"
+
+import LibraryModal from "./components/LibraryModal/LibraryModal"
 import Dictionary from "./Dictionary/Dictionary"
+import StreakModal from "./components/StreakModal/StreakModal"
+
 import { useBookStore } from "@/stores/useBookStore"
 import { useBooksStore } from "@/stores/useBooksStore"
 
 import styles from "./Library.module.css"
 import dictionaryStyles from "./Dictionary/Dictionary.module.css"
+import { getIsTheFirstTime } from "./helpers/getIsTheFirstTime"
 
 export default function Library({ setRecycle }) {
 
     const setBookID = useBookStore(state => state.setBookID)
     
     const [isOpen, setIsOpen] = useState(false)
+    const [isStreakOpen, setIsStreakOpen] = useState(getIsTheFirstTime())
+
     const books = useBooksStore(state => state.books)
     function DictionaryAdd(){
         return (
@@ -44,6 +50,7 @@ export default function Library({ setRecycle }) {
     return (
         <div className={`${styles.library} content`}>
             <LibraryModal isOpen={isOpen} setIsOpen={setIsOpen}/>
+            <StreakModal isOpen={isStreakOpen} setIsOpen={setIsStreakOpen} books={books}/>
             <div className={`${styles.list} slide`}>
                 {books.map(el => <Dictionary key={el} bookID={el}/>)}
                 <DictionaryAdd/>

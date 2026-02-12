@@ -1,4 +1,3 @@
-import Modal from "@/components/Modal/Modal"
 import { useState } from "react"
 import { AnimatePresence } from "framer-motion"
 
@@ -6,6 +5,7 @@ import { readLocal } from "@/helpers/readLocal"
 import { useLangStore } from "@/stores/useLangStore"
 import { useBooksStore } from "@/stores/useBooksStore"
 
+import Modal from "@/components/Modal/Modal"
 import { Button, ButtonWrapper, Error, Input, InputWrapper, Header } from "@/components/Modal/Constructor"
 
 import styles from "@/components/Modal/Modal.module.css"

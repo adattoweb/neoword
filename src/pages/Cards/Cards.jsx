@@ -1,7 +1,7 @@
 import { useState, useRef } from "react"
 
-import wordKnowed from "@/assets/wordKnowed.mp3"
-import wordForgot from "@/assets/wordForgot.mp3"
+import wordKnowed from "@/assets/audio/wordKnowed.mp3"
+import wordForgot from "@/assets/audio/wordForgot.mp3"
 
 import { useWords } from "./hooks/useWords"
 import { random } from "@/helpers/random"
