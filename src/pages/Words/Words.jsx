@@ -1,5 +1,3 @@
-import "./Words.css"
-
 import { useEffect, useRef, useState } from "react"
 import AddModal from "./components/AddModal/AddModal"
 import Back from "@/components/Back/Back"
@@ -9,6 +7,10 @@ import { useWordsStore } from "@/stores/useWordsStore"
 import { readLocal } from "@/helpers/readLocal"
 import Word from "./Word/Word"
 import { useLangStore } from "@/stores/useLangStore"
+
+import libraryStyles from "@/pages/Library/Library.module.css"
+import wordStyles from "./Word/Word.module.css"
+import styles from "./Words.module.css"
 
 export default function Words(){
     const bookID = useBookStore(state => state.bookID)
@@ -26,8 +28,8 @@ export default function Words(){
     const [isOpen, setIsOpen] = useState(false)
     function WordAdd(){
         return (
-            <div className="word gradient plus" onClick={() => setIsOpen(true)}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#fff" className="dictionary__plus">
+            <div className={`${wordStyles.word} ${libraryStyles.plus} gradient`} onClick={() => setIsOpen(true)}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#fff" className={libraryStyles.plus__icon}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
             </div>
@@ -69,14 +71,14 @@ export default function Words(){
     
 
     return (
-        <div className="words content">
+        <div className="content">
             <Back onClick={() => setBookID(false)}/>
             <Header selected={selected} setSelected={setSelected} searchBy={searchBy} setSearchBy={setSearchBy} search={search} setSearch={setSearch}/> 
             <AddModal isOpen={isOpen} setIsOpen={setIsOpen}/>
-            <div className="words__list slide">
+            <div className={`${styles.list} slide`}>
                 <WordAdd />
                 {visibleKeys.map(letter => Object.keys(words[letter]).map(key => <Word key={words[letter][key].word} ID={key} wordObj={words[letter][key]} search={search} searchBy={searchBy} words={onlyWords} selected={selected} />))}
-                {hasMore && <div ref={loaderRef} className="words__load">
+                {hasMore && <div ref={loaderRef} className={styles.load}>
                     {isEn ? "Loading..." : "Завантаження..."}
                 </div>}
             </div>

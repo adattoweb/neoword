@@ -7,6 +7,8 @@ import { useBookStore } from "@/stores/useBookStore"
 import { useLangStore } from "@/stores/useLangStore"
 import { useWordsStore } from "@/stores/useWordsStore"
 
+import styles from "./Word.module.css"
+
 export default function Word({ ID, wordObj, search, searchBy, words, selected }) {
     const bookID = useBookStore(state => state.bookID)
     const setWords = useWordsStore(state => state.setWords)
@@ -72,21 +74,21 @@ export default function Word({ ID, wordObj, search, searchBy, words, selected })
     if((selected === "Difficult" && !isDifficult) || (selected === "Easy" && isDifficult)) return
 
     return (
-        <div className="word gradient" onClick={() => setIsOpen(true)}>
+        <div className={`${styles.word} gradient`} onClick={() => setIsOpen(true)}>
             <EditModal isOpen={isOpen} words={words} setIsOpen={setIsOpen} editWord={editWord} oldWord={word} oldTranslations={translations} oldIsDifficult={isDifficult} remove={remove}/>
             <MoveModal isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} ID={ID} word={word} translations={translations} time={time} isDifficult={isDifficult} sentences={sentences} remove={remove} firstLetter={firstLetter}/>
             <ListModal isOpen={isListOpen} setIsOpen={setIsListOpen} ID={ID} sentences={sentences} setSentences={setSentences} firstLetter={firstLetter}/>
-            <div className="word__text">
-                <p className="word__word">{word}</p>
-                <div className="word__translations">
-                    {translations.map((el, index) => <div key={index} className="word__translate">{el}</div>)}
+            <div className={styles.text}>
+                <p className={styles.word__word}>{word}</p>
+                <div className={styles.translations}>
+                    {translations.map((el, index) => <div key={index} className={styles.translation}>{el}</div>)}
                 </div>
             </div>
-            <div className="word__footer">
-                <div className="word__left">
-                    <div className={!isDifficult ? "word__difficult" : "word__difficult active"} onClick={(e) => {e.stopPropagation(); switchDifficult()}}>{isEn ? "Difficult" : "Складно"}</div>
+            <div className={styles.footer}>
+                <div className={styles.left}>
+                    <div className={`${styles.difficult} ${isDifficult ? styles.active : ""}`} onClick={(e) => {e.stopPropagation(); switchDifficult()}}>{isEn ? "Difficult" : "Складно"}</div>
                 </div>
-                <div className="word__right">
+                <div className={styles.right}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#fff" onClick={(e) => {e.stopPropagation();setIsMoveOpen(true)} }>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
                     </svg>
@@ -95,7 +97,7 @@ export default function Word({ ID, wordObj, search, searchBy, words, selected })
                     </svg>
                 </div>
             </div>
-            <div className="word__date">{`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}</div>
+            <div className={styles.date}>{`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}</div>
         </div>
     )
 }

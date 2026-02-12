@@ -3,7 +3,7 @@
     gap: 5px;
     align-items: center;
 }
-.translation__cross{
+.cross{
     width: 20px;
     height: 20px;
     cursor: pointer;

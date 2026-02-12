@@ -25,7 +25,7 @@ export default function TranslationInput({ value, index, error, setError, transl
     return (
         <div className={styles.translation}>
             <Input type="text" placeholder={isEn ? "Translatation" : "Переклад"} hasError={error.id > 0 && error.id === 2} value={translation} onChange={(e) => editTranslation(e.target.value)}/>
-            {index > 0 && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="translation__cross" onClick={removeTranslation}>
+            {index > 0 && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={styles.cross} onClick={removeTranslation}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
             </svg>}
         </div>

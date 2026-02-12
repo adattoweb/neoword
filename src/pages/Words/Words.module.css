@@ -1,0 +1,19 @@
+.list{
+    width: 70vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    justify-content: space-between;
+    gap: 25px 20px;
+}
+.words__games{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+@media screen and (max-width: 900px) {
+    .list{
+        justify-content: center;
+    }
+}

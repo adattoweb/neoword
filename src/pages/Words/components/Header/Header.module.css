@@ -72,3 +72,25 @@
     cursor: pointer;
     position: absolute;
 }
+
+@media screen and (max-width: 700px) {
+    .input__wrapper{
+        width: 180px;
+    }
+    .input{
+        width: 130px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .input__wrapper{
+        width: 140px;
+        border-radius: 25px;
+    }
+    .input__icon{
+        display: none;
+    }
+    .input{
+        width: 110px;
+        margin-left: 5px;
+    }
+}

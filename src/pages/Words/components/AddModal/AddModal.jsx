@@ -62,7 +62,7 @@ export default function AddModal({ isOpen, setIsOpen }) {
         const book = readLocal(`neoword-item-${bookID}`)
         const words = book.words
         const firstLetter = word[0].toLowerCase()
-        if(Object.keys(words).includes(firstLetter) && Object.values(words[firstLetter]).some(el => el.word === word) ){
+        if(Object.keys(words).includes(firstLetter) && Object.values(words[firstLetter]).some(el => el.word === word) ){ // Якщо таке слово вже існує
             setError({ text: isEn ? "Adding a new translation" : "Додаю новий переклад", id: 3 });
             const key = Object.keys(words[firstLetter]).find(key => words[firstLetter][key].word === word)
             book.words[firstLetter][key].translations.push(...translations)
