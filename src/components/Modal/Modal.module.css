@@ -105,7 +105,7 @@
     margin-left: auto;
   }
   .modal__delete{
-    background: linear-gradient(45deg, #FF9597, #FF5659);
+    background: linear-gradient(45deg, #FF9597, #FF5659) !important;
   }
   .modal__delete:hover{
     background: linear-gradient(45deg, #ff7b7e, #FF5659) !important;
