@@ -11,6 +11,8 @@ import { Button, ButtonWrapper, Error, Input, InputWrapper, Header } from "@/com
 
 import styles from "@/components/Modal/Modal.module.css"
 
+import DoubleModal from "./DoubleModal"
+
 export default function AddModal({ isOpen, setIsOpen }) {
     const bookID = useBookStore(state => state.bookID)
     const setWords = useWordsStore(state => state.setWords)
@@ -20,6 +22,8 @@ export default function AddModal({ isOpen, setIsOpen }) {
     const [translations, setTranslations] = useState([""])
     const [error, setError] = useState({text: "", id: -1})
     const errorTimeout = useRef(null);
+
+    const [isDoubleOpen, setIsDoubleOpen] = useState(false)
 
     useEffect(() => {
         if (errorTimeout.current) {
@@ -32,6 +36,31 @@ export default function AddModal({ isOpen, setIsOpen }) {
     }, [error])
 
     const forbidden = /[\^@$[\]{}"]/;
+
+    const book = readLocal(`neoword-item-${bookID}`)
+
+    function endAdding(withSaving = true){
+        if(withSaving){
+            const newWords = {...book.words}
+            localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
+            setWords(newWords)
+        }
+        setError({text: "", id: -1})
+        setWord("")
+        setTranslations([""])
+        setIsOpen(false)
+    }
+
+    const words = book.words
+
+    const firstLetter = useRef(null)
+
+    function saveTranslations(){
+        const key = Object.keys(words[firstLetter.current]).find(key => words[firstLetter.current][key].word === word)
+        const newTranslations = book.words[firstLetter.current][key].translations.concat(translations)
+        book.words[firstLetter.current][key].translations = newTranslations
+        localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
+    }
     
     function addElement() {
         if(word.length === 0 || translations.length === 0){
@@ -50,30 +79,16 @@ export default function AddModal({ isOpen, setIsOpen }) {
             setError({ text: isEn ? "This translation already exists" : "Такий переклад вже існує", id: 2 });
             return
         }
-        function endAdding(){
-            const newWords = {...book.words}
-            localStorage.setItem(`neoword-item-${bookID}`, JSON.stringify(book))
-            setWords(newWords)
-            setError({text: "", id: -1})
-            setWord("")
-            setTranslations([""])
-            setIsOpen(false)
-        }
-        const book = readLocal(`neoword-item-${bookID}`)
-        const words = book.words
-        const firstLetter = word[0].toLowerCase()
-        if(Object.keys(words).includes(firstLetter) && Object.values(words[firstLetter]).some(el => el.word === word) ){ // Якщо таке слово вже існує
-            setError({ text: isEn ? "Adding a new translation" : "Додаю новий переклад", id: 3 });
-            const key = Object.keys(words[firstLetter]).find(key => words[firstLetter][key].word === word)
-            book.words[firstLetter][key].translations.push(...translations)
-            setTimeout(() => endAdding(), 2000)
+        const findedWord = Object.values(words[firstLetter.current] || {}).find(el => el.word === word)
+        if(findedWord !== undefined){ // Якщо таке слово вже існує
+            setIsDoubleOpen(true)
             return
         }
         const now = new Date()
         const id = +localStorage.getItem("neoword-index")
         localStorage.setItem("neoword-index", id+1)
-        if(!book.words[firstLetter]) book.words[firstLetter] = {}
-        book.words[firstLetter][id] = {
+        if(!book.words[firstLetter.current]) book.words[firstLetter.current] = {}
+        book.words[firstLetter.current][id] = {
             word: word,
             translations: translations,
             time: now.getTime(),
@@ -95,9 +110,10 @@ export default function AddModal({ isOpen, setIsOpen }) {
 
     return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <DoubleModal isOpen={isDoubleOpen} setIsOpen={setIsDoubleOpen} close={endAdding} saveTranslations={saveTranslations}/>
             <Header>{isEn ? "Creating a word" : "Створення слова"}</Header>
             <InputWrapper>
-                <Input type="text" placeholder={isEn ? "Word" : "Слово"} hasError={error.id === 1} value={word} onChange={(e) => setWord(e.target.value)}/>
+                <Input type="text" placeholder={isEn ? "Word" : "Слово"} hasError={error.id === 1} value={word} onChange={(e) => {setWord(e.target.value); firstLetter.current = e.target.value[0]?.toLowerCase()}}/>
                 {translations.map((el, index) => <TranslationInput key={index} value={el} index={index} error={error} setError={setError} translations={translations} setTranslations={setTranslations} forbidden={forbidden}/>)}
                 <p className={`${styles.add} gradient`} onClick={addTranslation}>{isEn ? "Add a new translation" : "Додати новий переклад"}</p>
             </InputWrapper>
