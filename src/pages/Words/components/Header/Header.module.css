@@ -4,15 +4,38 @@
     margin: 0 auto 40px auto;
     gap: 15px;
     justify-content: end;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
+    align-items: center;
 }
 
-@media screen and (max-width: 400px){
-    .header{
-        width: 90vw;
+.games, .search, .dropdowns{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: end;
+}
+
+@media screen and (max-width: 540px){
+    .header, .search{
+        flex-direction: column;
         justify-content: center;
+        align-items: end;
+    }
+    .header{
+        flex-direction: column-reverse;
     }
 }
+@media screen and (max-width: 400px){
+    .search{
+        align-items: center;
+    }
+    .header{
+        align-items: center;
+        width: 100vw;
+        margin: 0 auto 30px auto;
+    }
+}
+
 
 .icon{
     width: 35px;
@@ -34,7 +57,7 @@
     height: 24px;
 }
 
-@media screen and (max-width: 300px){
+@media screen and (max-width: 360px){
     .icon{
         width: 30px;
         height: 30px;
@@ -73,24 +96,16 @@
     position: absolute;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 260px) {
     .input__wrapper{
-        width: 180px;
-    }
-    .input{
-        width: 130px;
-    }
-}
-@media screen and (max-width: 350px) {
-    .input__wrapper{
-        width: 140px;
+        width: 160px;
         border-radius: 25px;
     }
-    .input__icon{
+    .input__icon {
         display: none;
     }
     .input{
-        width: 110px;
+        width: 140px;
         margin-left: 5px;
     }
 }
