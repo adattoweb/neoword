@@ -8,5 +8,5 @@ export function getIsTheFirstTime(){
         localStorage.setItem("neoword-lastdate", today)
         return true
     }
-    return true // !!!
+    return false
 }
