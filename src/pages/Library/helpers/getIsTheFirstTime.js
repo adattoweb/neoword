@@ -1,15 +1,12 @@
-import { readLocal } from "@/helpers/readLocal"
-
 export function getIsTheFirstTime(){
     const date = new Date()
+    const today = date.getDate()
 
-    const time = readLocal("neoword-lastdate")
-    const today = [date.getDate(), date.getMonth() + 1, date.getFullYear()]
+    const time = +localStorage.getItem("neoword-lastdate")
 
-    if(today[0] !== time[0]){
-        localStorage.setItem("neoword-lastdate", JSON.stringify(today))
-        console.log("+++")
+    if(today !== time){
+        localStorage.setItem("neoword-lastdate", today)
         return true
     }
-    return false
+    return true // !!!
 }

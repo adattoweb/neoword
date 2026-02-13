@@ -12,11 +12,20 @@ import { useGameStore } from './stores/useGameStore'
 
 export default function App() {
   const date = new Date()
-  const today = [date.getDate(), date.getMonth() + 1, date.getFullYear()]
-  const checkKeys = [["neoword-lang", "en"], ["neoword-index", "0"], ["neoword-theme", "blue"], ["neoword-books", "[]"], ["neoword-recycle", "[]"], ["neoword-lastdate", JSON.stringify(today)]]
-  for(let i = 0; i < checkKeys.length; i++){
-    const localKey = checkKeys[i][0]
-    if(!localStorage.getItem(localKey)) localStorage.setItem(localKey, checkKeys[i][1])
+  const storageDefaults = {
+    "neoword-lang": "en",
+    "neoword-index": "0",
+    "neoword-theme": "blue",
+    "neoword-books": "[]",
+    "neoword-recycle": "[]",
+    "neoword-lastdate": date.getDate(),
+    "neoword-streak": "1",
+    "neoword-lasttime": date.getTime(),
+  }
+  for (const key in storageDefaults) {
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, storageDefaults[key])
+    }
   }
 
   useLayoutEffect(() => {
