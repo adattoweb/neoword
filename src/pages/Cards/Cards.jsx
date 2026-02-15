@@ -1,9 +1,9 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 
 import wordKnowed from "@/assets/audio/wordKnowed.mp3"
 import wordForgot from "@/assets/audio/wordForgot.mp3"
 
-import { useWords } from "./hooks/useWords"
+import { getWords } from "./helpers/getWords"
 import { random } from "@/helpers/random"
 
 import { useGameStore } from "@/stores/useGameStore"
@@ -20,19 +20,22 @@ import styles from "./Cards.module.css"
 
 
 export default function Cards(){
-    const game = useGameStore(state => state.game)
+    const game = useGameStore(state => state.game.game)
     const setGame = useGameStore(state => state.setGame)
 
     const isEn = useLangStore(state => state.isEn)
-    const { wordsKeys, onlyWords } = useWords()
+    const { wordsKeys, onlyWords } = getWords()
+
+    console.log("----")
+    console.log(wordsKeys)
+    console.log(onlyWords)
+
     const rand = useRef(random(0, wordsKeys.length))
     const [id, setId] = useState(rand.current)
     const [isOpen, setIsOpen] = useState(false)
     const bads = useRef(0)
     const badWords = useRef([])
     const rights = useRef(0)
-    
-    // console.log(rand.current) 
 
     const cardRef = useRef()
     function incrementId(isRight){
@@ -57,7 +60,12 @@ export default function Cards(){
             cardRef.current.classList.remove(styles.blur)
         }, 300)
     }
-    if(wordsKeys.length === 0) setGame(false)
+    useEffect(() => {
+        if (wordsKeys.length === 0) {
+          setGame({ game: false, mode: false });
+        }
+      }, [wordsKeys.length]);
+
     function reset(){
         setId(0)
         bads.current = 0
@@ -65,10 +73,11 @@ export default function Cards(){
         rights.current = 0
         rand.current = 0
     }
+    if (wordsKeys.length === 0) return
     return (
         <div className={`${styles.cards} content`}>
             <EndModal isOpen={isOpen} setIsOpen={setIsOpen} game={game} setGame={setGame} bads={bads.current} rights={rights.current} badWords={badWords.current}/>
-            <Back onClick={() => setGame(false)}/>
+            <Back onClick={() => setGame({game: false, mode: false})}/>
             <div className={styles.content}>
                 <div className={styles.header}>
                     <div className={styles.info}>

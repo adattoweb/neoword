@@ -43,7 +43,7 @@ export default function App() {
   return (
     <>
       <Header bookName={bookName}/>
-      {recycle ? <RecycleBin setRecycle={setRecycle}/> : !bookName ? <Library setRecycle={setRecycle}/> : game ? <Cards/> : <Words/>}
+      {recycle ? <RecycleBin setRecycle={setRecycle}/> : !bookName ? <Library setRecycle={setRecycle}/> : game.game ? <Cards/> : <Words/>}
     </>
   )
 }

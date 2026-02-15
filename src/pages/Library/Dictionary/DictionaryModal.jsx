@@ -6,6 +6,8 @@ import { useLangStore } from "@/stores/useLangStore"
 
 import { Button, ButtonWrapper, Error, Input, InputWrapper, Header } from "@/components/Modal/Constructor"
 
+import styles from "@/components/Modal/Modal.module.css"
+
 export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, setIsOpen, setIsDeleteOpen }) {
     const isEn = useLangStore(state => state.isEn)
     const [name, setName] = useState(oldName)
@@ -56,7 +58,7 @@ export default function DictionaryModal({ bookID, oldName, setOldName, isOpen, s
                 <Error hasError={error.id > 0} message={error.text} />
             </AnimatePresence>
             <ButtonWrapper>
-                <Button onClick={() => setIsDeleteOpen(true)}>
+                <Button onClick={() => setIsDeleteOpen(true)} className={styles.modal__delete}>
                     {isEn ? "Delete" : "Видалити"}
                 </Button>
                 <Button className="gradient" onClick={updateElement}>
