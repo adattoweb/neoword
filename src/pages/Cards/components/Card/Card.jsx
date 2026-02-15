@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 import styles from "./Card.module.css"
+import wordStyles from "@/pages/Words/Word/Word.module.css"
 
 export default function Card({ wordsKeys, id, onlyWords, cardRef }) {
 
@@ -19,8 +20,8 @@ export default function Card({ wordsKeys, id, onlyWords, cardRef }) {
                     <p className={styles.date}>{`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}</p>
                 </div>
                 <div className={`${styles.back} gradient`} ref={cardRef}>
-                    <div className={`${styles.translation} word__translations`}> {/* ЗАМІНИТИ У МАЙБУТНЬОМУ!!! */}
-                        {onlyWords[wordsKeys[id]].translations.map((el, index) => <div key={index} className="word__translate">{el}</div>)}
+                    <div className={wordStyles.translations}>
+                        {onlyWords[wordsKeys[id]].translations.map((el, index) => <div key={index} className={wordStyles.translation}>{el}</div>)}
                     </div>
                 </div>
             </div>
