@@ -63,6 +63,18 @@
     flex-direction: column;
     gap: 5px;
 }
+.right{
+    display: flex;
+    gap: 8px;
+    justify-content: end;
+}
+.right svg{
+    height: 22px;
+    cursor: pointer;
+}
+.right svg:hover{
+    transform: scale(1.03)
+}
 .wordright{
     display: flex;
     gap: 8px;
